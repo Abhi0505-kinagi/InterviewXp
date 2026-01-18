@@ -11,7 +11,7 @@ const commentSchema = new mongoose.Schema({
         ref: "User",
         required: true
     },
-    commentText: {
+    cmntText: {
         type: String,
         required: true,
         trim: true
