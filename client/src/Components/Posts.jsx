@@ -1,47 +1,20 @@
-import "./Posts.css";
+import "./Posts.css"
+function Posts(){
 
-function Posts() {
-  const experiences = [
-    {
-      company: "Google",
-      role: "Software Engineer",
-      level: "Fresher",
-      rounds: "Online Test, Technical, HR",
-      experience:
-        "Questions were mostly DSA and problem solving. Interviewers were friendly. Focus on arrays, strings, and trees."
-    },
-    {
-      company: "Microsoft",
-      role: "SDE Intern",
-      level: "Intern",
-      rounds: "Coding Round, Technical Interview",
-      experience:
-        "Coding round was medium level. Technical interview focused on projects and OOP concepts."
-    }
-  ];
+    return(
 
-  return (
-    <div className="posts-container">
-      <h2>Interview Experiences</h2>
-
-      {experiences.map((post, index) => (
-        <div className="post-card" key={index}>
-          <div className="post-header">
-            <h3>{post.company}</h3>
-            <span>{post.role} • {post.level}</span>
-          </div>
-
-          <p className="rounds">
-            <strong>Rounds:</strong> {post.rounds}
-          </p>
-
-          <p className="experience">
-            {post.experience}
-          </p>
+        <>
+        <div><p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa omnis natus, voluptatibus quidem est expedita? Quaerat sequi sit libero est ipsum, recusandae, ipsa et nulla obcaecati quod dolores ducimus delectus?</p></div>
+        <div className="page">
+            <div className="cards-grid">
+                <div className="card">Card 1</div>
+                <div className="card">Card 2</div>
+                <div className="card">Card 3</div>
+                <div className="card">Card 4</div>
+            </div>
         </div>
-      ))}
-    </div>
-  );
-}
 
+        </>
+    )
+}
 export default Posts;

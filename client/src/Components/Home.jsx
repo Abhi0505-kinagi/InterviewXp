@@ -1,6 +1,7 @@
 import "./Home.css";
-
+import { useNavigate } from "react-router-dom";
 function Home() {
+  const nav=useNavigate();
   return (
     <>
       <header>
@@ -22,7 +23,9 @@ function Home() {
             Learn from real interview experiences shared by candidates from top
             companies. Prepare smarter, not harder.
           </p>
-          <button>Explore Experiences</button>
+          <button onClick={()=>{
+            nav("/posts")
+          }}>Explore Experiences</button>
         </div>
 
         <div className="hero-image">

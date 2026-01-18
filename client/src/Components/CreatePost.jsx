@@ -1,4 +1,4 @@
-import "./CreatePost.css";
+
 
 function PostExperience() {
   return (
@@ -9,36 +9,35 @@ function PostExperience() {
       </p>
 
       <form className="post-form">
+        {/* Company Name */}
         <div className="form-group">
           <label>Company Name</label>
           <input type="text" placeholder="e.g. Google" />
         </div>
 
-        <div className="form-group">
-          <label>Role</label>
-          <input type="text" placeholder="e.g. Software Engineer" />
-        </div>
-
+        {/* Experience Level */}
         <div className="form-group">
           <label>Experience Level</label>
           <select>
-            <option>Fresher</option>
-            <option>Intern</option>
-            <option>Experienced</option>
+            <option value="">Select</option>
+            <option value="fresher">Fresher</option>
+            <option value="experienced">Experienced</option>
           </select>
         </div>
 
+        {/* Interview Rounds */}
         <div className="form-group">
           <label>Interview Rounds</label>
           <textarea
             rows="6"
-            placeholder="Example:
+            placeholder={`Example:
 Round 1: Online Coding Test
 Round 2: Technical Interview
-Round 3: HR Round"
+Round 3: HR Round`}
           />
         </div>
 
+        {/* Questions Asked */}
         <div className="form-group">
           <label>Questions Asked</label>
           <textarea
@@ -47,6 +46,7 @@ Round 3: HR Round"
           />
         </div>
 
+        {/* Your Experience */}
         <div className="form-group">
           <label>Your Experience</label>
           <textarea
