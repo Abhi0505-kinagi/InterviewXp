@@ -31,9 +31,51 @@ html, body {
   gap: 16px;
 }
 
+/*.card {
+  height: 500px;
+  padding: 24px;
+  border-radius: 18px;
+  background: rgba(2, 6, 23, 0.5); 
+  color: white; 
+}*/
 .card {
   height: 500px;
   padding: 24px;
   border-radius: 18px;
-  background: #020617;
+  background: rgba(2, 6, 23, 0.5); /* semi-transparent */
+  display: flex;
+  flex-direction: column;       /* stack content vertically */
+  justify-content: flex-start;  /* default content at top */
+  position: relative;      
+  color: white;     /* needed if using absolute positioning for button */
 }
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.load-button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  background: #0f172a;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.load-button:hover {
+  background: #1e293b;
+}
+
+
+
