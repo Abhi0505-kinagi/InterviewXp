@@ -99,13 +99,12 @@ body {
   transform: translateY(-1px);
 }
 
-/* Disabled state */
+
 .post-form button:disabled {
   background: #334155;
   cursor: not-allowed;
 }
 
-/* Mobile */
 @media (max-width: 600px) {
   .post-container {
     margin: 20px;
