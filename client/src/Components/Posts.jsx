@@ -12,7 +12,7 @@ function Card({ exp }) {
     <div className="card fade-in" style={{ position: "relative" }}>
       <div style={{display:"flex", gap:"30%"}}><h3 style={{fontFamily:"Times",color:"#869DAD"}}>{(exp.userId?.name).toUpperCase()}</h3><button style={{width:"60px", height:"25px",fontFamily:"Times",backgroundColor:"#022B45",borderRadius:"5px",margin:"5px"}}>follow</button></div>
 
-      <div style={{ fontFamily: 'Times New Roman, serif', lineHeight: '1.6', color: '#f2e6e6' }}>
+      <div style={{ fontFamily: 'Times', lineHeight: '1.6', color: '#f2e6e6' }}>
         <p>
           <strong>Level:</strong> {exp.experienceLevel}<br />
           <strong>Difficulty:</strong> {exp.difficulty}<br />

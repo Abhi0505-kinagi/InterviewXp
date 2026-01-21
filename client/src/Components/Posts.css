@@ -42,12 +42,14 @@ html, body {
   height: 500px;
   padding: 24px;
   border-radius: 18px;
+  border: 1px solid white;
   background: rgba(2, 6, 23, 0.5); /* semi-transparent */
   display: flex;
   flex-direction: column;       /* stack content vertically */
   justify-content: flex-start;  /* default content at top */
   position: relative;      
   color: white;     /* needed if using absolute positioning for button */
+  font-family: 'Times New Roman', Times, serif;
 }
 .fade-in {
   opacity: 0;
