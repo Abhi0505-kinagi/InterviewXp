@@ -49,6 +49,10 @@ const interviewExpSchema = new mongoose.Schema({
         enum: ["Public", "Private", "Draft"],
         default: "Public"
     },
+    askedqutns:{
+        type:String,
+        required:true
+    },
     upvotes: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
