@@ -10,6 +10,8 @@ function Card({ exp}) {
   const nav=useNavigate();
   const [open, setOpen] = useState(false);
   const [selectedExp, setSelectedExp] = useState(null);
+  const [cmnt,setcmnting]=useState(false);
+  const [cmnttext,setcmnttext]=useState("");
 
   return (
     <>
@@ -62,6 +64,8 @@ function Card({ exp}) {
           gap: "20px",
           position: "absolute",
           bottom: "10px",
+          left: "24px",      // ✅ AD
+          right: "24px" 
         }}
       >
         <button
@@ -77,7 +81,9 @@ function Card({ exp}) {
         </button>
 
         <button
-          style={{ background: "transparent", border: "none", padding: 0 }}
+          style={{ background: "transparent", border: "none", padding: 0 }} onClick={()=>{
+            setcmnting(true);
+          }}
         >
           <img
             src={cmntimg}
@@ -156,6 +162,86 @@ function Card({ exp}) {
             </div>
           </div>
         )}
+        {/*----------------------------------*/}
+        {cmnt && (
+          <div className="overlay-cmt">
+            <div
+              className="display-cmt-card"
+              onClick={(e) => e.stopPropagation()}
+            >
+              
+              <button style={{ float: "right",backgroundColor:"transparent",color:"#db0f2e",fontFamily:"Times",border:"2px",fontSize:"20px" }} onClick={() => setcmnting(false)}>❌</button>
+              <button 
+              onClick={()=>{
+                if (cmnttext.trim() !== "") {
+                  setcmnting(false);
+                }
+              }}
+              disabled={cmnttext.trim() === ""}
+              style={{
+                position: "absolute",     // position it inside the card
+                top: "5%",               // 40% from top of card
+                left: "5%",              // center horizontally
+                transform: "translate(-50%, -50%)",  // perfect centering
+                padding: "8px 20px",
+                backgroundColor: "transparent",
+                color: "#fff",
+                border: "none",
+                borderRadius: "6px",
+                fontFamily: "Times New Roman, serif",
+                fontSize: "16px",
+                cursor: "pointer",
+                transition: "background-color 0.2s",
+              }}
+              onMouseEnter={(e) => e.target.style.backgroundColor = "#2133d2"}
+              onMouseLeave={(e) => e.target.style.backgroundColor = "#2c2f56"}
+            >
+              Post
+            </button>
+            <br/>
+              <div>
+                <textarea type="text"  placeholder="Write a comment..." value={cmnttext} onChange={(e) => setcmnttext(e.target.value)}
+                style={{
+                flex: "1",
+                padding: "8px",
+                borderRadius: "6px",
+                width: "90%",
+                backgroundColor: "transparent",
+                textDecoration: "underline",
+                textUnderlineOffset: "6px",
+                border: "0px",
+                outline: "none",
+                boxShadow: "none",
+              }}/>
+                          <div style={{
+              width: "80%",
+              margin: "20px auto",
+              padding: "0",
+              boxSizing: "border-box",
+            }}>
+              <fieldset
+                style={{
+                  width: "100%",
+                  padding: "16px",
+                  borderRadius: "8px",
+                  border: "1px solid #ccc",
+                  boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+                  backgroundColor: "transparent",
+                  maxHeight: "300px",    // max height for scroll
+                  overflowY: "auto",     // scroll if content exceeds maxHeight
+                  boxSizing: "border-box",
+                }}
+              >
+                <legend style={{ padding: "0 8px", fontWeight: "bold", fontSize: "16px" }}>
+                  Comments
+                </legend>
+              </fieldset>
+            </div>
+
+              </div>
+            </div>
+          </div>
+        )}
 
     </>
   );
@@ -204,7 +290,7 @@ function Posts() {
         <nav>
           <a href="/">Home</a>
           <a href="/posts">Experiences</a>
-          <a href="/profile">Prepare</a>
+          <a href="/crtpost">Prepare</a>
           <a href="/login">Login</a>
         </nav>
       </header>

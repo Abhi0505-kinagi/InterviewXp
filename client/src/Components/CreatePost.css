@@ -1,69 +1,85 @@
+/* RESET */
 * {
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  background: #0f172a;
-  font-family: "Segoe UI", sans-serif;
-  color: white;
+/* HEADER */
+.xp-header {
+  background: #020617;
+  padding: 14px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.post-container {
-  max-width: 1200px;
-  margin: 32px auto;
-  padding: 30px 40px;
+.xp-header h1 {
+  color: #2e9eda;
+  margin: 0;
+}
+
+.xp-header nav a {
+  color: #cbd5f5;
+  margin-left: 20px;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+/* PAGE BACKGROUND (SCROLLS NATURALLY) */
+.xp-page {
+  min-height: 100vh;
+  background: #0f172a;
+  padding: 30px 20px;
+}
+
+/* MAIN CARD */
+.xp-card {
+  max-width: 1400px;
+  margin: 0 auto;
   background: #020617;
+  padding: 30px 40px;
   border-radius: 18px;
 }
 
-/* HEADINGS */
-.post-container h2 {
+/* TEXT */
+.xp-card h2 {
   margin: 0;
-  font-size: 28px;
   color: #00ffb9;
 }
 
-.subtitle {
-  margin: 8px 0 26px;
+.xp-subtitle {
+  margin: 10px 0 30px;
   color: #94a3b8;
 }
 
-/* LAYOUT */
-.two-column-layout {
+/* GRID */
+.xp-grid {
   display: grid;
-  grid-template-columns: 1fr 1.3fr;
-  gap: 36px;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 32px;
 }
 
-/* LEFT COLUMN */
-.left-column {
+/* COLUMNS */
+.xp-left,
+.xp-right {
   display: flex;
   flex-direction: column;
   gap: 18px;
 }
 
-/* RIGHT COLUMN */
-.right-column {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-/* FORM */
-.form-group {
+/* FORM FIELD */
+.xp-field {
   display: flex;
   flex-direction: column;
 }
 
-label {
-  margin-bottom: 6px;
+.xp-field label {
   font-size: 14px;
+  margin-bottom: 6px;
 }
 
-input,
-select,
-textarea {
+.xp-field input,
+.xp-field select,
+.xp-field textarea {
   padding: 12px 14px;
   border-radius: 10px;
   border: none;
@@ -71,37 +87,38 @@ textarea {
   color: white;
 }
 
-textarea {
-  resize: vertical;
-}
-
 /* FOCUS */
-input:focus,
-select:focus,
-textarea:focus {
+.xp-field input:focus,
+.xp-field select:focus,
+.xp-field textarea:focus {
   outline: 2px solid #00ffb9;
   background: #020617;
 }
 
 /* BUTTON */
-button {
+.xp-btn {
   margin-top: 10px;
-  align-self: flex-start;
   padding: 12px 28px;
   background: #00ffb9;
   border: none;
   border-radius: 10px;
   font-weight: bold;
   cursor: pointer;
+  align-self: flex-start;
 }
 
 /* MOBILE */
 @media (max-width: 768px) {
-  .two-column-layout {
+  .xp-grid {
     grid-template-columns: 1fr;
   }
 
-  button {
-    align-self: stretch;
+  .xp-btn {
+    width: 100%;
+  }
+
+  .xp-header {
+    flex-direction: column;
+    gap: 10px;
   }
 }

@@ -8,6 +8,7 @@ import Register from "./Components/Register"
 import Postcreation from "./Components/CreatePost"
 //for testin add profile in prepare section
 import Profile from "./Components/Profile"
+import CommentPage from "./Components/Commenting"
 function App() {
   return (
     <BrowserRouter>
@@ -18,7 +19,8 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/reg" element={<Register/>} />
         <Route path="/profile" element={<Profile/>} />
-         <Route path="/crtpost" element={<CreatePost/>} />
+        <Route path="/crtpost" element={<CreatePost/>} />
+         <Route path="/cmntpage" element={<CommentPage/>} />
       </Routes>
     </BrowserRouter>
   );

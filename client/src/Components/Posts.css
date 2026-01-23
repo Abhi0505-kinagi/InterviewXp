@@ -38,9 +38,11 @@ html, body {
   background: rgba(2, 6, 23, 0.5); 
   color: white; 
 }*/
+
 .card {
-  height: 500px;
+  min-height: 500px;
   padding: 24px;
+  padding-bottom: 60px;
   border-radius: 18px;
   border: 1px solid white;
   background: rgba(3, 9, 34, 0.5); /* semi-transparent */
@@ -51,6 +53,10 @@ html, body {
   color: white;     /* needed if using absolute positioning for button */
   font-family: 'Times New Roman', Times, serif;
 }
+.card span {
+  white-space: nowrap;
+}
+
 .fade-in {
   opacity: 0;
   transform: translateY(20px);
@@ -93,6 +99,26 @@ html, body {
   width: 90%;
   height: 95%;
   background: #8e8e91;
+  color: white;
+  border-radius: 5px;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.overlay-cmt {
+  position: fixed;
+  top: 70px;          /* height of navbar */
+  left:5%;
+  width: 100vw;
+  height: calc(100vh - 70px);
+  background: #020617;   /* solid background */
+  z-index: 9999;
+}
+
+.display-cmt-card {
+  width: 90%;
+  height: 95%;
+  background: rgba(25, 38, 86, 0.5);
   color: white;
   border-radius: 5px;
   padding: 24px;
