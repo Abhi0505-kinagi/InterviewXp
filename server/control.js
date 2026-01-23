@@ -10,18 +10,30 @@ const Comments=require("./models/comment")
 const UserProfile=require("./models/UserProfile")
 
 app.use(express.json());
-
+app.use(require("cors")());
 app.get("/api/interviews", async (req, res) => {
-    try {
-        const data = await interviews.find(); 
-        res.status(200).json(data); 
-    } catch (err) {
-        console.error(err);
-        if (!res.headersSent) {
-            res.status(500).json({ error: "Server Error" });
-        }
-    }
+  try {
+    const page = parseInt(req.query.page) || 0;
+    const limit = parseInt(req.query.limit) || 4;
+
+    const interviewsData = await interviews
+      .find({ status: "Public" }).populate("userId","name")
+      .sort({ createdAt: -1 })
+      .skip(page * limit)
+      .limit(limit);
+
+    const total = await interviews.countDocuments({ status: "Public" });
+
+    res.status(200).json({
+      interviews: interviewsData,
+      total
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server Error" });
+  }
 });
+
 app.post("/api/interviews",async (req,res)=>{
     const data=req.body;
     try{
