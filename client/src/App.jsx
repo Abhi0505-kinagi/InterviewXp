@@ -5,6 +5,7 @@ import Posts from "./Components/Posts"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Components/Login"
 import Register from "./Components/Register"
+import Postcreation from "./Components/CreatePost"
 //for testin add profile in prepare section
 import Profile from "./Components/Profile"
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/reg" element={<Register/>} />
         <Route path="/profile" element={<Profile/>} />
+         <Route path="/crtpost" element={<CreatePost/>} />
       </Routes>
     </BrowserRouter>
   );

@@ -43,7 +43,7 @@ html, body {
   padding: 24px;
   border-radius: 18px;
   border: 1px solid white;
-  background: rgba(2, 6, 23, 0.5); /* semi-transparent */
+  background: rgba(3, 9, 34, 0.5); /* semi-transparent */
   display: flex;
   flex-direction: column;       /* stack content vertically */
   justify-content: flex-start;  /* default content at top */
@@ -79,5 +79,22 @@ html, body {
   background: #1e293b;
 }
 
+.overlay {
+  position: fixed;
+  top: 70px;          /* height of navbar */
+  left:5%;
+  width: 100vw;
+  height: calc(100vh - 70px);
+  background: #020617;   /* solid background */
+  z-index: 9999;
+}
 
-
+.display-card {
+  width: 90%;
+  height: 95%;
+  background: #8e8e91;
+  color: white;
+  border-radius: 5px;
+  padding: 24px;
+  overflow-y: auto;
+}

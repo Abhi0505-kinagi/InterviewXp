@@ -9,7 +9,7 @@ function Home() {
         <nav>
           <a href="/">Home</a>
           <a href="/posts">Experiences</a>
-          <a href="/profile">Prepare</a>
+          <a href="/crtpost">Prepare</a>
           <a href="/login">Login</a>
         </nav>
       </header>

@@ -5,21 +5,19 @@
 body {
   margin: 0;
   background: #0f172a;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", sans-serif;
   color: white;
 }
 
-/* Container */
 .post-container {
-  max-width: 900px;
-  margin: 40px auto;
+  max-width: 1200px;
+  margin: 32px auto;
   padding: 30px 40px;
   background: #020617;
   border-radius: 18px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 }
 
-/* Heading */
+/* HEADINGS */
 .post-container h2 {
   margin: 0;
   font-size: 28px;
@@ -27,91 +25,83 @@ body {
 }
 
 .subtitle {
-  margin: 8px 0 30px;
+  margin: 8px 0 26px;
   color: #94a3b8;
-  font-size: 14px;
 }
 
-/* Form */
-.post-form {
+/* LAYOUT */
+.two-column-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 36px;
+}
+
+/* LEFT COLUMN */
+.left-column {
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 18px;
 }
 
-/* Group */
+/* RIGHT COLUMN */
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* FORM */
 .form-group {
   display: flex;
   flex-direction: column;
 }
 
-.form-group label {
+label {
   margin-bottom: 6px;
-  font-weight: 500;
+  font-size: 14px;
 }
 
-/* Inputs */
-.form-group input,
-.form-group select,
-.form-group textarea {
+input,
+select,
+textarea {
   padding: 12px 14px;
   border-radius: 10px;
   border: none;
   background: #0f172a;
   color: white;
-  font-size: 14px;
 }
 
-.form-group textarea {
+textarea {
   resize: vertical;
-  min-height: 120px;
 }
 
-/* Placeholder */
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-  color: #64748b;
-}
-
-/* Focus */
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
+/* FOCUS */
+input:focus,
+select:focus,
+textarea:focus {
   outline: 2px solid #00ffb9;
   background: #020617;
 }
 
-/* Button */
-.post-form button {
+/* BUTTON */
+button {
+  margin-top: 10px;
   align-self: flex-start;
-  padding: 12px 26px;
-  border-radius: 10px;
-  border: none;
+  padding: 12px 28px;
   background: #00ffb9;
-  color: #020617;
+  border: none;
+  border-radius: 10px;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.1s ease;
 }
 
-.post-form button:hover {
-  background: #00d7a3;
-  transform: translateY(-1px);
-}
-
-
-.post-form button:disabled {
-  background: #334155;
-  cursor: not-allowed;
-}
-
-@media (max-width: 600px) {
-  .post-container {
-    margin: 20px;
-    padding: 22px;
+/* MOBILE */
+@media (max-width: 768px) {
+  .two-column-layout {
+    grid-template-columns: 1fr;
   }
 
-  .post-container h2 {
-    font-size: 22px;
+  button {
+    align-self: stretch;
   }
 }

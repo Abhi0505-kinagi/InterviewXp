@@ -1,29 +1,33 @@
 import "./Posts.css";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import likeimg from "../assets/like_14263529.png";
 import likeimg2 from "../assets/like_11441338.png";
 import cmntimg from "../assets/message_5356248.png";
-
 /* -------------------- Card Component -------------------- */
-function Card({ exp }) {
+function Card({ exp}) {
   const [liked, setLiked] = useState(false);
+  const nav=useNavigate();
+  const [open, setOpen] = useState(false);
+  const [selectedExp, setSelectedExp] = useState(null);
 
   return (
+    <>
     <div className="card fade-in" style={{ position: "relative" }}>
-      <div style={{display:"flex", gap:"30%"}}><h3 style={{fontFamily:"Times",color:"#869DAD"}}>{(exp.userId?.name).toUpperCase()}</h3><button style={{width:"60px", height:"25px",fontFamily:"Times",backgroundColor:"#022B45",borderRadius:"5px",margin:"5px"}}>follow</button></div>
-
-      <div style={{ fontFamily: 'Times', lineHeight: '1.6', color: '#f2e6e6' }}>
-        <p>
-          <strong>Level:</strong> {exp.experienceLevel}<br />
-          <strong>Difficulty:</strong> {exp.difficulty}<br />
-          <strong>Result:</strong> {exp.result}<br />
+      <div style={{display:"flex", gap:"30%"}}><h3 style={{fontFamily:"Times",color:"#869DAD"}}>{(exp.userId?.name).toUpperCase()}</h3><button style={{width:"60px", height:"25px",fontFamily:"Times",backgroundColor:"transparent",borderRadius:"5px",margin:"5px",border:"1px solid white"}}>follow</button></div>
+      <h3 style={{fontFamily:"Times",color:"#976de3"}}>{exp.company}</h3>
+      <div style={{ fontFamily: 'Times', lineHeight: '1.6', color: '#f2e6e6',margin:"5px"}}>
+        <p style={{fontFamily:"Times",paddingTop:"20px"}}>
+          <strong>Level:</strong> {exp.experienceLevel}<br /><br/>
+          <strong>Difficulty:</strong> {exp.difficulty}<br /><br/>
+          <strong>Result:</strong> {exp.result}<br /><br/>
           <strong>Posted on:</strong> {new Date(exp.createdAt).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
           })}
         </p>
-
+          <br/>
         <p>
           <strong>Rounds:</strong> {exp.rounds.length}
         </p>
@@ -34,21 +38,24 @@ function Card({ exp }) {
               key={i}
               style={{
                 display: 'inline-block',
-                backgroundColor: '#e0e0e0',
-                color: '#333',
+                backgroundColor: '#413e3e',
+                color: '#0bb90e',
                 padding: '2px 8px',
                 margin: '0 4px 4px 0',
                 borderRadius: '4px',
                 fontSize: '0.9rem',
               }}
             >
-              {tag}
+              #{tag}
             </span>
           ))}
         </div>
+        <button onClick={()=>{
+          setOpen(true);
+          setSelectedExp(exp);
+        }} style={{height:"10%",width:"90%",backgroundColor:"transparent",margin:"10px",border:"5px",borderRadius:"5px",cursor:"pointer"}}>Read More ▶▶</button>
       </div>
-
-
+        
       <div
         style={{
           display: "flex",
@@ -80,6 +87,77 @@ function Card({ exp }) {
         </button>
       </div>
     </div>
+    {open && (
+          <div className="overlay">
+            <div
+              className="display-card"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                style={{ float: "right" }}
+                onClick={() => setOpen(false)}
+              >
+                ❌
+              </button>
+
+              <h2 style={{fontFamily:"Times",fontWeight:"bolder",color:"black"}}>Interview Experience</h2>
+              <p>Description...</p>
+              <h1 style={{color:"#361377"}}>{exp.company}</h1>
+              <p style={{color:"black",fontFamily:"Times"}}><span style={{color:"black",fontFamily:"Times"}}>Experience Level:</span>{exp.experienceLevel}</p>
+              <p><span style={{color:"black",fontFamily:"Times"}}>Difficulty Level:</span><strong
+                style={{
+                  color:
+                    exp.difficulty === "Hard"
+                      ? "#be0620"
+                      : exp.difficulty === "Medium"
+                      ? "orange"
+                      : "green",
+                  fontFamily: "Times",
+                }}
+              >{exp.difficulty}
+              </strong></p>
+
+              <p style={{color:"black",fontFamily:"Times"}}>Number of Rounds {exp.rounds.length}</p>
+             <p>Topics</p>
+              <div style={{ marginTop: '8px' }}>
+                {exp.tags?.map((tag, i) => (
+                  <span
+                    key={i}
+                    style={{
+                      display: 'inline-block',
+                      backgroundColor: '#413e3e',
+                      color: '#0bb90e',
+                      padding: '2px 8px',
+                      margin: '0 4px 4px 0',
+                      borderRadius: '4px',
+                      fontSize: '0.9rem',
+                    }}
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+              <p><span style={{color:"black",fontFamily:"Times"}}>Tips : </span><span style={{color:"#16601c",fontFamily:"Times"}}>{exp.tips}</span></p>
+              <h3 style={{color:"black", fontFamily:"Times"}}>Questions</h3>
+              <p style={{color:"black",font:"Times"}}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus libero ratione, repudiandae nesciunt magnam impedit? Itaque voluptas deserunt dolorum tempore optio, explicabo reprehenderit sit accusamus perferendis nulla minima eius libero.
+              <br/><br/>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis alias sapiente esse eum unde aspernatur, temporibus, deserunt, atque corrupti quo reprehenderit molestias recusandae id ullam aliquid nesciunt voluptatem facere. Non.</p>
+              <p style={{bottom:"5px",color:"#0f0a17",fontFamily:"Times"}}>▶▶{exp.userId?.name}</p><br/>
+              <p style={{fontFamily:"Times",color:"black",fontWeight:"bolder"}}>AI Summarization:</p>
+              <fieldset>
+                <textarea readOnly style={{width:"100%",maxHeight:"80px",maxWidth:"100%"}}></textarea>
+              </fieldset>
+              <p style={{fontSize:"10px",color:"black",fontFamily:"Times"}}><i>Note:We use AI to enhance our content creation processut,but all content is reviewed and edited by our human team to ensur accuracy and quality.</i></p>
+              <button
+                style={{ float: "right",backgroundColor:"transparent",color:"#db0f2e",fontFamily:"Times",border:"2px",fontSize:"20px" }}
+                onClick={() => setOpen(false)}
+              >
+                close
+              </button>
+            </div>
+          </div>
+        )}
+
+    </>
   );
 }
 
@@ -143,7 +221,7 @@ function Posts() {
           {loading && <p>Loading...</p>}
 
           {!loading && interviews.map(exp => (
-            <Card key={exp._id} exp={exp} />
+            <Card key={exp._id} exp={exp}/>
           ))}
         </div>
 
