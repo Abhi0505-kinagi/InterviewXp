@@ -5,13 +5,54 @@ import likeimg from "../assets/like_14263529.png";
 import likeimg2 from "../assets/like_11441338.png";
 import cmntimg from "../assets/message_5356248.png";
 /* -------------------- Card Component -------------------- */
-function Card({ exp}) {
+function Card({ exp,interviewId}) {
   const [liked, setLiked] = useState(false);
   const nav=useNavigate();
   const [open, setOpen] = useState(false);
   const [selectedExp, setSelectedExp] = useState(null);
   const [cmnt,setcmnting]=useState(false);
   const [cmnttext,setcmnttext]=useState("");
+  const [comments, setComments] = useState([]);
+  const postComment = async () => {
+        if (!cmnttext.trim()) return;
+        try {
+          const res = await fetch(
+            `http://localhost:5000/api/interviews/${interviewId}/comment`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                cmntText: cmnttext,
+                userId: "696ca4df287aab11f81fb793" // TEMP user id
+              }),
+            }
+          );
+          const data = await res.json();
+          if (!res.ok) {
+            alert(data.message || "Failed to comment");
+            return;
+          }
+          setComments(prev => [data.comment, ...prev]);
+          setcmnttext("");
+          setcmnting(false);
+
+        } catch (err) {
+          console.error(err);
+        }
+      };
+
+
+  useEffect(() => {
+  fetch(`http://localhost:5000/api/interviews/${interviewId}/comment`)
+    .then(res => res.json())
+    .then(data => setComments(data))
+    .catch(err =>{
+      console.log(err);
+    })
+    }, [interviewId]);
+
 
   return (
     <>
@@ -171,13 +212,7 @@ function Card({ exp}) {
             >
               
               <button style={{ float: "right",backgroundColor:"transparent",color:"#db0f2e",fontFamily:"Times",border:"2px",fontSize:"20px" }} onClick={() => setcmnting(false)}>❌</button>
-              <button 
-              onClick={()=>{
-                if (cmnttext.trim() !== "") {
-                  setcmnting(false);
-                }
-              }}
-              disabled={cmnttext.trim() === ""}
+              <button  onClick={postComment} disabled={cmnttext.trim() === ""}
               style={{
                 position: "absolute",     // position it inside the card
                 top: "5%",               // 40% from top of card
@@ -235,6 +270,19 @@ function Card({ exp}) {
                 <legend style={{ padding: "0 8px", fontWeight: "bold", fontSize: "16px" }}>
                   Comments
                 </legend>
+                 {comments.length === 0 && (
+                  <p>No comments yet</p>
+                )}
+
+                {comments.map(c => (
+                  <div key={c._id} style={{ marginBottom: "10px" }}>
+                    <strong>{c.userId?.name}</strong>
+                    <p>{c.cmntText}</p>
+                    <small>
+                      {new Date(c.createdAt).toLocaleString()}
+                    </small>
+                  </div>
+                ))}
               </fieldset>
             </div>
 
@@ -307,7 +355,7 @@ function Posts() {
           {loading && <p>Loading...</p>}
 
           {!loading && interviews.map(exp => (
-            <Card key={exp._id} exp={exp}/>
+            <Card key={exp._id} exp={exp} interviewId={exp._id} />
           ))}
         </div>
 

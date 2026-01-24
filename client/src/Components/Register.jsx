@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import "./Register.css";
+function generateAnonymousName() {
+  const adjectives = ["Silent", "Curious", "Brave", "Wise", "Swift"];
+  const animals = ["Tiger", "Panda", "Fox", "Wolf", "Eagle"];
 
+  const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+  const animal = animals[Math.floor(Math.random() * animals.length)];
+  const number = Math.floor(100 + Math.random() * 900); // 3-digit
+
+  return `${adj}${animal}${number}`;
+}
 function Register() {
   const [formData, setFormData] = useState({
     name: "",
