@@ -252,26 +252,23 @@ app.put("/api/profile/update", async (req, res) => {
  */
 app.post("/api/profile/create", async (req, res) => {
     try {
-        const { userId, username, bio } = req.body;
+        const { userId, bio } = req.body;
         if (!mongoose.Types.ObjectId.isValid(userId)) {
             return res.status(400).json({ message: "Invalid userId" });
-        }
-        if (!username) {
-            return res.status(400).json({ message: "Username is required" });
         }
         const user = await User.findById(userId);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
         const existingProfile = await UserProfile.findOne({
-            $or: [{ userId }, { username }]
+            $or: [{ userId }]
         });
         if (existingProfile) {
             return res.status(400).json({ message: "Profile already exists" });
         }
         const profile = await UserProfile.create({
             userId,
-            username,
+            username:user.name,
             bio: bio || ""
         });
         res.status(201).json({
