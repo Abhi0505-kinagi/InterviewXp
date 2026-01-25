@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import likeimg from "../assets/like_14263529.png";
 import likeimg2 from "../assets/like_11441338.png";
 import cmntimg from "../assets/message_5356248.png";
+import PeopleProfile from "./PeopleProfile";
 /* -------------------- Card Component -------------------- */
 function Card({ exp,interviewId}) {
   const [liked, setLiked] = useState(false);
@@ -58,6 +59,9 @@ function Card({ exp,interviewId}) {
     <>
     <div className="card fade-in" style={{ position: "relative" }}>
       <div style={{display:"flex", gap:"30%"}}><h3 style={{fontFamily:"Times",color:"#869DAD"}}>{(exp.userId?.name).toUpperCase()}</h3><button style={{width:"60px", height:"25px",fontFamily:"Times",backgroundColor:"transparent",borderRadius:"5px",margin:"5px",border:"1px solid white"}}>follow</button></div>
+      <button style={{fontSize:"13px",backgroundColor:"transparent",border:"none",padding:0,color: "#10edf5",cursor: "pointer",textAlign: "left",width: "fit-content"}} onClick={()=>{
+        nav(`/userprofls/${exp.userId?.name}`)
+      }}>see profile</button>
       <h3 style={{fontFamily:"Times",color:"#976de3"}}>{exp.company}</h3>
       <div style={{ fontFamily: 'Times', lineHeight: '1.6', color: '#f2e6e6',margin:"5px"}}>
         <p style={{fontFamily:"Times",paddingTop:"20px"}}>
@@ -276,11 +280,21 @@ function Card({ exp,interviewId}) {
 
                 {comments.map(c => (
                   <div key={c._id} style={{ marginBottom: "10px" }}>
-                    <strong>{c.userId?.name}</strong>
-                    <p>{c.cmntText}</p>
-                    <small>
-                      {new Date(c.createdAt).toLocaleString()}
-                    </small>
+                   <div style={{display:"flex"}}> <strong style={{fontFamily:"Times",color:"red"}}>{c.userId?.name}</strong>
+                    <p style={{float:"right",fontSize:"10px",color:"#a89d94"}}>({(() => {
+                        const diffMs = new Date() - new Date(c.createdAt);
+                        const diffMinutes = Math.floor(diffMs / (1000 * 60));
+                        if (diffMinutes < 1) return "Just now";
+                        if (diffMinutes < 60) return `${diffMinutes} min ago`;
+                        const diffHours = Math.floor(diffMinutes / 60);
+                        if (diffHours < 24) return `${diffHours} hr ago`;
+                        const diffDays = Math.floor(diffHours / 24);
+                        return `${diffDays} day(s) ago`;
+                    })()})
+                    </p>
+                     <p style={{padding:"5px",fontFamily:"Times",color:"#d3d4d1",fontWeight:"100"}}>-{c.cmntText}</p>
+                     <br/>
+                     </div>
                   </div>
                 ))}
               </fieldset>

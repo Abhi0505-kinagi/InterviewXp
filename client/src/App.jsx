@@ -9,6 +9,7 @@ import Postcreation from "./Components/CreatePost"
 //for testin add profile in prepare section
 import Profile from "./Components/Profile"
 import CommentPage from "./Components/Commenting"
+import PeopleProfile from './Components/PeopleProfile';
 function App() {
   return (
     <BrowserRouter>
@@ -20,7 +21,8 @@ function App() {
         <Route path="/reg" element={<Register/>} />
         <Route path="/profile" element={<Profile/>} />
         <Route path="/crtpost" element={<CreatePost/>} />
-         <Route path="/cmntpage" element={<CommentPage/>} />
+        <Route path="/cmntpage" element={<CommentPage/>} />
+        <Route path="/userprofls/:username" element={<PeopleProfile/>} />
       </Routes>
     </BrowserRouter>
   );
