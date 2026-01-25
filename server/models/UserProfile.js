@@ -7,6 +7,9 @@ const userProfileSchema = new mongoose.Schema({
         required: true,
         unique: true   // one profile per user
     },
+    username:{
+        
+    },
     bio: {
         type: String,
         default: ""

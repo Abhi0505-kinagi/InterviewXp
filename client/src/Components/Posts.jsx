@@ -190,8 +190,7 @@ function Card({ exp,interviewId}) {
               </div>
               <p><span style={{color:"black",fontFamily:"Times"}}>Tips : </span><span style={{color:"#16601c",fontFamily:"Times"}}>{exp.tips}</span></p>
               <h3 style={{color:"black", fontFamily:"Times"}}>Questions</h3>
-              <p style={{color:"black",font:"Times"}}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus libero ratione, repudiandae nesciunt magnam impedit? Itaque voluptas deserunt dolorum tempore optio, explicabo reprehenderit sit accusamus perferendis nulla minima eius libero.
-              <br/><br/>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis alias sapiente esse eum unde aspernatur, temporibus, deserunt, atque corrupti quo reprehenderit molestias recusandae id ullam aliquid nesciunt voluptatem facere. Non.</p>
+              <p style={{color:"black",font:"Times",fontWeight:"bolder"}}>{exp.askedqutns}</p>
               <p style={{bottom:"5px",color:"#0f0a17",fontFamily:"Times"}}>▶▶{exp.userId?.name}</p><br/>
               <p style={{fontFamily:"Times",color:"black",fontWeight:"bolder"}}>AI Summarization:</p>
               <fieldset>
@@ -312,7 +311,7 @@ function Card({ exp,interviewId}) {
 /* -------------------- Posts Component -------------------- */
 function Posts() {
   const limit = 4;
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [interviews, setInterviews] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -326,6 +325,7 @@ function Posts() {
         setInterviews(data.interviews);
         setTotal(data.total);
         setLoading(false);
+        console.log(data.interviews);
       })
       .catch(err => {
         console.error(err);
@@ -334,13 +334,13 @@ function Posts() {
   }, [page]);
 
   const handleNext = () => {
-    if ((page + 1) * limit < total) {
+    if ((page * limit) < total) {
       setPage(page + 1);
     }
   };
 
   const handleBack = () => {
-    if (page > 0) {
+    if (page > 1) {
       setPage(page - 1);
     }
   };
@@ -366,21 +366,22 @@ function Posts() {
 
       <div className="page">
         <div className="cards-grid">
+          {console.log(interviews)}
           {loading && <p>Loading...</p>}
+          {!loading && Array.isArray(interviews) && interviews.map(exp => (
+          <Card key={exp._id} exp={exp} interviewId={exp._id} />
+        ))}
 
-          {!loading && interviews.map(exp => (
-            <Card key={exp._id} exp={exp} interviewId={exp._id} />
-          ))}
         </div>
 
         <div style={{ textAlign: "center", margin: "10px 0" }}>
-          {page > 0 && (
+          {page > 1 && (
             <button onClick={handleBack} className="load-button">
               Back
             </button>
           )}
 
-          {(page + 1) * limit < total && (
+          {(page* limit) < total && (
             <button
               onClick={handleNext}
               className="load-button"

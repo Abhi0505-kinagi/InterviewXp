@@ -13,16 +13,31 @@ const InterviewExp = require('./models/InterviewExp');
 app.use(express.json());
 app.use(require("cors")());
 app.get("/api/interviews", async (req, res) => {
-    try {
-        const data = await interviews.find(); 
-        res.status(200).json(data); 
-    } catch (err) {
-        console.error(err);
-        if (!res.headersSent) {
-            res.status(500).json({ error: "Server Error" });
-        }
-    }
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 4;
+    const skip = (page - 1) * limit;
+
+    const total = await InterviewExp.countDocuments();
+    console.log("PAGE:", page, "LIMIT:", limit, "SKIP:", skip); 
+    const interviews = await InterviewExp.find()
+      .populate("userId", "name")  // ✅ populate user name
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    res.status(200).json({
+      interviews,
+      total,
+      page,
+      totalPages: Math.ceil(total / limit)
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error fetching interviews" });
+  }
 });
+
 
 app.post("/api/interviews",async (req,res)=>{
     const data=req.body;
@@ -34,60 +49,38 @@ app.post("/api/interviews",async (req,res)=>{
         res.status(500).json({error: "An error occurred while saving the interview"});
     }
 })
-app.get("/api/post/:userId", async (req, res) => {
-    try {
-        const { userId } = req.params;
+// GET /api/post/:userId
+app.get("/api/users/post/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const page = parseInt(req.query.page) || 0;
+    const limit = parseInt(req.query.limit) || 4;
 
-        // Optional but good practice
-        if (!mongoose.Types.ObjectId.isValid(userId)) {
-            return res.status(400).json({ message: "Invalid userId" });
-        }
-
-        // This fetches ALL posts of that user
-        const data = await InterviewExp.find({ userId })
-            .sort({ createdAt: -1 }); // latest first (optional)
-
-        // Even if user has no posts, return empty array
-        res.status(200).json({
-            interviews: data
-        });
-
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({
-            message: "Some error occurred while fetching posts"
-        });
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: "Invalid userId" });
     }
+
+    const skip = (page - 1) * limit;
+
+    const total = await InterviewExp.countDocuments({ userId });
+
+    const interviews = await InterviewExp.find({ userId })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    res.status(200).json({
+      interviews,
+      total,
+      page,
+      totalPages: Math.ceil(total / limit),
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error fetching user interviews" });
+  }
 });
-
-app.delete("/api/admin/del/post/:id", async (req, res) => {
-    try {
-        const { id } = req.params;
-
-        // Validate ObjectId
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({ message: "Invalid post id" });
-        }
-
-        const deletedPost = await InterviewExp.findByIdAndDelete(id);
-
-        if (!deletedPost) {
-            return res.status(404).json({ message: "Post not found" });
-        }
-
-        res.status(200).json({
-            message: "Post deleted successfully"
-        });
-
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({
-            message: "Some error occurred while deleting post"
-        });
-    }
-});
-
-
 
 app.get("/api/interviews/:id", async (req, res) => {
     try {
@@ -328,14 +321,29 @@ app.get("/api/profile/:username", async (req, res) => {
     try {
         const { username } = req.params;
 
-        const profile = await UserProfile.findOne({ username })
+        let profile = await UserProfile.findOne({ username })
             .populate("followers", "username")
             .populate("following", "username");
+        
         if (!profile) {
-            return res.status(404).json({ message: "Profile not found" });
+            // Try to find the user and create a profile if it doesn't exist
+            const user = await User.findOne({ name: username });
+            if (user) {
+                profile = await UserProfile.create({
+                    userId: user._id,
+                    username: user.name,
+                    bio: "",
+                    followers: [],
+                    following: []
+                });
+            } else {
+                return res.status(404).json({ message: "User not found" });
+            }
         }
+        
         res.status(200).json({
             _id: profile._id,
+            userId: profile.userId,
             username: profile.username,
             bio: profile.bio,
             followersCount: profile.followers.length,
