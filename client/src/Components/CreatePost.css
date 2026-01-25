@@ -1,0 +1,124 @@
+/* RESET */
+* {
+  box-sizing: border-box;
+}
+
+/* HEADER */
+.xp-header {
+  background: #020617;
+  padding: 14px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.xp-header h1 {
+  color: #2e9eda;
+  margin: 0;
+}
+
+.xp-header nav a {
+  color: #cbd5f5;
+  margin-left: 20px;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+/* PAGE BACKGROUND (SCROLLS NATURALLY) */
+.xp-page {
+  min-height: 100vh;
+  background: #0f172a;
+  padding: 30px 20px;
+}
+
+/* MAIN CARD */
+.xp-card {
+  max-width: 1400px;
+  margin: 0 auto;
+  background: #020617;
+  padding: 30px 40px;
+  border-radius: 18px;
+}
+
+/* TEXT */
+.xp-card h2 {
+  margin: 0;
+  color: #00ffb9;
+}
+
+.xp-subtitle {
+  margin: 10px 0 30px;
+  color: #94a3b8;
+}
+
+/* GRID */
+.xp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 32px;
+}
+
+/* COLUMNS */
+.xp-left,
+.xp-right {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* FORM FIELD */
+.xp-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.xp-field label {
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.xp-field input,
+.xp-field select,
+.xp-field textarea {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: none;
+  background: #0f172a;
+  color: white;
+}
+
+/* FOCUS */
+.xp-field input:focus,
+.xp-field select:focus,
+.xp-field textarea:focus {
+  outline: 2px solid #00ffb9;
+  background: #020617;
+}
+
+/* BUTTON */
+.xp-btn {
+  margin-top: 10px;
+  padding: 12px 28px;
+  background: #00ffb9;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .xp-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .xp-btn {
+    width: 100%;
+  }
+
+  .xp-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

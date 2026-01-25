@@ -3,7 +3,7 @@ const app=express();
 const mongoose=require("mongoose");
 const connectDB = require("./dbconnection");
 connectDB();
-
+app.use(require("cors")());
 const interviews=require("./models/InterviewExp")
 const User=require("./models/Userschema")
 const Comments=require("./models/comment")
@@ -13,27 +13,27 @@ const InterviewExp = require('./models/InterviewExp');
 app.use(express.json());
 app.use(require("cors")());
 app.get("/api/interviews", async (req, res) => {
-  try {
-    const page = parseInt(req.query.page) || 0;
-    const limit = parseInt(req.query.limit) || 4;
-
-    const interviewsData = await interviews
-      .find({ status: "Public" }).populate("userId","name")
-      .sort({ createdAt: -1 })
-      .skip(page * limit)
-      .limit(limit);
-
-    const total = await interviews.countDocuments({ status: "Public" });
-
-    res.status(200).json({
-      interviews: interviewsData,
-      total
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Server Error" });
-  }
+    try {
+        const data = await interviews.find(); 
+        res.status(200).json(data); 
+    } catch (err) {
+        console.error(err);
+        if (!res.headersSent) {
+            res.status(500).json({ error: "Server Error" });
+        }
+    }
 });
+
+app.post("/api/interviews",async (req,res)=>{
+    const data=req.body;
+    try{
+        const savedData=await interviews.create(data);
+        res.status(201).json({message: "Interview saved successfully",data: savedData});
+    }catch(err){
+        console.error("Error saving interview:", err);
+        res.status(500).json({error: "An error occurred while saving the interview"});
+    }
+})
 app.get("/api/post/:userId", async (req, res) => {
     try {
         const { userId } = req.params;
@@ -59,38 +59,34 @@ app.get("/api/post/:userId", async (req, res) => {
         });
     }
 });
-//delete ur post
-app.get("/api/admin/del/post/:id", async (req, res) => {
-    try {
-        const { id} = req.params;
 
-        // Optional but good practice
+app.delete("/api/admin/del/post/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Validate ObjectId
         if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({ message: "Invalid postid" });
+            return res.status(400).json({ message: "Invalid post id" });
         }
 
-        // This fetches ALL posts of that user
-        const data = await InterviewExp.findByIdAndDelete({id})
-        res.status(200).json({message:"post deleted successfully"});
+        const deletedPost = await InterviewExp.findByIdAndDelete(id);
+
+        if (!deletedPost) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+
+        res.status(200).json({
+            message: "Post deleted successfully"
+        });
 
     } catch (err) {
         console.error(err);
         res.status(500).json({
-            message: "Some error occurred while deleting post posts"
+            message: "Some error occurred while deleting post"
         });
     }
 });
 
-app.post("/api/interviews",async (req,res)=>{
-    const data=req.body;
-    try{
-        const savedData=await interviews.create(data);
-        res.status(201).json({message: "Interview saved successfully",data: savedData});
-    }catch(err){
-        console.error("Error saving interview:", err);
-        res.status(500).json({error: "An error occurred while saving the interview"});
-    }
-})
 
 
 app.get("/api/interviews/:id", async (req, res) => {
@@ -353,8 +349,6 @@ app.get("/api/profile/:username", async (req, res) => {
         res.status(500).json({ message: "Error fetching profile" });
     }
 });
-
-
 
 app.post("/api/profile/:username/follow", async (req, res) => {
     try {
