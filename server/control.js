@@ -7,7 +7,8 @@ connectDB();
 const interviews=require("./models/InterviewExp")
 const User=require("./models/Userschema")
 const Comments=require("./models/comment")
-const UserProfile=require("./models/UserProfile")
+const UserProfile=require("./models/UserProfile");
+const InterviewExp = require('./models/InterviewExp');
 
 app.use(express.json());
 app.use(require("cors")());
@@ -32,6 +33,52 @@ app.get("/api/interviews", async (req, res) => {
     console.error(err);
     res.status(500).json({ error: "Server Error" });
   }
+});
+app.get("/api/post/:userId", async (req, res) => {
+    try {
+        const { userId } = req.params;
+
+        // Optional but good practice
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({ message: "Invalid userId" });
+        }
+
+        // This fetches ALL posts of that user
+        const data = await InterviewExp.find({ userId })
+            .sort({ createdAt: -1 }); // latest first (optional)
+
+        // Even if user has no posts, return empty array
+        res.status(200).json({
+            interviews: data
+        });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            message: "Some error occurred while fetching posts"
+        });
+    }
+});
+//delete ur post
+app.get("/api/admin/del/post/:id", async (req, res) => {
+    try {
+        const { id} = req.params;
+
+        // Optional but good practice
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ message: "Invalid postid" });
+        }
+
+        // This fetches ALL posts of that user
+        const data = await InterviewExp.findByIdAndDelete({id})
+        res.status(200).json({message:"post deleted successfully"});
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({
+            message: "Some error occurred while deleting post posts"
+        });
+    }
 });
 
 app.post("/api/interviews",async (req,res)=>{
