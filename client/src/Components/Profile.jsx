@@ -1,28 +1,32 @@
 import "./Profile.css";
-import { useState } from "react";
-
+import { useState,useEffect } from "react";
+import Navbar from "./Navbar";
 function Profile() {
   const [activeTab, setActiveTab] = useState("posts");
+  const [myprop,setmyprop]=useState({});
+  console.log("username",localStorage.getItem("username"));
+  useEffect(() => {
+  const username = localStorage.getItem("username");
+  if (!username) return;
 
-  const profile = {
-    username: "abhishek_dev",
-    bio: "Passionate MERN developer 🚀 | Interview Experiences | Learning in public",
-    followers: 256,
-    following: 143,
-  };
+  fetch(`http://localhost:5000/api/profile/${username}`)
+    .then(res => res.json())
+    .then(data => {
+      console.log("userdata from backend:", data); // ✅ should print
+      setmyprop(data);
+    })
+    .catch(err => {
+      console.error("Error fetching profile:", err);
+    });
+}, []);
+
+    console.log(`myprop${myprop}`);
+  
 
   return (<>
     <div className="profile-page">
       {/* COVER */}
-      <header>
-        <h1 style={{fontSize:"30px"}}>InterviewXP</h1>
-        <nav>
-          <a href="/">Home</a>
-          <a href="/posts">Experiences</a>
-          <a href="/profile">Prepare</a>
-          <a href="/login">Login</a>
-        </nav>
-      </header>
+      <Navbar/>
       <div className="profile-cover"></div>
       
       
@@ -31,26 +35,26 @@ function Profile() {
         {/* HEADER */}
         <div className="profile-header">
           <div className="profile-avatar-lg">
-            {profile.username[0].toUpperCase()}
+            {myprop.username[0].toUpperCase()|| "A"}
           </div>
 
           <div className="profile-details">
-            <h1>@{profile.username}</h1>
-            <p className="bio">{profile.bio}</p>
+            <h1>@{myprop.username}</h1>
+            <p className="bio">{myprop.bio}</p>
 
             <div className="profile-stats">
               <div>
-                <span>{profile.followers}</span>
+                <span>{myprop.followersCount}</span>
                 <p>Followers</p>
               </div>
               <div>
-                <span>{profile.following}</span>
+                <span>{myprop.followingCount}</span>
                 <p>Following</p>
               </div>
             </div>
 
             <div className="profile-actions">
-              <button className="follow-btn">Follow</button>
+
               <button className="edit-btn">Edit Profile</button>
             </div>
           </div>
@@ -70,12 +74,6 @@ function Profile() {
           >
             About
           </button>
-          <button
-            className={activeTab === "activity" ? "active" : ""}
-            onClick={() => setActiveTab("activity")}
-          >
-            Activity
-          </button>
         </div>
 
         {/* TAB CONTENT */}
@@ -92,7 +90,7 @@ function Profile() {
           {activeTab === "about" && (
             <div className="about-box">
               <h3>About</h3>
-              <p>{profile.bio}</p>
+              <p>{myprop.bio}</p>
             </div>
           )}
 

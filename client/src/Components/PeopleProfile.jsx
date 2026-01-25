@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import "./PeoplesProfile.css";
 import { useNavigate } from "react-router-dom";
 import { useState,useEffect } from "react";
+import Navbar from "./Navbar";
 function PeopleProfile() {
     const nav=useNavigate();
     const [page, setPage] = useState(1);
@@ -42,15 +43,7 @@ function PeopleProfile() {
   return (<>
     <div className="p-page">
       {/* COVER */}
-      <header>
-        <h1 style={{fontSize:"30px"}}>InterviewXP</h1>
-        <nav>
-          <a href="/">Home</a>
-          <a href="/posts">Experiences</a>
-          <a href="/profile">Prepare</a>
-          <a href="/login">Login</a>
-        </nav>
-      </header>
+      <Navbar/>
       <div className="p-cover"></div>
     
       

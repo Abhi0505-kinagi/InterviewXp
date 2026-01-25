@@ -1,21 +1,28 @@
 import React, { useState } from "react";
 import "./Register.css";
+import { useNavigate } from "react-router-dom";
 function generateAnonymousName() {
   const adjectives = ["Silent", "Curious", "Brave", "Wise", "Swift"];
   const animals = ["Tiger", "Panda", "Fox", "Wolf", "Eagle"];
 
   const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
   const animal = animals[Math.floor(Math.random() * animals.length)];
-  const number = Math.floor(100 + Math.random() * 900); // 3-digit
 
-  return `${adj}${animal}${number}`;
+  const unique = Date.now().toString(36).slice(-4); 
+  // time-based uniqueness
+
+  return `${adj}${animal}_${unique}`;
 }
+
+
 function Register() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
+    displayName: generateAnonymousName(), // 👈 auto anonymous
   });
+  const nav=useNavigate();
 
   const [error, setError] = useState("");
 
@@ -29,7 +36,6 @@ function Register() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Basic validation
     if (!formData.name || !formData.email || !formData.password) {
       setError("All fields are required");
       return;
@@ -37,24 +43,20 @@ function Register() {
 
     setError("");
 
-    // Backend API call (example)
-    /*
-    fetch("/api/register", {
+    fetch("http://localhost:5000/api/users/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     })
-      .then(res => res.json())
-      .then(data => {
-        if(data.success){
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
           alert("Registered Successfully");
         } else {
           setError(data.message);
         }
       })
-    */
-
-    console.log("Register Data:", formData);
+      .catch(() => setError("Server error"));
   };
 
   return (
@@ -65,13 +67,20 @@ function Register() {
         {error && <p className="error">{error}</p>}
 
         <form onSubmit={handleSubmit}>
-          <label>Name</label>
+          <label>Name (private)</label>
           <input
             type="text"
             name="name"
-            placeholder="Enter your name"
+            placeholder="Your real name"
             value={formData.name}
             onChange={handleChange}
+          />
+
+          <label>Anonymous Name</label>
+          <input
+            type="text"
+            value={formData.displayName}
+            disabled
           />
 
           <label>Email</label>
@@ -92,7 +101,11 @@ function Register() {
             onChange={handleChange}
           />
 
-          <button type="submit">Register</button>
+          <button type="submit" onClick={()=>{
+            if(!error){
+              nav("/login")
+            }
+          }}>Register</button>
         </form>
 
         <p className="login-text">

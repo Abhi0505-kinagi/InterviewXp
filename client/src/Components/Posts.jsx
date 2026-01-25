@@ -5,6 +5,7 @@ import likeimg from "../assets/like_14263529.png";
 import likeimg2 from "../assets/like_11441338.png";
 import cmntimg from "../assets/message_5356248.png";
 import PeopleProfile from "./PeopleProfile";
+import Navbar from "./Navbar";
 /* -------------------- Card Component -------------------- */
 function Card({ exp,interviewId}) {
   const [liked, setLiked] = useState(false);
@@ -189,8 +190,17 @@ function Card({ exp,interviewId}) {
                 ))}
               </div>
               <p><span style={{color:"black",fontFamily:"Times"}}>Tips : </span><span style={{color:"#16601c",fontFamily:"Times"}}>{exp.tips}</span></p>
+              <p style={{color:"rgb(22, 10, 34)",fontFamily:"Times"}}>Round Descriptions:</p>
+              {Array.isArray(exp.rounds) && exp.rounds.map((round) => (
+                <div key={round._id} className="round-card">
+                  <h3 style={{color:"black",fontFamily:"Times",fontSize:"15px"}}>{round.roundName}</h3>
+                  <p  style={{color:"black",fontFamily:"Times",fontSize:"17px",marginLeft:"10px"}}>●Question: {round.questions} <p  style={{color:"black",fontFamily:"Times",fontSize:"12px",marginLeft:"10px"}}>Description: {round.description}</p></p>
+                 
+                </div>
+              ))}<br/>
               <h3 style={{color:"black", fontFamily:"Times"}}>Questions</h3>
-              <p style={{color:"black",font:"Times",fontWeight:"bolder"}}>{exp.askedqutns}</p>
+              <p style={{color:"black",font:"Times"}}>{exp.askedqutns}</p>
+              posted by
               <p style={{bottom:"5px",color:"#0f0a17",fontFamily:"Times"}}>▶▶{exp.userId?.name}</p><br/>
               <p style={{fontFamily:"Times",color:"black",fontWeight:"bolder"}}>AI Summarization:</p>
               <fieldset>
@@ -347,16 +357,7 @@ function Posts() {
 
   return (
     <>
-      <header>
-        <h1 style={{ fontSize: "30px" }}>InterviewXP</h1>
-        <nav>
-          <a href="/">Home</a>
-          <a href="/posts">Experiences</a>
-          <a href="/crtpost">Prepare</a>
-          <a href="/login">Login</a>
-        </nav>
-      </header>
-
+      <Navbar/>
       <div style={{ padding: "5px" }}>
         <h3>
           The <strong style={{ color: "green" }}>Community & Growth</strong>{" "}

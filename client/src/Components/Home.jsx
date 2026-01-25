@@ -1,19 +1,11 @@
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 function Home() {
   const nav=useNavigate();
   return (
     <>
-      <header>
-        <h1 style={{fontSize:"50px"}}>InterviewXP</h1>
-        <nav>
-          <a href="/">Home</a>
-          <a href="/posts">Experiences</a>
-          <a href="/crtpost">Prepare</a>
-          <a href="/login">Login</a>
-        </nav>
-      </header>
-
+      <Navbar/>
       <section className="hero">
         <div className="hero-text">
           <h2>

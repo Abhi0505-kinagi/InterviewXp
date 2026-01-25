@@ -7,25 +7,34 @@ function Login({ onLogin }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const nav=useNavigate();
+    const handleSubmit = async (e) => {
+      e.preventDefault();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Here you will call your backend API
-    // Example fetch:
-    /*
-    fetch("/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    })
-      .then(res => res.json())
-      .then(data => {
-        if(data.success) onLogin(data.user);
-        else setError(data.message);
-      })
-    */
-    console.log("Email:", email, "Password:", password);
-  };
+      try {
+        const res = await fetch("http://localhost:5000/api/users/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await res.json();
+        console.log(data.username);
+        if (res.ok && data.message === "User login successfully") {
+          localStorage.setItem("userId", data.userId);
+          localStorage.setItem("username", data.username);
+          if (onLogin) onLogin({ userId: data.userId, username: data.username });
+          nav("/");
+        } else {
+          setError(data.message || "Login failed");
+        }
+      } catch (err) {
+        console.error(err);
+        setError("Something went wrong");
+      }
+
+      console.log("Email:", email, "Password:", password);
+    };
+
 
   return (
     <div className="login-container">
