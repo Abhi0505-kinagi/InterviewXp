@@ -10,7 +10,7 @@ body {
 
 /* COVER */
 .profile-cover {
-  height: 100px;
+  height: 45px;
   background: linear-gradient(135deg, #0f172a, #27365c);
 }
 
@@ -168,4 +168,24 @@ body {
   .profile-stats {
     justify-content: center;
   }
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-box {
+  background: #0f172a;
+  padding: 25px;
+  border-radius: 14px;
+  width: 600px;
+  max-width: 90%;
+  color: white;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 }

@@ -264,28 +264,38 @@ app.put("/api/users/:id", async (req, res) => {
     }
 });
 
-update profile
+update profile*/
 app.put("/api/profile/update", async (req, res) => {
-    try {
-        const { userId, bio, profilePic } = req.body;
-        const profile = await UserProfile.findOneAndUpdate(
-            { userId },
-            { bio},
-            { new: true }
-        );
-        if (!profile) {
-            return res.status(404).json({ message: "Profile not found" });
-        }
-        res.json({
-            message: "Profile updated",
-            profile
-        });
-    } catch (err) {
-        res.status(500).json({ message: "Profile update failed" });
+  try {
+    const { userId, bio } = req.body;
+
+    if (!userId) {
+      return res.status(400).json({ message: "UserId required" });
     }
+
+    const profile = await UserProfile.findOneAndUpdate(
+      { userId },
+      { bio },
+      { new: true }
+    );
+
+    if (!profile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+
+    res.json({
+      success: true,
+      message: "Profile updated successfully",
+      profile
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Profile update failed" });
+  }
 });
 
- */
+
+ 
 app.post("/api/profile/create", async (req, res) => {
     try {
         const { userId, bio } = req.body;

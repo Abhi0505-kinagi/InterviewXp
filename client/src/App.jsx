@@ -25,6 +25,7 @@ function App() {
         <Route path="/cmntpage" element={<CommentPage/>} />
         <Route path="/userprofls/:username" element={<PeopleProfile/>} />
         <Route path="/prepare" element={<Prepare/>} />
+
       </Routes>
     </BrowserRouter>
   );

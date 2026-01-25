@@ -45,7 +45,6 @@ function PeopleProfile() {
       {/* COVER */}
       <Navbar/>
       <div className="p-cover"></div>
-    
       
       {/* MAIN */}
       <div className="p-container">

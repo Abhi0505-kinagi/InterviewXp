@@ -32,7 +32,7 @@ function Home() {
         <h2>Why Choose InterviewXP?</h2>
 
         <div className="feature-grid">
-          <div className="card">
+          <div className="card" sty>
             <h3>Real Interview Questions</h3>
             <p>Actual questions asked in technical, HR, and managerial rounds.</p>
           </div>

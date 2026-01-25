@@ -1,14 +1,18 @@
 import "./Posts.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import likeimg from "../assets/like_14263529.png";
+import likeimg from "../assets/like_13466143.png";
 import likeimg2 from "../assets/like_11441338.png";
 import cmntimg from "../assets/message_5356248.png";
 import PeopleProfile from "./PeopleProfile";
+import dislike from "../assets/dislike_13466043.png"
 import Navbar from "./Navbar";
 /* -------------------- Card Component -------------------- */
 function Card({ exp,interviewId}) {
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(exp.upvotes.includes(localStorage.getItem("userId")));
+  const [disliked, setDisliked] = useState(exp.downvotes.includes(localStorage.getItem("userId")));
+  const [upvotes, setUpvotes] = useState(exp.upvotes.length);
+  const [downvotes, setDownvotes] = useState(exp.downvotes.length);
   const nav=useNavigate();
   const [open, setOpen] = useState(false);
   const [selectedExp, setSelectedExp] = useState(null);
@@ -19,7 +23,7 @@ function Card({ exp,interviewId}) {
         if (!cmnttext.trim()) return;
         try {
           const res = await fetch(
-            `http://localhost:5000/api/interviews/${interviewId}/comment`,
+            `http://localhost:5000/api/interviews/${exp._id}/comment`,
             {
               method: "POST",
               headers: {
@@ -27,7 +31,7 @@ function Card({ exp,interviewId}) {
               },
               body: JSON.stringify({
                 cmntText: cmnttext,
-                userId: "696ca4df287aab11f81fb793" // TEMP user id
+                userId: localStorage.getItem("userId")
               }),
             }
           );
@@ -47,14 +51,61 @@ function Card({ exp,interviewId}) {
 
 
   useEffect(() => {
-  fetch(`http://localhost:5000/api/interviews/${interviewId}/comment`)
-    .then(res => res.json())
-    .then(data => setComments(data))
-    .catch(err =>{
-      console.log(err);
-    })
-    }, [interviewId]);
+      fetch(`http://localhost:5000/api/interviews/${interviewId}/comment`)
+        .then(res => res.json())
+        .then(data => setComments(data))
+        .catch(err =>{
+          console.log(err);
+        })
+        }, [interviewId]);
+    const userId=localStorage.getItem("userId");
+    const handleLike = async () => {
+      try {
+        console.log("dislike",exp._id,localStorage.getItem("userId"))
+        const res = await fetch(
+          `http://localhost:5000/api/interviews/${exp._id}/upvote`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userId }),
+          }
+        );
+        const data = await res.json();
 
+        if (res.ok) {
+          setLiked(!liked);
+          setDisliked(false);
+          setUpvotes(data.upvotes);
+          setDownvotes(data.downvotes);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    const handleDislike = async () => {
+      try {
+        console.log("dislike",exp._id,localStorage.getItem("userId"))
+        const res = await fetch(
+          `http://localhost:5000/api/interviews/${exp._id}/downvote`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userId }),
+          }
+        );
+
+        const data = await res.json();
+
+        if (res.ok) {
+          setDisliked(!disliked);
+          setLiked(false);
+          setUpvotes(data.upvotes);
+          setDownvotes(data.downvotes);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
   return (
     <>
@@ -114,17 +165,32 @@ function Card({ exp,interviewId}) {
           right: "24px" 
         }}
       >
+        {/* LIKE */}
         <button
-          onClick={() => setLiked(!liked)}
-          style={{ background: "transparent", border: "none", padding: 0 }}
+          onClick={handleLike}
+          style={{ background: "transparent", border: "none" }}
         >
           <img
             src={liked ? likeimg2 : likeimg}
             alt="Like"
-            style={{ height: "30px", width: "30px" }}
+            style={{ width: "30px" }}
           />
-          <span>{exp.upvotes.length}</span>
+          <span>{upvotes}</span>
         </button>
+
+{/* DISLIKE */}
+          <button
+            onClick={handleDislike}
+            style={{ background: "transparent", border: "none" }}
+          >
+            <img
+              src={disliked ? dislike : dislike}
+              alt="Dislike"
+              style={{ width: "30px" }}
+            />
+            <span>{downvotes}</span>
+          </button>
+
 
         <button
           style={{ background: "transparent", border: "none", padding: 0 }} onClick={()=>{
