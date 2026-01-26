@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import {useNavigate} from "react-router-dom";
 import "./Login.css";
-
+import { toast } from "react-toastify";
 function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const nav=useNavigate();
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -18,21 +17,20 @@ function Login({ onLogin }) {
         });
 
         const data = await res.json();
-        console.log(data.username);
         if (res.ok && data.message === "User login successfully") {
+          toast.success("Login successful. Welcome back!”")
           localStorage.setItem("userId", data.userId);
           localStorage.setItem("username", data.username);
           if (onLogin) onLogin({ userId: data.userId, username: data.username });
           nav("/");
         } else {
-          setError(data.message || "Login failed");
+          toast.error("Login Failed:"+data.message);
+          setEmail("");
+          setPassword("");
         }
       } catch (err) {
-        console.error(err);
-        setError("Something went wrong");
+        toast.error("Something went wrong. Please try again "+err);
       }
-
-      console.log("Email:", email, "Password:", password);
     };
 
 
@@ -40,7 +38,6 @@ function Login({ onLogin }) {
     <div className="login-container">
       <div className="login-box">
         <h2>Login</h2>
-        {error && <p className="error">{error}</p>}
         <form onSubmit={handleSubmit}>
           <label>Email</label>
           <input

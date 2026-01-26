@@ -1,4 +1,5 @@
 import "./Posts.css";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import likeimg from "../assets/like_13466143.png";
@@ -19,8 +20,16 @@ function Card({ exp,interviewId}) {
   const [cmnt,setcmnting]=useState(false);
   const [cmnttext,setcmnttext]=useState("");
   const [comments, setComments] = useState([]);
+  const currentUserId = localStorage.getItem("userId"); // Logged-in user ID
+  const username = exp.userId?.username; // Target user's username
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [followersCount, setFollowersCount] = useState(exp.userId?.followers?.length || 0);
   const postComment = async () => {
-        if (!cmnttext.trim()) return;
+        if (!cmnttext.trim()) {
+          toast.error("Invalid input. Please review and try again")
+          return;
+        }
+
         try {
           const res = await fetch(
             `http://localhost:5000/api/interviews/${exp._id}/comment`,
@@ -37,15 +46,22 @@ function Card({ exp,interviewId}) {
           );
           const data = await res.json();
           if (!res.ok) {
-            alert(data.message || "Failed to comment");
+            setTimeout(()=>{
+              toast.error("Failed to comment "+data.message);
+            },1000)
             return;
+          }
+          if(res.ok){
+            setTimeout(()=>{
+              toast.success("comment posted successfully")
+            },2000)
           }
           setComments(prev => [data.comment, ...prev]);
           setcmnttext("");
           setcmnting(false);
 
         } catch (err) {
-          console.error(err);
+          toast.error("Unable to complete the request."+err);
         }
       };
 
@@ -79,7 +95,7 @@ function Card({ exp,interviewId}) {
           setDownvotes(data.downvotes);
         }
       } catch (err) {
-        console.error(err);
+        toast.error("Unable to complete the request."+err);
       }
     };
     const handleDislike = async () => {
@@ -103,14 +119,72 @@ function Card({ exp,interviewId}) {
           setDownvotes(data.downvotes);
         }
       } catch (err) {
-        console.error(err);
+        toast.error("Unable to complete the request."+err);
       }
     };
+  useEffect(() => {
+    // Check if current user is already following
+    if (exp.userId?.followers?.includes(currentUserId)) {
+      setIsFollowing(true);
+    }
+  }, [exp.userId?.followers, currentUserId]);
+
+  const handleFollow = async () => {
+    try {
+      const endpoint = isFollowing ? "unfollow" : "follow";
+      const res = await fetch(`http://localhost:5000/api/profile/${exp.userId?.name}/${endpoint}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: currentUserId }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.message);
+
+      setIsFollowing(!isFollowing);
+      setFollowersCount(data.followersCount);
+      toast.success(data.message);
+    } catch (err) {
+      toast.error(err.message || "Something went wrong");
+    }
+  };
+  useEffect(() => {
+  const checkFollow = async () => {
+    const res = await fetch(
+      `http://localhost:5000/api/profile/${exp.userId?.name}/is-following/${currentUserId}`
+    );
+    const data = await res.json();
+    setIsFollowing(data.isFollowing);
+  };
+
+  if (exp.userId?.name && currentUserId) {
+    checkFollow();
+  }
+}, [exp.userId?.name, currentUserId]);
+
+
 
   return (
     <>
     <div className="card fade-in" style={{ position: "relative" }}>
-      <div style={{display:"flex", gap:"30%"}}><h3 style={{fontFamily:"Times",color:"#869DAD"}}>{(exp.userId?.name).toUpperCase()}</h3><button style={{width:"60px", height:"25px",fontFamily:"Times",backgroundColor:"transparent",borderRadius:"5px",margin:"5px",border:"1px solid white"}}>follow</button></div>
+      <div style={{display:"flex", gap:"30%"}}><h3 style={{fontFamily:"Times",color:"#869DAD"}}>{(exp.userId?.name).toUpperCase()}</h3>{currentUserId !== exp.userId?._id && <button
+        onClick={handleFollow}
+        style={{
+          width: "80px",
+          height: "30px",
+          fontFamily: "Times",
+          backgroundColor: isFollowing ? "#b5b0b0" : "transparent",
+          color: isFollowing ? "#05142e" : "#ffffff",
+          borderRadius: "5px",
+          margin: "5px",
+          border: "1px solid white",
+          cursor: "pointer",
+          transition: "0.2s",
+        }}
+      >
+        {isFollowing ? "Following" : "Follow"}
+      </button>}</div>
       <button style={{fontSize:"13px",backgroundColor:"transparent",border:"none",padding:0,color: "#10edf5",cursor: "pointer",textAlign: "left",width: "fit-content"}} onClick={()=>{
         nav(`/userprofls/${exp.userId?.name}`)
       }}>see profile</button>
@@ -291,7 +365,10 @@ function Card({ exp,interviewId}) {
             >
               
               <button style={{ float: "right",backgroundColor:"transparent",color:"#db0f2e",fontFamily:"Times",border:"2px",fontSize:"20px" }} onClick={() => setcmnting(false)}>❌</button>
-              <button  onClick={postComment} disabled={cmnttext.trim() === ""}
+              <button  onClick={()=>{
+                postComment();
+                toast.info("comment posting..");
+              }} disabled={cmnttext.trim() === ""}
               style={{
                 position: "absolute",     // position it inside the card
                 top: "5%",               // 40% from top of card

@@ -11,8 +11,10 @@ import Profile from "./Components/Profile"
 import CommentPage from "./Components/Commenting"
 import PeopleProfile from './Components/PeopleProfile';
 import Prepare from "./Components/Prepare"
+import ToastProvider from './Components/TostProvider';
 function App() {
   return (
+    <><ToastProvider />
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home/>} />
@@ -28,6 +30,7 @@ function App() {
 
       </Routes>
     </BrowserRouter>
+    </>
   );
 }
 

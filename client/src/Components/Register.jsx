@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Register.css";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 function generateAnonymousName() {
   const adjectives = ["Silent", "Curious", "Brave", "Wise", "Swift"];
@@ -24,12 +25,18 @@ function Register() {
   });
   const nav=useNavigate();
 
-  const [error, setError] = useState("");
-
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
+    });
+  };
+  const resetForm = () => {
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+      displayName: generateAnonymousName(), // regenerate
     });
   };
 
@@ -37,11 +44,9 @@ function Register() {
     e.preventDefault();
 
     if (!formData.name || !formData.email || !formData.password) {
-      setError("All fields are required");
+      toast.error("Please fill in all required fields")
       return;
     }
-
-    setError("");
 
     fetch("http://localhost:5000/api/users/register", {
       method: "POST",
@@ -51,21 +56,25 @@ function Register() {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          alert("Registered Successfully");
+          toast.success("Registration successfull, please logIn")
+          nav("/login");
         } else {
-          setError(data.message);
+        resetForm();
+        toast.error("Registration failed,"+data.message)
         }
       })
-      .catch(() => setError("Server error"));
+      .catch(() =>{
+        toast.error("An unexpected error occurred,please try again later");
+        resetForm();
+        }
+      );
   };
 
   return (
+    
     <div className="register-container">
       <div className="register-box">
         <h2>Create Account</h2>
-
-        {error && <p className="error">{error}</p>}
-
         <form onSubmit={handleSubmit}>
           <label>Name (private)</label>
           <input
@@ -101,11 +110,7 @@ function Register() {
             onChange={handleChange}
           />
 
-          <button type="submit" onClick={()=>{
-            if(!error){
-              nav("/login")
-            }
-          }}>Register</button>
+          <button type="submit">Register</button>
         </form>
 
         <p className="login-text">

@@ -10,7 +10,7 @@ body {
 
 /* COVER */
 .p-cover {
-  height: 45px;
+  height: 85px;
   background: linear-gradient(135deg, #0f172a, #27365c);
 }
 
@@ -143,7 +143,7 @@ body {
 }
 
 .peoplepost-card {
-  height: 200px;
+  height: 180px;
   background: #0f172a;
   border-radius: 14px;
   word-wrap: break-word;

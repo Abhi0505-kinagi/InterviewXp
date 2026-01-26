@@ -2,7 +2,12 @@ import "./Profile.css";
 import { useState,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import { toast } from "react-toastify";
 function Profile() {
+  const [showFollowers, setShowFollowers] = useState(false);
+  const [followersList, setFollowersList] = useState([]);
+  const [showFollowing, setShowFollowing] = useState(false);
+  const [followingList, setFollowingList] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [activeTab, setActiveTab] = useState("posts");
@@ -10,6 +15,7 @@ function Profile() {
   const [userposts,setuserposts]=useState([]);
   const nav=useNavigate();
   const [edit,setedit]=useState(false);
+  const userid=localStorage.getItem("userId");
   console.log("username",localStorage.getItem("username"));
   useEffect(() => {
   const username = localStorage.getItem("username");
@@ -18,11 +24,10 @@ function Profile() {
   fetch(`http://localhost:5000/api/profile/${username}`)
     .then(res => res.json())
     .then(data => {
-      console.log("userdata from backend:", data); // ✅ should print
       setmyprop(data);
     })
     .catch(err => {
-      console.error("Error fetching profile:", err);
+      toast.error("Error fetching profile:", err);
     });
 }, []);
   useEffect(() => {
@@ -38,7 +43,7 @@ function Profile() {
           setuserposts(data.interviews);
           setTotalPages(data.totalPages);
         })
-        .catch(err => console.error(err));
+        .catch(err => toast.error(err));
 
     }, [page]);
 
@@ -50,8 +55,6 @@ function Profile() {
           name: "",          // real name
           bio: "",           // bio
         });
-        const [error, setError] = useState("");
-      
         // Fetch current user info on mount
         useEffect(() => {
           if (!username) return;
@@ -64,7 +67,7 @@ function Profile() {
                 bio: data.bio || "",
               });
             })
-            .catch(err => console.error(err));
+            .catch(err => toast.error(err));
         }, [username]);
       
         const handleupdate = (e) => {
@@ -79,10 +82,9 @@ function Profile() {
       
           // Basic validation
           if (!formData.name) {
-            setError("Name and anonymous name cannot be empty");
+            toast.error("Name and anonymous name cannot be empty");
             return;
           }
-          setError("");
       
           // Update request
           fetch("http://localhost:5000/api/profile/update", {
@@ -97,15 +99,36 @@ function Profile() {
             .then(res => res.json())
             .then(data => {
               if (data.profile) {
-                alert("Profile updated successfully!");
+                toast.success("Profile updated successfully!");
                 nav("/profile"); // go back to profile page
               } else {
-                setError(data.message || "Update failed");
+                toast.error(data.message || "Update failed");
               }
             })
-            .catch(() => setError("Server error"));
+            .catch(() => toast.error("Unexpected Server error"));
         };
-
+        const fetchFollowers = async () => {
+              try {
+                const res = await fetch(
+                  `http://localhost:5000/api/profile/${userid}/followers`
+                );
+                const data = await res.json();
+                setFollowersList(data.followers);
+              } catch (err) {
+                toast.error("Failed to load followers");
+              }
+            };
+            const fetchFollowing = async () => {
+              try {
+                const res = await fetch(
+                  `http://localhost:5000/api/profile/${userid}/following`
+                );
+                const data = await res.json();
+                setFollowingList(data.following);
+              } catch (err) {
+                toast.error("Failed to load followers");
+              }
+            };
   return (<>
     <div className="profile-page">
       {/* COVER */}
@@ -126,12 +149,15 @@ function Profile() {
             <p className="bio">{myprop.bio}</p>
 
             <div className="profile-stats">
-              <div>
-                <span>{myprop.followersCount}</span>
+              <div><button style={{backgroundColor:"transparent",border:"none",cursor:"pointer"}}   onClick={() => { setShowFollowers(true); fetchFollowers();}}>
+               <span>{myprop.followersCount}</span>
+              </button>
                 <p>Followers</p>
               </div>
               <div>
+                <button style={{backgroundColor:"transparent",border:"none",cursor:"pointer"}} onClick={() => { setShowFollowing(true); fetchFollowing();}}>
                 <span>{myprop.followingCount}</span>
+              </button>
                 <p>Following</p>
               </div>
             </div>
@@ -142,10 +168,14 @@ function Profile() {
                 setedit(true);
               }}>Edit Profile</button>
               <button className="edit-btn" onClick={()=>{
+                toast.info("user logged Out");
                 localStorage.removeItem("userId");
                 localStorage.removeItem("username")
                 window.location.href = "/";
               }}>LogOut</button>
+              <button className="edit-btn" onClick={()=>{
+                nav("/crtpost");
+              }}>create Post</button>
             </div>
           </div>
         </div>
@@ -234,8 +264,6 @@ function Profile() {
         >
           <h2 style={{fontFamily:"Times",padding:"5px"}}>Update Profile</h2>
 
-          {error && <p className="error">{error}</p>}
-
           <form onSubmit={handlesub}>
             <label style={{fontFamily:"Times"}}>Real Name: </label>
             <input style={{backgroundColor:"rgba(41, 39, 39, 0.6)",padding:"5px",border:"1px solid white",borderRadius:"5px",width:"80%"}}
@@ -254,16 +282,106 @@ function Profile() {
             />
 
             <div style={{ display: "flex", gap: "10px", marginTop: "15px" }}>
-              <button type="submit" style={{fontFamily:"Times",fontSize:"16px",backgroundColor:"transparent",border:"none",color:"rgb(23, 220, 161)",cursor:"pointer"}}>Update</button>
-              <button type="button" onClick={() => setedit(false)} style={{fontFamily:"Times",fontSize:"16px",backgroundColor:"transparent",border:"none",color:"red",cursor:"pointer"}}>
+              <button type="submit" style={{fontFamily:"Times",fontSize:"16px",backgroundColor:"transparent",border:"none",color:"rgb(23, 220, 161)",cursor:"pointer"}} onClick={()=>{
+                toast.success("profile update successfull");
+              }}>Update</button>
+              <button type="button" onClick={() => {
+                setedit(false);
+                toast.error("Unable to complete the request")}} style={{fontFamily:"Times",fontSize:"16px",backgroundColor:"transparent",border:"none",color:"red",cursor:"pointer"}}>
                 Cancel
               </button>
             </div>
           </form>
         </div>
       </div>
+      
     )}
+      {showFollowers && (
+      <div className="modal-overlay" onClick={() => setShowFollowers(false)}>
+        <div
+          className="modal-box"
+          onClick={(e) => e.stopPropagation()}
+          style={{ width: "350px" }}
+        >
+          <h3 style={{ fontFamily: "Times" }}>Followers</h3>
 
+          {followersList.length === 0 ? (
+            <p>No followers yet</p>
+          ) : (
+            followersList.map((user) => (
+              <div
+                key={user._id}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  padding: "8px",
+                  borderBottom: "1px solid #444"
+                }}
+              >
+                <span>@{user.username}</span>
+                <span style={{ opacity: 0.7 }}>{user.name}</span>
+              </div>
+            ))
+          )}
+
+          <button
+            style={{
+              marginTop: "10px",
+              background: "transparent",
+              border: "1px solid white",
+              padding: "5px 10px",
+              cursor: "pointer"
+            }}
+            onClick={() => setShowFollowers(false)}
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    )}
+    {showFollowing && (
+      <div className="modal-overlay" onClick={() => setShowFollowing(false)}>
+        <div
+          className="modal-box"
+          onClick={(e) => e.stopPropagation()}
+          style={{ width: "350px" }}
+        >
+          <h3 style={{ fontFamily: "Times" }}>Following</h3>
+
+          {followingList.length === 0 ? (
+            <p>No followers yet</p>
+          ) : (
+            followingList.map((user) => (
+              <div
+                key={user._id}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  padding: "8px",
+                  borderBottom: "1px solid #444"
+                }}
+              >
+                <span>@{user.username}</span>
+                <span style={{ opacity: 0.7 }}>{user.name}</span>
+              </div>
+            ))
+          )}
+
+          <button
+            style={{
+              marginTop: "10px",
+              background: "transparent",
+              border: "1px solid white",
+              padding: "5px 10px",
+              cursor: "pointer"
+            }}
+            onClick={() => setShowFollowing(false)}
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    )}
     </>
   );
 }

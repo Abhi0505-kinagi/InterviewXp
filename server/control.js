@@ -190,21 +190,45 @@ app.post("/api/users/login", async (req, res) => {
 });
 
 app.post("/api/users/register", async (req, res) => {
-    try {
-        const data = req.body;
-        if (!data.name || !data.password) {
-            return res.status(400).json({ message: "Please enter valid data" });
-        }
-        const existingUser = await User.findOne({ name: data.name });
-        if (existingUser) {
-            return res.status(400).json({ message: "User already exists" });
-        }
-        const user = await User.create(data);
-        res.status(201).json({ message: "User registered successfully", user });
-    } catch (err) {
-        console.error("Error in registering User", err);
-        res.status(500).json({ error: "An error occurred while registering user" });
+  try {
+    const { name, email, password, displayName } = req.body;
+
+    // 1️⃣ Validate required fields
+    if (!name || !email || !password) {
+      return res.status(400).json({
+        message: "Name, email, and password are required",
+      });
     }
+
+    // 2️⃣ Check existing user by email (recommended)
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({
+        message: "User already exists with this email",
+      });
+    }
+
+    // 3️⃣ Create user safely
+    const user = await User.create({
+      name,
+      email,
+      password,
+      displayName,
+    });
+
+    res.status(201).json({
+      success: true,
+      message: "User registered successfully",
+      user,
+    });
+
+  } catch (err) {
+    console.error("Error in registering user:", err);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
 });
 
 //post ur comments on the posts
@@ -436,6 +460,69 @@ app.post("/api/profile/:username/unfollow", async (req, res) => {
         res.status(500).json({ message: "Error while unfollowing user" });
     }
 });
+// check follow status
+app.get("/api/profile/:username/is-following/:userId", async (req, res) => {
+  try {
+    const { username, userId } = req.params;
+
+    const profile = await UserProfile.findOne({ username });
+    if (!profile) return res.status(404).json({ isFollowing: false });
+
+    const isFollowing = profile.followers.some(id => id.equals(userId));
+    res.json({ isFollowing });
+  } catch (err) {
+    res.status(500).json({ isFollowing: false });
+  }
+});
+app.get("/api/profile/:userId/followers", async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: "Invalid userId" });
+    }
+
+    const profile = await UserProfile.findOne({ userId })
+      .populate("followers", "name username"); // populate user info
+
+    if (!profile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+
+    res.status(200).json({
+      count: profile.followers.length,
+      followers: profile.followers
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error fetching followers" });
+  }
+});
+app.get("/api/profile/:userId/following", async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: "Invalid userId" });
+    }
+
+    const profile = await UserProfile.findOne({ userId })
+      .populate("following", "name username");
+
+    if (!profile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+
+    res.status(200).json({
+      count: profile.following.length,
+      following: profile.following
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error fetching following" });
+  }
+});
+
 
 
 app.listen(5000, () => {

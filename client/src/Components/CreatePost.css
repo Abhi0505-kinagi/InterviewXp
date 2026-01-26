@@ -3,30 +3,13 @@
   box-sizing: border-box;
 }
 
-/* HEADER */
-.xp-header {
-  background: #020617;
-  padding: 14px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
-.xp-header h1 {
-  color: #2e9eda;
-  margin: 0;
-}
 
-.xp-header nav a {
-  color: #cbd5f5;
-  margin-left: 20px;
-  text-decoration: none;
-  font-size: 16px;
-}
+
 
 /* PAGE BACKGROUND (SCROLLS NATURALLY) */
 .xp-page {
-  min-height: 100vh;
+  min-height:10px;
   background: #0f172a;
   padding: 30px 20px;
 }

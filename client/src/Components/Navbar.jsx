@@ -10,7 +10,6 @@ function Navbar(){
           <a href="/">Home</a>
           <a href="/posts">Experiences</a>
           <a href="/prepare">Prepare</a>
-          {console.log(localStorage.getItem("username"))}
           {localStorage.getItem("username") ? (
             <button 
               onClick={() => {
