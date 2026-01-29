@@ -1,0 +1,1931 @@
+[
+  {
+    "company": "Adobe",
+    "role": "Software Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding Round 1",
+        "questions": "Median of Two Sorted Arrays",
+        "description": "Hard difficulty. Expected O(log (m+n)) time complexity.",
+        "round_id": "adb_01"
+      },
+      {
+        "roundName": "Coding Round 2",
+        "questions": "Trapping Rain Water",
+        "description": "Dynamic Programming / Two Pointer approach required.",
+        "round_id": "adb_02"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "Focus heavily on DP and Array manipulation.",
+    "tags": ["Adobe", "Arrays", "DP"],
+    "status": "Public",
+    "askedqutns": "Median of Two Sorted Arrays, Trapping Rain Water..."
+  },
+  {
+    "company": "Airbnb",
+    "role": "Backend Engineer",
+    "experienceLevel": "Senior",
+    "rounds": [
+      {
+        "roundName": "System Design",
+        "questions": "Design a URL Shortener",
+        "description": "Discussed database schema, hashing algorithms (MD5/SHA256), and collision handling.",
+        "round_id": "abnb_01"
+      },
+      {
+        "roundName": "Coding",
+        "questions": "Alien Dictionary",
+        "description": "Topological Sort on a graph of characters.",
+        "round_id": "abnb_02"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Rejected",
+    "tips": "Practice graph traversals and large-scale system design components.",
+    "tags": ["Airbnb", "SystemDesign", "Graphs"],
+    "status": "Public",
+    "askedqutns": "Design URL Shortener, Alien Dictionary..."
+  },
+  {
+    "company": "Google",
+    "role": "L4 Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "DSA",
+        "questions": "Course Schedule II",
+        "description": "Detect cycle in a directed graph using DFS.",
+        "round_id": "goog_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Clarify edge cases before jumping into code.",
+    "tags": ["Google", "Graphs", "DFS"],
+    "status": "Public",
+    "askedqutns": "Course Schedule II, Graph Cycle Detection..."
+  },
+  {
+    "company": "Affirm",
+    "role": "Full Stack Developer",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Technical Round",
+        "questions": "Insert Delete GetRandom O(1)",
+        "description": "Design a data structure that supports these operations in constant time.",
+        "round_id": "aff_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Know your HashMaps and Arrays thoroughly.",
+    "tags": ["Affirm", "HashMap", "Design"],
+    "status": "Public",
+    "askedqutns": "Insert Delete GetRandom O(1)..."
+  },
+  {
+    "company": "Amazon",
+    "role": "SDE-1",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Online Assessment",
+        "questions": "Reorder Data in Log Files",
+        "description": "String manipulation and custom sorting logic.",
+        "round_id": "amz_01"
+      }
+    ],
+    "difficulty": "Easy",
+    "result": "Selected",
+    "tips": "Read the problem statement very carefully for sorting rules.",
+    "tags": ["Amazon", "Sorting", "Strings"],
+    "status": "Public",
+    "askedqutns": "Reorder Data in Log Files..."
+  },
+  {
+    "company": "Microsoft",
+    "role": "Software Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "DSA Round",
+        "questions": "Lowest Common Ancestor of a Binary Tree",
+        "description": "Recursive approach on a binary tree.",
+        "round_id": "ms_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Tree recursion patterns are very common here.",
+    "tags": ["Microsoft", "Trees", "Recursion"],
+    "status": "Public",
+    "askedqutns": "LCA of Binary Tree..."
+  },
+  {
+    "company": "Uber",
+    "role": "Backend Engineer",
+    "experienceLevel": "Senior",
+    "rounds": [
+      {
+        "roundName": "System Design",
+        "questions": "Design a Rate Limiter",
+        "description": "Discussed Token Bucket vs Leaky Bucket.",
+        "round_id": "uber_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "Scalability and distributed cache (Redis) knowledge is key.",
+    "tags": ["Uber", "SystemDesign", "DistributedSystems"],
+    "status": "Public",
+    "askedqutns": "Design Rate Limiter..."
+  },
+  {
+    "company": "Facebook",
+    "role": "Frontend Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Flatten Nested List Iterator",
+        "description": "Implement an iterator to flatten a nested list of integers.",
+        "round_id": "fb_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Understand iterators and stack-based approaches.",
+    "tags": ["Facebook", "Stack", "Design"],
+    "status": "Public",
+    "askedqutns": "Flatten Nested List Iterator..."
+  },
+  {
+    "company": "Netflix",
+    "role": "Senior Engineer",
+    "experienceLevel": "Senior",
+    "rounds": [
+      {
+        "roundName": "System Design",
+        "questions": "Design a Video Streaming Service",
+        "description": "Focus on CDN, latency, and adaptive bitrate streaming.",
+        "round_id": "nflx_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "Deep understanding of networking and storage is required.",
+    "tags": ["Netflix", "SystemDesign", "Video"],
+    "status": "Public",
+    "askedqutns": "Design Youtube/Netflix..."
+  },
+  {
+    "company": "Apple",
+    "role": "iOS Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "DSA",
+        "questions": "Two Sum",
+        "description": "Classic array problem using HashMap for O(n).",
+        "round_id": "apl_01"
+      }
+    ],
+    "difficulty": "Easy",
+    "result": "Selected",
+    "tips": "Don't underestimate easy problems; optimize for space/time.",
+    "tags": ["Apple", "Arrays", "HashMap"],
+    "status": "Public",
+    "askedqutns": "Two Sum..."
+  },
+  {
+    "company": "LinkedIn",
+    "role": "Backend Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Max Points on a Line",
+        "description": "Geometry and HashMap problem.",
+        "round_id": "li_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Rejected",
+    "tips": "Be careful with floating point precision.",
+    "tags": ["LinkedIn", "Math", "Geometry"],
+    "status": "Public",
+    "askedqutns": "Max Points on a Line..."
+  },
+  {
+    "company": "Twitter",
+    "role": "SDE-2",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "System Design",
+        "questions": "Design a Tweet Search Service",
+        "description": "Inverted index and real-time ingestion discussion.",
+        "round_id": "tw_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Understand search engine basics (ElasticSearch concepts).",
+    "tags": ["Twitter", "SystemDesign", "Search"],
+    "status": "Public",
+    "askedqutns": "Design Twitter Search..."
+  },
+  {
+    "company": "Salesforce",
+    "role": "Software Engineer",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Valid Parentheses",
+        "description": "Stack based solution.",
+        "round_id": "sf_01"
+      }
+    ],
+    "difficulty": "Easy",
+    "result": "Selected",
+    "tips": "Standard stack problem, write clean code.",
+    "tags": ["Salesforce", "Stack", "Strings"],
+    "status": "Public",
+    "askedqutns": "Valid Parentheses..."
+  },
+  {
+    "company": "Oracle",
+    "role": "Server Technology Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "DSA",
+        "questions": "LRU Cache",
+        "description": "Doubly linked list + HashMap implementation.",
+        "round_id": "orc_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "This is a very frequent question at Oracle.",
+    "tags": ["Oracle", "Design", "LinkedList"],
+    "status": "Public",
+    "askedqutns": "LRU Cache..."
+  },
+  {
+    "company": "Atlassian",
+    "role": "Full Stack",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "System Design",
+        "questions": "Design a Rate Limiter",
+        "description": "Middleware design for API limits.",
+        "round_id": "atl_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Discuss different algorithms like Sliding Window Log.",
+    "tags": ["Atlassian", "SystemDesign", "API"],
+    "status": "Public",
+    "askedqutns": "Design Rate Limiter..."
+  },
+  {
+    "company": "DoorDash",
+    "role": "Backend Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Employee Free Time",
+        "description": "Interval merging problem.",
+        "round_id": "dd_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "Interval problems are their favorite.",
+    "tags": ["DoorDash", "Intervals", "Sorting"],
+    "status": "Public",
+    "askedqutns": "Employee Free Time..."
+  },
+  {
+    "company": "Snapchat",
+    "role": "Android Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Word Ladder",
+        "description": "BFS to find shortest transformation path.",
+        "round_id": "snap_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Rejected",
+    "tips": "Graph BFS optimization is needed.",
+    "tags": ["Snapchat", "Graphs", "BFS"],
+    "status": "Public",
+    "askedqutns": "Word Ladder..."
+  },
+  {
+    "company": "Pinterest",
+    "role": "Data Engineer",
+    "experienceLevel": "Senior",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Serialize and Deserialize Binary Tree",
+        "description": "Tree traversal and string manipulation.",
+        "round_id": "pin_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "Understand BFS vs DFS for serialization.",
+    "tags": ["Pinterest", "Trees", "Design"],
+    "status": "Public",
+    "askedqutns": "Serialize and Deserialize Binary Tree..."
+  },
+  {
+    "company": "Dropbox",
+    "role": "SDE",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Game of Life",
+        "description": "Matrix manipulation in-place.",
+        "round_id": "dbx_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Solve it without extra space (in-place).",
+    "tags": ["Dropbox", "Array", "Matrix"],
+    "status": "Public",
+    "askedqutns": "Game of Life..."
+  },
+  {
+    "company": "Zoom",
+    "role": "Software Engineer",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Group Anagrams",
+        "description": "String sorting and HashMap grouping.",
+        "round_id": "zm_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Optimizing key generation for the HashMap is crucial.",
+    "tags": ["Zoom", "Strings", "HashMap"],
+    "status": "Public",
+    "askedqutns": "Group Anagrams..."
+  }
+]
+
+[
+  {
+    "company": "Flipkart",
+    "role": "SDE-1",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Machine Coding",
+        "questions": "Design a Ride Sharing Application",
+        "description": "Implement features like add_user, add_vehicle, offer_ride, select_ride. Strict 90 min limit.",
+        "round_id": "fk_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "Speed and clean object-oriented design are crucial for the machine coding round.",
+    "tags": ["Flipkart", "MachineCoding", "LLD"],
+    "status": "Public",
+    "askedqutns": "Design Ride Sharing App (like Uber/Ola)..."
+  },
+  {
+    "company": "Goldman Sachs",
+    "role": "Analyst",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Trapping Rain Water",
+        "description": "Asked to optimize space complexity to O(1).",
+        "round_id": "gs_01"
+      },
+      {
+        "roundName": "Coding",
+        "questions": "Run Length Encoding",
+        "description": "Standard string compression problem.",
+        "round_id": "gs_02"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "They ask a lot of dynamic programming and math-based puzzles.",
+    "tags": ["GoldmanSachs", "DP", "Strings"],
+    "status": "Public",
+    "askedqutns": "Trapping Rain Water, Run Length Encoding..."
+  },
+  {
+    "company": "Walmart",
+    "role": "Software Engineer II",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "DSA",
+        "questions": "Spiral Matrix",
+        "description": "Traverse a 2D matrix in spiral order.",
+        "round_id": "wal_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Focus on array index manipulation and edge cases.",
+    "tags": ["Walmart", "Arrays", "Matrix"],
+    "status": "Public",
+    "askedqutns": "Spiral Matrix..."
+  },
+  {
+    "company": "PhonePe",
+    "role": "Backend Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Problem Solving",
+        "questions": "Minimum Platforms Required",
+        "description": "Greedy algorithm using sorting arrival and departure times.",
+        "round_id": "pe_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Rejected",
+    "tips": "Greedy algorithms are a favorite here.",
+    "tags": ["PhonePe", "Greedy", "Sorting"],
+    "status": "Public",
+    "askedqutns": "Minimum Platforms for Railway Station..."
+  },
+  {
+    "company": "Visa",
+    "role": "Sr. Software Engineer",
+    "experienceLevel": "Senior",
+    "rounds": [
+      {
+        "roundName": "System Design",
+        "questions": "Design a Payment Gateway",
+        "description": "Focus on ACID properties, idempotency, and security.",
+        "round_id": "visa_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "Idempotency is the most important concept for payment interviews.",
+    "tags": ["Visa", "SystemDesign", "Payments"],
+    "status": "Public",
+    "askedqutns": "Design Payment Gateway..."
+  },
+  {
+    "company": "Paytm",
+    "role": "SDE-2",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Reverse a Linked List in Groups of K",
+        "description": "Pointer manipulation challenge.",
+        "round_id": "pay_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Be comfortable with complex pointer handling.",
+    "tags": ["Paytm", "LinkedList", "Recursion"],
+    "status": "Public",
+    "askedqutns": "Reverse Linked List in K-Groups..."
+  },
+  {
+    "company": "MakeMyTrip",
+    "role": "Backend Developer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "DSA",
+        "questions": "Search in Rotated Sorted Array",
+        "description": "Modified Binary Search.",
+        "round_id": "mmt_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Binary search variations are very common.",
+    "tags": ["MakeMyTrip", "BinarySearch", "Arrays"],
+    "status": "Public",
+    "askedqutns": "Search in Rotated Sorted Array..."
+  },
+  {
+    "company": "Cisco",
+    "role": "Software Engineer",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Technical",
+        "questions": "Count Set Bits in an Integer",
+        "description": "Brian Kernighan’s Algorithm.",
+        "round_id": "csc_01"
+      }
+    ],
+    "difficulty": "Easy",
+    "result": "Selected",
+    "tips": "Brush up on Bit Manipulation and Networking basics.",
+    "tags": ["Cisco", "BitManipulation", "Networking"],
+    "status": "Public",
+    "askedqutns": "Count Set Bits..."
+  },
+  {
+    "company": "Samsung",
+    "role": "R&D Engineer",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Advanced Coding",
+        "questions": "Burst Balloons",
+        "description": "Advanced Dynamic Programming matrix chain multiplication variation.",
+        "round_id": "sam_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Rejected",
+    "tips": "Samsung R&D has a specific 3-hour coding test often involving backtracking or DP.",
+    "tags": ["Samsung", "DP", "Backtracking"],
+    "status": "Public",
+    "askedqutns": "Burst Balloons..."
+  },
+  {
+    "company": "Juspay",
+    "role": "SDE-1",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Hackathon",
+        "questions": "Maximum Weight Node in Graph",
+        "description": "Part of their 'Tree of Space' locking problem challenge.",
+        "round_id": "jus_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "Juspay focuses heavily on Graph algorithms and Tree locking mechanics.",
+    "tags": ["Juspay", "Graphs", "Trees"],
+    "status": "Public",
+    "askedqutns": "Tree of Space, Graph Weight..."
+  },
+  {
+    "company": "Morgan Stanley",
+    "role": "Technology Analyst",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Meeting Rooms II",
+        "description": "Find minimum conference rooms required (Heap/Sorting).",
+        "round_id": "ms_tech_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Java collections framework knowledge is tested thoroughly.",
+    "tags": ["MorganStanley", "Heaps", "Sorting"],
+    "status": "Public",
+    "askedqutns": "Meeting Rooms II..."
+  },
+  {
+    "company": "Intuit",
+    "role": "Software Engineer 2",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "System Design",
+        "questions": "Design BookMyShow",
+        "description": "Concurrency handling for seat booking.",
+        "round_id": "int_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "Database locking strategies (Optimistic vs Pessimistic) are key.",
+    "tags": ["Intuit", "SystemDesign", "Concurrency"],
+    "status": "Public",
+    "askedqutns": "Design Movie Ticket Booking..."
+  },
+  {
+    "company": "Expedia",
+    "role": "SDE II",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Coin Change",
+        "description": "Find minimum number of coins to make amount (Unbounded Knapsack).",
+        "round_id": "exp_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Classic DP problems are frequently asked.",
+    "tags": ["Expedia", "DP", "Knapsack"],
+    "status": "Public",
+    "askedqutns": "Coin Change..."
+  },
+  {
+    "company": "Zoho",
+    "role": "Software Developer",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Advanced Programming",
+        "questions": "Print Snake Pattern",
+        "description": "Print a matrix in a specific snake-like pattern.",
+        "round_id": "zoho_01"
+      },
+      {
+        "roundName": "Application Development",
+        "questions": "Design a Railway Reservation System",
+        "description": "Console based app with classes for Train, Passenger, Ticket.",
+        "round_id": "zoho_02"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "Zoho loves complex logic implementation without using built-in high-level methods.",
+    "tags": ["Zoho", "LLD", "Pattern"],
+    "status": "Public",
+    "askedqutns": "Snake Pattern, Railway Reservation Console App..."
+  },
+  {
+    "company": "Nvidia",
+    "role": "System Software Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Technical",
+        "questions": "Reverse Bits",
+        "description": "Low level bit manipulation.",
+        "round_id": "nvd_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Strong C/C++ pointers and memory management concepts needed.",
+    "tags": ["Nvidia", "BitManipulation", "Systems"],
+    "status": "Public",
+    "askedqutns": "Reverse Bits, Memory Management..."
+  },
+  {
+    "company": "PayPal",
+    "role": "SDE-2",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Longest Substring Without Repeating Characters",
+        "description": "Sliding window optimization.",
+        "round_id": "pp_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Sliding window is a must-know pattern.",
+    "tags": ["PayPal", "Strings", "SlidingWindow"],
+    "status": "Public",
+    "askedqutns": "Longest Substring Without Repeating Characters..."
+  },
+  {
+    "company": "Bloomberg",
+    "role": "Software Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Design Underground System",
+        "description": "HashMap tracking check-ins and calculating averages.",
+        "round_id": "bb_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "They like object-oriented design questions mixed with coding.",
+    "tags": ["Bloomberg", "Design", "HashMap"],
+    "status": "Public",
+    "askedqutns": "Design Underground System..."
+  },
+  {
+    "company": "Salesforce",
+    "role": "MTS",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Merge Intervals",
+        "description": "Sorting and merging overlapping intervals.",
+        "round_id": "sf_02"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Standard interval problems.",
+    "tags": ["Salesforce", "Intervals", "Sorting"],
+    "status": "Public",
+    "askedqutns": "Merge Intervals..."
+  },
+  {
+    "company": "ServiceNow",
+    "role": "Software Engineer",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "DSA",
+        "questions": "Valid Anagram",
+        "description": "Frequency array or hashmap approach.",
+        "round_id": "snow_01"
+      }
+    ],
+    "difficulty": "Easy",
+    "result": "Selected",
+    "tips": "Focus on string manipulation basics.",
+    "tags": ["ServiceNow", "Strings", "HashMap"],
+    "status": "Public",
+    "askedqutns": "Valid Anagram..."
+  },
+  {
+    "company": "Zomato",
+    "role": "SDE-1",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Low Level Design",
+        "questions": "Design Parking Lot",
+        "description": "Class design for Vehicle, Spot, Ticket, ParkingStrategy.",
+        "round_id": "zom_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Clean code and extensibility are checked in LLD.",
+    "tags": ["Zomato", "LLD", "Design"],
+    "status": "Public",
+    "askedqutns": "Design Parking Lot..."
+  },
+  {
+    "company": "Swiggy",
+    "role": "SDE-2",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Machine Coding",
+        "questions": "Design Splitwise",
+        "description": "Simplify debts feature was the main challenge.",
+        "round_id": "swig_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "Handle graph simplification for debt minimization.",
+    "tags": ["Swiggy", "Graph", "LLD"],
+    "status": "Public",
+    "askedqutns": "Design Splitwise..."
+  },
+  {
+    "company": "Arcesium",
+    "role": "Software Engineer",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Find All Anagrams in a String",
+        "description": "Sliding window with frequency array.",
+        "round_id": "arc_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Rejected",
+    "tips": "Expect medium-hard string problems.",
+    "tags": ["Arcesium", "Strings", "SlidingWindow"],
+    "status": "Public",
+    "askedqutns": "Find All Anagrams..."
+  },
+  {
+    "company": "DE Shaw",
+    "role": "QAE",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Best Time to Buy and Sell Stock III",
+        "description": "At most two transactions allowed (DP).",
+        "round_id": "des_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "Dynamic programming is a staple here.",
+    "tags": ["DEShaw", "DP", "Arrays"],
+    "status": "Public",
+    "askedqutns": "Buy and Sell Stock III..."
+  },
+  {
+    "company": "Tower Research",
+    "role": "SDE",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Sliding Window Maximum",
+        "description": "Using Deque (Monotonic Queue) for O(n).",
+        "round_id": "twr_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "Efficiency is paramount; O(n) or nothing.",
+    "tags": ["TowerResearch", "Deque", "SlidingWindow"],
+    "status": "Public",
+    "askedqutns": "Sliding Window Maximum..."
+  },
+  {
+    "company": "Sprinklr",
+    "role": "Product Engineer",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Minimum Window Substring",
+        "description": "Hard sliding window problem.",
+        "round_id": "spr_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "Be prepared for hard LeetCode questions.",
+    "tags": ["Sprinklr", "Strings", "SlidingWindow"],
+    "status": "Public",
+    "askedqutns": "Minimum Window Substring..."
+  },
+  {
+    "company": "Media.net",
+    "role": "Site Reliability Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Kth Largest Element in an Array",
+        "description": "QuickSelect algorithm or Min-Heap.",
+        "round_id": "med_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Know Internal implementation of sorting.",
+    "tags": ["Media.net", "Heaps", "Sorting"],
+    "status": "Public",
+    "askedqutns": "Kth Largest Element..."
+  },
+  {
+    "company": "Qualcomm",
+    "role": "Engineer",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Detect Loop in Linked List",
+        "description": "Floyd’s Cycle Finding Algorithm.",
+        "round_id": "qcom_01"
+      }
+    ],
+    "difficulty": "Easy",
+    "result": "Selected",
+    "tips": "Embedded concepts and bitwise ops are also asked.",
+    "tags": ["Qualcomm", "LinkedList", "Pointers"],
+    "status": "Public",
+    "askedqutns": "Detect Loop in LL..."
+  },
+  {
+    "company": "IBM",
+    "role": "Back End Developer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Fizz Buzz",
+        "description": "Basic modular arithmetic.",
+        "round_id": "ibm_01"
+      }
+    ],
+    "difficulty": "Easy",
+    "result": "Selected",
+    "tips": "They focus more on your resume and projects than hard DSA.",
+    "tags": ["IBM", "Math", "Basic"],
+    "status": "Public",
+    "askedqutns": "Fizz Buzz, String Reversal..."
+  },
+  {
+    "company": "Citrix",
+    "role": "Software Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "DSA",
+        "questions": "Product of Array Except Self",
+        "description": "Prefix and Suffix product arrays (No division allowed).",
+        "round_id": "ctx_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Corner cases like zeros in the array are important.",
+    "tags": ["Citrix", "Arrays", "Math"],
+    "status": "Public",
+    "askedqutns": "Product of Array Except Self..."
+  },
+  {
+    "company": "Sap Labs",
+    "role": "Developer Associate",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Check if Linked List is Palindrome",
+        "description": "Stack or reverse half list method.",
+        "round_id": "sap_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Standard linked list problems.",
+    "tags": ["SAP", "LinkedList", "Stack"],
+    "status": "Public",
+    "askedqutns": "Palindrome Linked List..."
+  },
+  {
+    "company": "Grab",
+    "role": "Backend",
+    "experienceLevel": "Senior",
+    "rounds": [
+      {
+        "roundName": "System Design",
+        "questions": "Design Distributed Key-Value Store",
+        "description": "Consistent Hashing, Gossip Protocol, Replication.",
+        "round_id": "grab_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "Read Dynamo paper or Cassandra architecture.",
+    "tags": ["Grab", "SystemDesign", "DistributedSystems"],
+    "status": "Public",
+    "askedqutns": "Design Key-Value Store..."
+  },
+  {
+    "company": "Gojek",
+    "role": "Product Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Construct Binary Tree from Preorder and Inorder Traversal",
+        "description": "Recursive solution using index mapping.",
+        "round_id": "goj_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Tree construction problems are common.",
+    "tags": ["Gojek", "Trees", "Recursion"],
+    "status": "Public",
+    "askedqutns": "Construct Binary Tree..."
+  },
+  {
+    "company": "ByteDance",
+    "role": "Software Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Maximal Square",
+        "description": "DP problem to find largest square of 1s in matrix.",
+        "round_id": "bd_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Rejected",
+    "tips": "Dynamic Programming on matrices is a pattern here.",
+    "tags": ["ByteDance", "DP", "Matrix"],
+    "status": "Public",
+    "askedqutns": "Maximal Square..."
+  },
+  {
+    "company": "Shopee",
+    "role": "Server Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Intersection of Two Linked Lists",
+        "description": "Find merge point.",
+        "round_id": "shp_01"
+      }
+    ],
+    "difficulty": "Easy",
+    "result": "Selected",
+    "tips": "Basic data structure questions.",
+    "tags": ["Shopee", "LinkedList", "Pointers"],
+    "status": "Public",
+    "askedqutns": "Intersection of Two Linked Lists..."
+  },
+  {
+    "company": "Stripe",
+    "role": "Backend",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Integration",
+        "questions": "Parse HTTP Headers",
+        "description": "String parsing and validation logic.",
+        "round_id": "strp_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "They often ask practical coding questions rather than LeetCode puzzles.",
+    "tags": ["Stripe", "Parsing", "Implementation"],
+    "status": "Public",
+    "askedqutns": "Parse HTTP Headers..."
+  },
+  {
+    "company": "Coinbase",
+    "role": "Software Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Connect 4 Game",
+        "description": "Design and implement the game logic.",
+        "round_id": "cb_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Object-oriented playable game design.",
+    "tags": ["Coinbase", "Design", "Game"],
+    "status": "Public",
+    "askedqutns": "Design Connect 4..."
+  },
+  {
+    "company": "Robinhood",
+    "role": "Android",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "System Design",
+        "questions": "Design Stock Price Ticker",
+        "description": "Real-time updates, websockets, efficient rendering.",
+        "round_id": "rh_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "Concurrency and UI thread management.",
+    "tags": ["Robinhood", "SystemDesign", "Mobile"],
+    "status": "Public",
+    "askedqutns": "Stock Ticker..."
+  },
+  {
+    "company": "Palantir",
+    "role": "Forward Deployed Engineer",
+    "experienceLevel": "New Grad",
+    "rounds": [
+      {
+        "roundName": "Decomp",
+        "questions": "Time Based Key-Value Store",
+        "description": "Store multiple values for the same key at different timestamps.",
+        "round_id": "pal_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Binary search on timestamps is the trick.",
+    "tags": ["Palantir", "HashMap", "BinarySearch"],
+    "status": "Public",
+    "askedqutns": "Time Based KV Store..."
+  },
+  {
+    "company": "Databricks",
+    "role": "Software Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Basic Calculator II",
+        "description": "Evaluate string expression with operator precedence.",
+        "round_id": "db_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "Use stack to handle precedence.",
+    "tags": ["Databricks", "Stack", "Math"],
+    "status": "Public",
+    "askedqutns": "Basic Calculator II..."
+  },
+  {
+    "company": "Nutanix",
+    "role": "MTS",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Jump Game II",
+        "description": "Minimum jumps to reach end (Greedy/DP).",
+        "round_id": "nut_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Greedy approach O(n) is expected.",
+    "tags": ["Nutanix", "Greedy", "DP"],
+    "status": "Public",
+    "askedqutns": "Jump Game II..."
+  }
+]
+[
+  {
+    "company": "TCS",
+    "role": "Systems Engineer",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "TCS NQT (Coding)",
+        "questions": "Sweet Seventeen",
+        "description": "Convert a given number from base 17 to decimal.",
+        "round_id": "tcs_01"
+      }
+    ],
+    "difficulty": "Easy",
+    "result": "Selected",
+    "tips": "Focus on string conversions and basic mathematical logic.",
+    "tags": ["TCS", "Math", "BaseConversion"],
+    "status": "Public",
+    "askedqutns": "Sweet Seventeen, Jar of Candies..."
+  },
+  {
+    "company": "Infosys",
+    "role": "Specialist Programmer (SP)",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "HackWithInfy",
+        "questions": "Minimum Withdrawals",
+        "description": "DP problem to minimize steps to reduce a value to zero.",
+        "round_id": "infy_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "HackWithInfy questions are surprisingly hard; practice DP thoroughly.",
+    "tags": ["Infosys", "DP", "Optimization"],
+    "status": "Public",
+    "askedqutns": "Minimum Withdrawals..."
+  },
+  {
+    "company": "Wipro",
+    "role": "Project Engineer",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Sort Array by Frequency",
+        "description": "Sort elements based on how many times they appear.",
+        "round_id": "wip_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Can be solved using HashMap and custom comparator.",
+    "tags": ["Wipro", "HashMap", "Sorting"],
+    "status": "Public",
+    "askedqutns": "Sort Array by Frequency..."
+  },
+  {
+    "company": "Accenture",
+    "role": "Associate Software Engineer",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Find GCD of Two Numbers",
+        "description": "Basic Euclidean algorithm.",
+        "round_id": "acc_01"
+      }
+    ],
+    "difficulty": "Easy",
+    "result": "Selected",
+    "tips": "They focus on speed. Solve easy problems very fast.",
+    "tags": ["Accenture", "Math", "GCD"],
+    "status": "Public",
+    "askedqutns": "GCD of two numbers..."
+  },
+  {
+    "company": "Cognizant",
+    "role": "GenC Next",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "ZigZag Conversion",
+        "description": "String manipulation pattern.",
+        "round_id": "cts_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "String pattern printing is a common theme.",
+    "tags": ["Cognizant", "Strings", "Pattern"],
+    "status": "Public",
+    "askedqutns": "ZigZag Conversion..."
+  },
+  {
+    "company": "CRED",
+    "role": "Backend Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Machine Coding",
+        "questions": "Design a Ledger System",
+        "description": "Handle concurrent transactions and ensure consistency.",
+        "round_id": "cred_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Rejected",
+    "tips": "Code quality and separation of concerns (SOLID principles) are critical.",
+    "tags": ["CRED", "MachineCoding", "LLD"],
+    "status": "Public",
+    "askedqutns": "Design Ledger..."
+  },
+  {
+    "company": "Razorpay",
+    "role": "SDE-2",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "System Design",
+        "questions": "Design a Webhook Delivery System",
+        "description": "Retry mechanisms and exponential backoff strategies.",
+        "round_id": "razor_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "Focus on reliability and failure handling.",
+    "tags": ["Razorpay", "SystemDesign", "Webhooks"],
+    "status": "Public",
+    "askedqutns": "Design Webhook Delivery..."
+  },
+  {
+    "company": "Groww",
+    "role": "Software Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Rotate Image",
+        "description": "Rotate a 2D matrix by 90 degrees in-place.",
+        "round_id": "groww_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Matrix manipulation without extra space.",
+    "tags": ["Groww", "Matrix", "Arrays"],
+    "status": "Public",
+    "askedqutns": "Rotate Image..."
+  },
+  {
+    "company": "Zerodha",
+    "role": "Tech Team",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Technical Discussion",
+        "questions": "Database Indexing Internals",
+        "description": "Deep dive into B-Trees vs LSM Trees.",
+        "round_id": "zero_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "They care more about 'How things work' than LeetCode.",
+    "tags": ["Zerodha", "Database", "Internals"],
+    "status": "Public",
+    "askedqutns": "B-Tree vs LSM Tree..."
+  },
+  {
+    "company": "Urban Company",
+    "role": "SDE-1",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Machine Coding",
+        "questions": "Design a Task Scheduler",
+        "description": "Execute tasks at specific times, handle dependencies.",
+        "round_id": "uc_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Write clean, modular code.",
+    "tags": ["UrbanCompany", "MachineCoding", "Design"],
+    "status": "Public",
+    "askedqutns": "Design Task Scheduler..."
+  },
+  {
+    "company": "Meesho",
+    "role": "SDE-2",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "DSA",
+        "questions": "Minimum Cost to Connect Ropes",
+        "description": "Standard Heap problem.",
+        "round_id": "mee_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Priority Queue applications are frequent.",
+    "tags": ["Meesho", "Heaps", "Greedy"],
+    "status": "Public",
+    "askedqutns": "Connect Ropes..."
+  },
+  {
+    "company": "Dream11",
+    "role": "SDE",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "System Design",
+        "questions": "Design a Leaderboard",
+        "description": "Real-time ranking for millions of users (Redis Sorted Sets).",
+        "round_id": "d11_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Redis knowledge is essential for Dream11 interviews.",
+    "tags": ["Dream11", "SystemDesign", "Redis"],
+    "status": "Public",
+    "askedqutns": "Design Real-time Leaderboard..."
+  },
+  {
+    "company": "InMobi",
+    "role": "SDE-1",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "House Robber",
+        "description": "Classic Dynamic Programming problem.",
+        "round_id": "inm_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "DP 1D array optimization.",
+    "tags": ["InMobi", "DP", "Optimization"],
+    "status": "Public",
+    "askedqutns": "House Robber..."
+  },
+  {
+    "company": "JP Morgan Chase",
+    "role": "Software Engineer",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Next Permutation",
+        "description": "Find the next lexicographical permutation.",
+        "round_id": "jpmc_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Understand the mathematical pattern behind permutations.",
+    "tags": ["JPMC", "Arrays", "Math"],
+    "status": "Public",
+    "askedqutns": "Next Permutation..."
+  },
+  {
+    "company": "Wells Fargo",
+    "role": "Program Associate",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Letter Combinations of a Phone Number",
+        "description": "Backtracking solution.",
+        "round_id": "wf_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Standard backtracking recursion.",
+    "tags": ["WellsFargo", "Backtracking", "Recursion"],
+    "status": "Public",
+    "askedqutns": "Letter Combinations..."
+  },
+  {
+    "company": "Bank of America",
+    "role": "Senior Tech Associate",
+    "experienceLevel": "Senior",
+    "rounds": [
+      {
+        "roundName": "System Design",
+        "questions": "Design a Fraud Detection System",
+        "description": "Real-time stream processing with Kafka.",
+        "round_id": "boa_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "Financial domain knowledge helps in system design.",
+    "tags": ["BankOfAmerica", "SystemDesign", "Fintech"],
+    "status": "Public",
+    "askedqutns": "Design Fraud Detection..."
+  },
+  {
+    "company": "Barclays",
+    "role": "BA4 Developer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Subarray Sum Equals K",
+        "description": "Prefix sum and HashMap.",
+        "round_id": "bar_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Prefix sum technique is very useful.",
+    "tags": ["Barclays", "Arrays", "HashMap"],
+    "status": "Public",
+    "askedqutns": "Subarray Sum Equals K..."
+  },
+  {
+    "company": "Deutsche Bank",
+    "role": "Analyst",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Minimum Path Sum",
+        "description": "DP on a grid.",
+        "round_id": "dbk_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Grid based DP problems.",
+    "tags": ["DeutscheBank", "DP", "Matrix"],
+    "status": "Public",
+    "askedqutns": "Minimum Path Sum..."
+  },
+  {
+    "company": "Intel",
+    "role": "Software Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Technical",
+        "questions": "Single Number",
+        "description": "Find the element that appears once using XOR.",
+        "round_id": "intl_01"
+      }
+    ],
+    "difficulty": "Easy",
+    "result": "Selected",
+    "tips": "Bitwise XOR tricks are crucial for hardware companies.",
+    "tags": ["Intel", "BitManipulation", "Optimization"],
+    "status": "Public",
+    "askedqutns": "Single Number..."
+  },
+  {
+    "company": "AMD",
+    "role": "Design Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Power of Two",
+        "description": "Check if integer is power of two using bits.",
+        "round_id": "amd_01"
+      }
+    ],
+    "difficulty": "Easy",
+    "result": "Selected",
+    "tips": "Understand binary representation inside out.",
+    "tags": ["AMD", "BitManipulation", "Math"],
+    "status": "Public",
+    "askedqutns": "Power of Two..."
+  },
+  {
+    "company": "Dell",
+    "role": "Software Engineer",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Remove Duplicates from Sorted Array",
+        "description": "Two pointer approach in-place.",
+        "round_id": "dell_01"
+      }
+    ],
+    "difficulty": "Easy",
+    "result": "Selected",
+    "tips": "Focus on space complexity optimization.",
+    "tags": ["Dell", "Arrays", "Pointers"],
+    "status": "Public",
+    "askedqutns": "Remove Duplicates..."
+  },
+  {
+    "company": "HP",
+    "role": "R&D Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Implement Queue using Stacks",
+        "description": "Using two stacks.",
+        "round_id": "hp_01"
+      }
+    ],
+    "difficulty": "Easy",
+    "result": "Selected",
+    "tips": "Standard data structure conversion questions.",
+    "tags": ["HP", "Stack", "Queue"],
+    "status": "Public",
+    "askedqutns": "Queue using Stacks..."
+  },
+  {
+    "company": "Honeywell",
+    "role": "Advanced Software Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Longest Consecutive Sequence",
+        "description": "Using HashSet for O(n) lookup.",
+        "round_id": "hw_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Think about how to use hashing to avoid sorting.",
+    "tags": ["Honeywell", "HashSet", "Arrays"],
+    "status": "Public",
+    "askedqutns": "Longest Consecutive Sequence..."
+  },
+  {
+    "company": "Siemens",
+    "role": "Developer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Climbing Stairs",
+        "description": "Fibonacci sequence variation.",
+        "round_id": "siem_01"
+      }
+    ],
+    "difficulty": "Easy",
+    "result": "Selected",
+    "tips": "Identify the base cases for recursion early.",
+    "tags": ["Siemens", "DP", "Recursion"],
+    "status": "Public",
+    "askedqutns": "Climbing Stairs..."
+  },
+  {
+    "company": "Bosch",
+    "role": "Embedded Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Technical",
+        "questions": "Little Endian vs Big Endian",
+        "description": "Write a program to check system endianness.",
+        "round_id": "bosch_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Low-level memory concepts are mandatory.",
+    "tags": ["Bosch", "C++", "Systems"],
+    "status": "Public",
+    "askedqutns": "Check Endianness..."
+  },
+  {
+    "company": "Mercedes-Benz R&D",
+    "role": "Software Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Shortest Path in Binary Matrix",
+        "description": "BFS traversal (Lee algorithm).",
+        "round_id": "mbrdi_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Pathfinding algorithms like BFS/Dijkstra.",
+    "tags": ["Mercedes", "BFS", "Matrix"],
+    "status": "Public",
+    "askedqutns": "Shortest Path..."
+  },
+  {
+    "company": "ShareChat",
+    "role": "Backend Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "System Design",
+        "questions": "Design a Feed System",
+        "description": "Fan-out on write vs Fan-out on read.",
+        "round_id": "sc_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Selected",
+    "tips": "Discuss caching strategies (Redis) deeply.",
+    "tags": ["ShareChat", "SystemDesign", "SocialMedia"],
+    "status": "Public",
+    "askedqutns": "Design News Feed..."
+  },
+  {
+    "company": "Udaan",
+    "role": "Product Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Machine Coding",
+        "questions": "Design a Message Queue",
+        "description": "Pub-Sub model with retry mechanism in pure code.",
+        "round_id": "udaan_01"
+      }
+    ],
+    "difficulty": "Hard",
+    "result": "Rejected",
+    "tips": "Concurrency control is the main challenge here.",
+    "tags": ["Udaan", "MachineCoding", "Concurrency"],
+    "status": "Public",
+    "askedqutns": "Design In-memory Queue..."
+  },
+  {
+    "company": "Capgemini",
+    "role": "Senior Analyst",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Balanced Parentheses",
+        "description": "Using Stack.",
+        "round_id": "cap_01"
+      }
+    ],
+    "difficulty": "Easy",
+    "result": "Selected",
+    "tips": "Standard stack problems.",
+    "tags": ["Capgemini", "Stack", "Strings"],
+    "status": "Public",
+    "askedqutns": "Balanced Parentheses..."
+  },
+  {
+    "company": "Mindtree",
+    "role": "Engineer",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Pattern Printing",
+        "description": "Hollow Diamond pattern.",
+        "round_id": "mt_01"
+      }
+    ],
+    "difficulty": "Easy",
+    "result": "Selected",
+    "tips": "Logic building for loops.",
+    "tags": ["Mindtree", "Pattern", "Logic"],
+    "status": "Public",
+    "askedqutns": "Hollow Diamond..."
+  },
+  {
+    "company": "L&T Infotech",
+    "role": "Software Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Remove Nth Node From End of List",
+        "description": "Two pointer (fast/slow) approach.",
+        "round_id": "lti_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Linked List manipulation.",
+    "tags": ["LTI", "LinkedList", "Pointers"],
+    "status": "Public",
+    "askedqutns": "Remove Nth Node from End..."
+  },
+  {
+    "company": "Deloitte",
+    "role": "Analyst",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Find Missing Number",
+        "description": "Sum formula n*(n+1)/2 vs XOR approach.",
+        "round_id": "del_01"
+      }
+    ],
+    "difficulty": "Easy",
+    "result": "Selected",
+    "tips": "Watch out for integer overflow.",
+    "tags": ["Deloitte", "Arrays", "Math"],
+    "status": "Public",
+    "askedqutns": "Missing Number..."
+  },
+  {
+    "company": "HCL Tech",
+    "role": "Developer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Intersection of Two Arrays",
+        "description": "Using HashSets.",
+        "round_id": "hcl_01"
+      }
+    ],
+    "difficulty": "Easy",
+    "result": "Selected",
+    "tips": "Collection framework knowledge.",
+    "tags": ["HCL", "Arrays", "Sets"],
+    "status": "Public",
+    "askedqutns": "Intersection of Arrays..."
+  },
+  {
+    "company": "Fidelity Investments",
+    "role": "Software Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "DSA",
+        "questions": "Search a 2D Matrix",
+        "description": "Binary search on rows and columns.",
+        "round_id": "fid_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Binary Search variations.",
+    "tags": ["Fidelity", "BinarySearch", "Matrix"],
+    "status": "Public",
+    "askedqutns": "Search 2D Matrix..."
+  },
+  {
+    "company": "BlackRock",
+    "role": "Analyst",
+    "experienceLevel": "Fresher",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Stock Span Problem",
+        "description": "Using a monotonic stack.",
+        "round_id": "br_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Stack based problems are common in fintech.",
+    "tags": ["BlackRock", "Stack", "Design"],
+    "status": "Public",
+    "askedqutns": "Stock Span..."
+  },
+  {
+    "company": "UBS",
+    "role": "IT Analyst",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Longest Common Subsequence",
+        "description": "Classic 2D Dynamic Programming.",
+        "round_id": "ubs_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "String DP problems.",
+    "tags": ["UBS", "DP", "Strings"],
+    "status": "Public",
+    "askedqutns": "LCS..."
+  },
+  {
+    "company": "Citi",
+    "role": "App Dev Manager",
+    "experienceLevel": "Senior",
+    "rounds": [
+      {
+        "roundName": "System Design",
+        "questions": "Design a Notification Service",
+        "description": "Handling bulk notifications and user preferences.",
+        "round_id": "citi_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Message queues (RabbitMQ/Kafka) discussion.",
+    "tags": ["Citi", "SystemDesign", "Messaging"],
+    "status": "Public",
+    "askedqutns": "Design Notification Service..."
+  },
+  {
+    "company": "American Express",
+    "role": "Engineer III",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Container With Most Water",
+        "description": "Two pointer greedy approach.",
+        "round_id": "amex_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Greedy algorithms.",
+    "tags": ["Amex", "Greedy", "TwoPointers"],
+    "status": "Public",
+    "askedqutns": "Container With Most Water..."
+  },
+  {
+    "company": "Myntra",
+    "role": "Software Engineer",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "Coding",
+        "questions": "Top K Frequent Elements",
+        "description": "Using Min-Heap or Bucket Sort.",
+        "round_id": "myn_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "Heaps are very important.",
+    "tags": ["Myntra", "Heaps", "Sorting"],
+    "status": "Public",
+    "askedqutns": "Top K Frequent..."
+  },
+  {
+    "company": "Nykaa",
+    "role": "SDE-2",
+    "experienceLevel": "Mid",
+    "rounds": [
+      {
+        "roundName": "DSA",
+        "questions": "Sort Colors (Dutch National Flag)",
+        "description": "Sort 0s, 1s, and 2s in one pass.",
+        "round_id": "nyk_01"
+      }
+    ],
+    "difficulty": "Medium",
+    "result": "Selected",
+    "tips": "In-place sorting algorithms.",
+    "tags": ["Nykaa", "Arrays", "Sorting"],
+    "status": "Public",
+    "askedqutns": "Sort Colors..."
+  }
+]
