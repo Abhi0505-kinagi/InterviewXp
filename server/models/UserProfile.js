@@ -8,6 +8,9 @@ const userProfileSchema = new mongoose.Schema({
         unique: true   // one profile per user
     },
     username:{
+        type: String,
+        required: true,
+        unique: true
         
     },
     bio: {

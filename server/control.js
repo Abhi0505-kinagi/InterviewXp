@@ -9,9 +9,10 @@ const User=require("./models/Userschema")
 const Comments=require("./models/comment")
 const UserProfile=require("./models/UserProfile");
 const InterviewExp = require('./models/InterviewExp');
-
+const mlRoutes = require("./routes/ml.routes");
 app.use(express.json());
 app.use(require("cors")());
+app.use("/api/ml", mlRoutes);
 app.get("/api/interviews", async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
@@ -21,7 +22,7 @@ app.get("/api/interviews", async (req, res) => {
     const total = await InterviewExp.countDocuments();
     console.log("PAGE:", page, "LIMIT:", limit, "SKIP:", skip); 
     const interviews = await InterviewExp.find()
-      .populate("userId", "name")  // ✅ populate user name
+      .populate("userId","name displayName")  // ✅ populate user name
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
@@ -357,7 +358,8 @@ app.get("/api/profile/:username", async (req, res) => {
 
         let profile = await UserProfile.findOne({ username })
             .populate("followers", "username")
-            .populate("following", "username");
+            .populate("following", "username")
+            
         
         if (!profile) {
             // Try to find the user and create a profile if it doesn't exist
@@ -525,6 +527,7 @@ app.get("/api/profile/:userId/following", async (req, res) => {
 
 
 
-app.listen(5000, () => {
-    console.log(`Server started on port`);
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
 });

@@ -8,8 +8,11 @@ import cmntimg from "../assets/message_5356248.png";
 import PeopleProfile from "./PeopleProfile";
 import dislike from "../assets/dislike_13466043.png"
 import Navbar from "./Navbar";
+import { getSentiment, getSelection } from "../services/mlServices";
 /* -------------------- Card Component -------------------- */
 function Card({ exp,interviewId}) {
+  const [aiSummary, setAiSummary] = useState("");
+  const [loading, setLoading] = useState(false);
   const [liked, setLiked] = useState(exp.upvotes.includes(localStorage.getItem("userId")));
   const [disliked, setDisliked] = useState(exp.downvotes.includes(localStorage.getItem("userId")));
   const [upvotes, setUpvotes] = useState(exp.upvotes.length);
@@ -162,13 +165,45 @@ function Card({ exp,interviewId}) {
     checkFollow();
   }
 }, [exp.userId?.name, currentUserId]);
+  //for ml model fetching data
+  const fetchAiSummary = async (text) => {
+      try {
+        setLoading(true);
+        const [sentimentRes, selectionRes] = await Promise.all([
+          getSentiment(text),
+          getSelection(text)
+        ]);
+        console.log(sentimentRes,selectionRes);
+
+        const sentimentText = sentimentRes.prediction === 1 ? "Positive" : "Negative";
+        const selectionText = selectionRes.prediction === 1 ? "High chance of selection" : "Low chance of selection";
+        setAiSummary(
+          `Sentiment: ${sentimentText} (Confidence: ${Math.round(sentimentRes.result.result.confidence* 100)}%), Selection: ${selectionText} (Confidence: ${Math.round(selectionRes.result.result.confidence * 100)}%)`
+        );
+      } catch (err) {
+        console.error(err);
+        setAiSummary("AI summary could not be generated.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    useEffect(() => {
+    const textToAnalyze = (exp.tips || "") + " " + (exp.askedqutns || "") + " " + (exp.company || "");
+
+    if (open && textToAnalyze.trim()) {
+      fetchAiSummary(textToAnalyze); // Call ML when overlay opens
+    } else {
+      setAiSummary(""); // Clear summary when overlay closes
+    }
+  }, [open, exp.tips, exp.askedqutns, exp.company]); // use individual dependencies
+
 
 
 
   return (
     <>
     <div className="card fade-in" style={{ position: "relative" }}>
-      <div style={{display:"flex", gap:"30%"}}><h3 style={{fontFamily:"Times",color:"#869DAD"}}>{(exp.userId?.name).toUpperCase()}</h3>{currentUserId !== exp.userId?._id && <button
+      <div style={{display:"flex", gap:"30%"}}><h3 style={{fontFamily:"Times",color:"#869DAD"}}>{(exp.userId?.displayName).toUpperCase()}</h3>{currentUserId !== exp.userId?._id && <button
         onClick={handleFollow}
         style={{
           width: "80px",
@@ -186,6 +221,7 @@ function Card({ exp,interviewId}) {
         {isFollowing ? "Following" : "Follow"}
       </button>}</div>
       <button style={{fontSize:"13px",backgroundColor:"transparent",border:"none",padding:0,color: "#10edf5",cursor: "pointer",textAlign: "left",width: "fit-content"}} onClick={()=>{
+        console.log(exp.userId?.name);
         nav(`/userprofls/${exp.userId?.name}`)
       }}>see profile</button>
       <h3 style={{fontFamily:"Times",color:"#976de3"}}>{exp.company}</h3>
@@ -292,11 +328,11 @@ function Card({ exp,interviewId}) {
                 ❌
               </button>
 
-              <h2 style={{fontFamily:"Times",fontWeight:"bolder",color:"black"}}>Interview Experience</h2>
-              <p>Description...</p>
-              <h1 style={{color:"#361377"}}>{exp.company}</h1>
-              <p style={{color:"black",fontFamily:"Times"}}><span style={{color:"black",fontFamily:"Times"}}>Experience Level:</span>{exp.experienceLevel}</p>
-              <p><span style={{color:"black",fontFamily:"Times"}}>Difficulty Level:</span><strong
+              <h2 style={{fontFamily:"Times",fontWeight:"bolder",color:"white"}}>Interview Experience</h2>
+              <p style={{color:"green"}}>Description...</p>
+              <h1 style={{color:"#6438b5"}}>{exp.company}</h1>
+              <p style={{color:"white",fontFamily:"Times"}}><span style={{color:"rgb(164, 164, 164)",fontFamily:"Times"}}>Experience Level:</span>{exp.experienceLevel}</p>
+              <p><span style={{color:"rgb(164, 164, 164)",fontFamily:"Times"}}>Difficulty Level:</span><strong
                 style={{
                   color:
                     exp.difficulty === "Hard"
@@ -309,8 +345,8 @@ function Card({ exp,interviewId}) {
               >{exp.difficulty}
               </strong></p>
 
-              <p style={{color:"black",fontFamily:"Times"}}>Number of Rounds {exp.rounds.length}</p>
-             <p>Topics</p>
+              <p style={{color:"white",fontFamily:"Times"}}>Number of Rounds {exp.rounds.length}</p>
+             <p style={{color:"rgba(176, 179, 175, 0.89)"}}>Topics:</p>
               <div style={{ marginTop: '8px' }}>
                 {exp.tags?.map((tag, i) => (
                   <span
@@ -329,24 +365,28 @@ function Card({ exp,interviewId}) {
                   </span>
                 ))}
               </div>
-              <p><span style={{color:"black",fontFamily:"Times"}}>Tips : </span><span style={{color:"#16601c",fontFamily:"Times"}}>{exp.tips}</span></p>
-              <p style={{color:"rgb(22, 10, 34)",fontFamily:"Times"}}>Round Descriptions:</p>
+              <p><span style={{color:"white",fontFamily:"Times"}}>Tips : </span><span style={{color:"#16601c",fontFamily:"Times"}}>{exp.tips}</span></p>
+              <p style={{color:"rgb(164, 164, 164)",fontFamily:"Times"}}>Round Descriptions:</p>
               {Array.isArray(exp.rounds) && exp.rounds.map((round) => (
                 <div key={round._id} className="round-card">
-                  <h3 style={{color:"black",fontFamily:"Times",fontSize:"15px"}}>{round.roundName}</h3>
-                  <p  style={{color:"black",fontFamily:"Times",fontSize:"17px",marginLeft:"10px"}}>●Question: {round.questions} <p  style={{color:"black",fontFamily:"Times",fontSize:"12px",marginLeft:"10px"}}>Description: {round.description}</p></p>
+                  <h3 style={{color:"white",fontFamily:"Times",fontSize:"15px"}}>{round.roundName}</h3>
+                  <p  style={{color:"white",fontFamily:"Times",fontSize:"17px",marginLeft:"10px"}}>●Question: {round.questions} <p  style={{color:"white",fontFamily:"Times",fontSize:"12px",marginLeft:"10px"}}>Description: {round.description}</p></p>
                  
                 </div>
               ))}<br/>
-              <h3 style={{color:"black", fontFamily:"Times"}}>Questions</h3>
-              <p style={{color:"black",font:"Times"}}>{exp.askedqutns}</p>
-              posted by
-              <p style={{bottom:"5px",color:"#0f0a17",fontFamily:"Times"}}>▶▶{exp.userId?.name}</p><br/>
-              <p style={{fontFamily:"Times",color:"black",fontWeight:"bolder"}}>AI Summarization:</p>
+              <h3 style={{color:"rgba(176, 179, 175, 0.89)", fontFamily:"Times"}}>Questions</h3>
+              <p style={{color:"white",font:"Times"}}>{exp.askedqutns}</p>
+              <p style={{color:"white",fontSize:"12px"}}>posted by</p>
+              <p style={{bottom:"5px",color:"#8658d1",fontFamily:"Times"}}>▶▶{exp.userId?.displayName}</p><br/>
+              <p style={{fontFamily:"Times",color:"yellow",fontWeight:"bolder"}}>ML Summarization:</p>
               <fieldset>
-                <textarea readOnly style={{width:"100%",maxHeight:"80px",maxWidth:"100%"}}></textarea>
+                <textarea
+                  readOnly
+                  value={loading ? "Generating AI summary..." : aiSummary}
+                  style={{ width: "100%", maxHeight: "80px", maxWidth: "100%",backgroundColor:"rgba(14, 15, 14, 0.76)",color:"green" }}
+                />
               </fieldset>
-              <p style={{fontSize:"10px",color:"black",fontFamily:"Times"}}><i>Note:We use AI to enhance our content creation processut,but all content is reviewed and edited by our human team to ensur accuracy and quality.</i></p>
+              <p style={{fontSize:"10px",color:"white",fontFamily:"Times"}}><i>Note:We use pretrained ML to enhance our content creation processut,but all content is reviewed and edited by our human team to ensur accuracy and quality.</i></p>
               <button
                 style={{ float: "right",backgroundColor:"transparent",color:"#db0f2e",fontFamily:"Times",border:"2px",fontSize:"20px" }}
                 onClick={() => setOpen(false)}

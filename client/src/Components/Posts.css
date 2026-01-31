@@ -98,11 +98,12 @@ html, body {
 .display-card {
   width: 90%;
   height: 95%;
-  background: #8e8e91;
+  background: #151f3a;
   color: white;
   border-radius: 5px;
   padding: 24px;
   overflow-y: auto;
+  border: 1px solid white;
 }
 
 .overlay-cmt {
