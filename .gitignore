@@ -5,3 +5,22 @@ node_modules/
 dist/
 build/
 .DS_Store
+# Node
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+
+# VS Code
+.vscode/
+
+# ML models
+*.pkl
+
+# Datasets
+*.csv
+*.json
+
+# Env
+.env

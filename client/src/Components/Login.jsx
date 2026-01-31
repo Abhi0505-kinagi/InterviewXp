@@ -10,17 +10,20 @@ function Login({ onLogin }) {
       e.preventDefault();
 
       try {
-        const res = await fetch("http://localhost:5000/api/users/login", {
+        const res = await fetch("http://localhost:5000/api/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password }),
         });
 
         const data = await res.json();
-        if (res.ok && data.message === "User login successfully") {
+        console.log(data);
+        if (res.ok && data.token) {
+          console.log(data.user.name)
           toast.success("Login successful. Welcome back!”")
-          localStorage.setItem("userId", data.userId);
-          localStorage.setItem("username", data.username);
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("userId", data.user.id);
+          localStorage.setItem("username", data.user.name);
           if (onLogin) onLogin({ userId: data.userId, username: data.username });
           nav("/");
         } else {

@@ -1,4 +1,5 @@
 const express = require('express');
+require("dotenv").config();
 const app=express();
 const mongoose=require("mongoose");
 const connectDB = require("./dbconnection");
@@ -13,6 +14,9 @@ const mlRoutes = require("./routes/ml.routes");
 app.use(express.json());
 app.use(require("cors")());
 app.use("/api/ml", mlRoutes);
+const authRoutes = require("./routes/auth.routes");
+app.use("/api/auth", authRoutes);
+
 app.get("/api/interviews", async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
@@ -172,7 +176,7 @@ app.post("/api/interviews/:id/downvote", async (req, res) => {
         res.status(500).json({ error: "Server error" });
     }
 });
-app.post("/api/users/login", async (req, res) => {
+/*app.post("/api/users/login", async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
         return res.status(400).json({ message: "Invalid credentials" });
@@ -230,7 +234,7 @@ app.post("/api/users/register", async (req, res) => {
       message: "Internal server error",
     });
   }
-});
+});*/
 
 //post ur comments on the posts
 app.post("/api/interviews/:id/comment", async (req, res) => {
