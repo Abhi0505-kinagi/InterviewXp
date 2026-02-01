@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Register.css";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+const BACKEND_URL =import.meta.env.VITE_BACKEND_URL;
 function generateAnonymousName() {
   const adjectives = ["Silent", "Curious", "Brave", "Wise", "Swift"];
   const animals = ["Tiger", "Panda", "Fox", "Wolf", "Eagle"];
@@ -48,7 +49,7 @@ function Register() {
       return;
     }
 
-    fetch("http://localhost:5000/api/auth/register", {
+    fetch(`${BACKEND_URL}/api/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

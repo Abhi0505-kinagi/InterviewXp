@@ -1,6 +1,5 @@
 const mongoose = require("mongoose"); 
-const url = "mongodb://localhost:27017/myapp"; 
-
+const url = process.env.DB_URL;
 const connectDB = async () => {
     try {
         // This connects Mongoose specifically

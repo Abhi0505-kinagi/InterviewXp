@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import { useState } from "react";
 import { toast } from "react-toastify";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 function PostExperience() {
   // BASIC FIELDS
   const nav=useNavigate();
@@ -71,7 +72,7 @@ function PostExperience() {
     };
     //console.log("FINAL PAYLOAD 👇", payload);
     try {
-      const res = await fetch("http://localhost:5000/api/interviews", {
+      const res = await fetch(`${BACKEND_URL}/api/interviews`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

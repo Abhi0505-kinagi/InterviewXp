@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState,useEffect } from "react";
 import Navbar from "./Navbar";
 import { toast } from "react-toastify";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;;
 function PeopleProfile() {
     const nav=useNavigate();
     const [page, setPage] = useState(1);
@@ -21,7 +22,7 @@ function PeopleProfile() {
     const userId = localStorage.getItem("userId");
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/profile/${username}`)
+    fetch(`${BACKEND_URL}/api/profile/${username}`)
         .then(res => res.json())
         .then(data => {
             setuserprop(data);
@@ -35,7 +36,7 @@ function PeopleProfile() {
       if (!userprop?.userId) return;
 
       fetch(
-        `http://localhost:5000/api/users/post/${userprop.userId}?page=${page}&limit=4`
+        `${BACKEND_URL}/api/users/post/${userprop.userId}?page=${page}&limit=4`
       )
         .then(res => res.json())
         .then(data => {
@@ -48,7 +49,7 @@ function PeopleProfile() {
     const fetchFollowers = async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/profile/${userprop.userId}/followers`
+          `${BACKEND_URL}/api/profile/${userprop.userId}/followers`
         );
         const data = await res.json();
         setFollowersList(data.followers);
@@ -59,7 +60,7 @@ function PeopleProfile() {
     const fetchFollowing = async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/profile/${userprop.userId}/following`
+          `${BACKEND_URL}/api/profile/${userprop.userId}/following`
         );
         const data = await res.json();
         setFollowingList(data.following);

@@ -1,4 +1,5 @@
 import "./Posts.css";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -35,7 +36,7 @@ function Card({ exp,interviewId}) {
 
         try {
           const res = await fetch(
-            `http://localhost:5000/api/interviews/${exp._id}/comment`,
+            `${BACKEND_URL}/api/interviews/${exp._id}/comment`,
             {
               method: "POST",
               headers: {
@@ -70,7 +71,7 @@ function Card({ exp,interviewId}) {
 
 
   useEffect(() => {
-      fetch(`http://localhost:5000/api/interviews/${interviewId}/comment`)
+      fetch(`${BACKEND_URL}/api/interviews/${interviewId}/comment`)
         .then(res => res.json())
         .then(data => setComments(data))
         .catch(err =>{
@@ -82,7 +83,7 @@ function Card({ exp,interviewId}) {
       try {
         console.log("dislike",exp._id,localStorage.getItem("userId"))
         const res = await fetch(
-          `http://localhost:5000/api/interviews/${exp._id}/upvote`,
+          `${BACKEND_URL}/api/interviews/${exp._id}/upvote`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -105,7 +106,7 @@ function Card({ exp,interviewId}) {
       try {
         console.log("dislike",exp._id,localStorage.getItem("userId"))
         const res = await fetch(
-          `http://localhost:5000/api/interviews/${exp._id}/downvote`,
+          `${BACKEND_URL}/api/interviews/${exp._id}/downvote`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -135,7 +136,7 @@ function Card({ exp,interviewId}) {
   const handleFollow = async () => {
     try {
       const endpoint = isFollowing ? "unfollow" : "follow";
-      const res = await fetch(`http://localhost:5000/api/profile/${exp.userId?.name}/${endpoint}`, {
+      const res = await fetch(`${BACKEND_URL}/api/profile/${exp.userId?.name}/${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: currentUserId }),
@@ -155,7 +156,7 @@ function Card({ exp,interviewId}) {
   useEffect(() => {
   const checkFollow = async () => {
     const res = await fetch(
-      `http://localhost:5000/api/profile/${exp.userId?.name}/is-following/${currentUserId}`
+      `${BACKEND_URL}/api/profile/${exp.userId?.name}/is-following/${currentUserId}`
     );
     const data = await res.json();
     setIsFollowing(data.isFollowing);
@@ -512,7 +513,7 @@ function Posts() {
   useEffect(() => {
     setLoading(true);
 
-    fetch(`http://localhost:5000/api/interviews?page=${page}&limit=${limit}`)
+    fetch(`${BACKEND_URL}/api/interviews?page=${page}&limit=${limit}`)
       .then(res => res.json())
       .then(data => {
         setInterviews(data.interviews);
@@ -521,7 +522,6 @@ function Posts() {
         console.log(data.interviews);
       })
       .catch(err => {
-        console.error(err);
         setLoading(false);
       });
   }, [page]);
@@ -550,7 +550,6 @@ function Posts() {
 
       <div className="page">
         <div className="cards-grid">
-          {console.log(interviews)}
           {loading && <p>Loading...</p>}
           {!loading && Array.isArray(interviews) && interviews.map(exp => (
           <Card key={exp._id} exp={exp} interviewId={exp._id} />

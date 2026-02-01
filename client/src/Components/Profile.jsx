@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import { toast } from "react-toastify";
-
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 function Profile() {
   const [edit, setEdit] = useState(false);
   const [myprop, setMyprop] = useState({});
@@ -35,7 +35,7 @@ function Profile() {
 
     const fetchProfile = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/profile/${username}`, {
+        const res = await fetch(`${BACKEND_URL}/api/profile/${username}`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -62,7 +62,7 @@ function Profile() {
     const fetchPosts = async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/users/post/${userId}?page=${page}&limit=4`,
+          `${BACKEND_URL}/api/users/post/${userId}?page=${page}&limit=4`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -97,7 +97,7 @@ function Profile() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/profile/update", {
+      const res = await fetch(`${BACKEND_URL}/api/profile/update`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -126,7 +126,7 @@ function Profile() {
   const fetchFollowers = async () => {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/profile/${userId}/followers`,
+        `${BACKEND_URL}/api/profile/${userId}/followers`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const data = await res.json();
@@ -139,7 +139,7 @@ function Profile() {
   const fetchFollowing = async () => {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/profile/${userId}/following`,
+        `${BACKEND_URL}/api/profile/${userId}/following`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       const data = await res.json();
