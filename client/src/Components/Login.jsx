@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import "./Login.css";
 import { toast } from "react-toastify";
 const BACKEND_URL =import.meta.env.VITE_BACKEND_URL;
+console.log("Backend URL:", import.meta.env.VITE_BACKEND_URL);
 function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
