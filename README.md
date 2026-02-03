@@ -1,5 +1,5 @@
 
-# 🚀 InterviewXp – Social Interview Experience Platform
+#  InterviewXp – Social Interview Experience Platform
 
 InterviewXp is a **full-stack social platform** where users can **share interview experiences**, **interact through likes, comments, and follows**, and **maintain anonymous professional profiles**.
 
