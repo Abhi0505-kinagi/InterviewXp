@@ -11,7 +11,8 @@ import PeopleProfile from "./Components/PeopleProfile";
 import Prepare from "./Components/Prepare";
 import ToastProvider from "./Components/TostProvider";
 import ProtectedRoute from "./routes/ProtectedRoutes"
-
+import ChatPage from "./Components/Chat"
+import Rooms from "./Components/Rooms"
 function App() {
   return (
     <>
@@ -76,6 +77,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <Prepare />
+              </ProtectedRoute>
+            }
+          />
+         <Route path="/chat-rooms/:roomId" element={<ChatPage/>} />
+          <Route
+            path="/rooms"
+            element={
+              <ProtectedRoute>
+                <Rooms/>
               </ProtectedRoute>
             }
           />
