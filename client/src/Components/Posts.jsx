@@ -263,7 +263,7 @@ function Card({ exp,interviewId}) {
         <button onClick={()=>{
           setOpen(true);
           setSelectedExp(exp);
-        }} style={{height:"10%",width:"90%",backgroundColor:"transparent",margin:"10px",border:"5px",borderRadius:"5px",cursor:"pointer"}}>Read More ▶▶</button>
+        }} style={{height:"10%",width:"90%",backgroundColor:"transparent",margin:"10px",border:"5px",borderRadius:"5px",cursor:"pointer",color:"white"}}>Read More ▶▶</button>
       </div>
         
       <div
