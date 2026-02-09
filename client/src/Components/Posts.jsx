@@ -366,7 +366,7 @@ function Card({ exp,interviewId}) {
                   </span>
                 ))}
               </div>
-              <p><span style={{color:"white",fontFamily:"Times"}}>Tips : </span><span style={{color:"#16601c",fontFamily:"Times"}}>{exp.tips}</span></p>
+              <p><span style={{color:"white",fontFamily:"Times"}}>Tips : </span><span style={{color:"#16e628",fontFamily:"Times"}}>{exp.tips}</span></p>
               <p style={{color:"rgb(164, 164, 164)",fontFamily:"Times"}}>Round Descriptions:</p>
               {Array.isArray(exp.rounds) && exp.rounds.map((round) => (
                 <div key={round._id} className="round-card">

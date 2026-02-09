@@ -8,6 +8,7 @@
 
 /* Page base */
 body {
+  min-height: 100vh;
   background: #0f172a;
   color: #e5e7eb;
 }

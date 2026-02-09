@@ -16,6 +16,60 @@ app.use(require("cors")());
 app.use("/api/ml", mlRoutes);
 const authRoutes = require("./routes/auth.routes");
 app.use("/api/auth", authRoutes);
+app.use("/uploads", express.static("uploads"));
+const http = require("http");
+const { Server } = require("socket.io");
+const server = http.createServer(app);
+
+app.use("/api", require("./routes/chatapplication.routes")); // your room/message routes
+const Msg = require("./models/GroupChat");
+
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"]
+  }
+});
+
+io.on("connection", (socket) => {
+  console.log("User connected:", socket.id);
+
+  socket.on("join-room", (roomId) => {
+    socket.join(roomId);
+  });
+  
+  socket.on("send-message", async (data) => {
+  try {
+    const msg = await Msg.create({
+      room: data.room,
+      sender: data.sender,
+      content: data.content || null,
+      messageType: data.messageType || "text",
+      fileUrl: data.fileUrl || null,
+      fileName: data.fileName || null
+    });
+
+    const populatedMsg = await msg.populate("sender", "displayName");
+    const cleanMsg = msg.toObject({ getters: true });
+
+    io.to(data.room).emit("new-message", cleanMsg);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected:", socket.id);
+  });
+});
+
+server.listen(5000, () => {
+  console.log("Server running on port 5000");
+});
+
+
+
 
 app.get("/api/interviews", async (req, res) => {
   try {
