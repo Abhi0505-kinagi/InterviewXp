@@ -13,6 +13,7 @@ import ToastProvider from "./Components/TostProvider";
 import ProtectedRoute from "./routes/ProtectedRoutes"
 import ChatPage from "./Components/Chat"
 import Rooms from "./Components/Rooms"
+import Assessment from "./Components/AssessmentPage";
 function App() {
   return (
     <>
@@ -24,71 +25,16 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/reg" element={<Register />} />
           <Route path="/" element={<Home />} />
-
-          {/* 🔐 Protected Routes */}
-
-          <Route
-            path="/posts"
-            element={
-              <ProtectedRoute>
-                <Posts />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/crtpost"
-            element={
-              <ProtectedRoute>
-                <CreatePost />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/cmntpage"
-            element={
-              <ProtectedRoute>
-                <CommentPage />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/userprofls/:username"
-            element={
-              <ProtectedRoute>
-                <PeopleProfile />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/prepare"
-            element={
-              <ProtectedRoute>
-                <Prepare />
-              </ProtectedRoute>
-            }
-          />
-         <Route path="/chat-rooms/:roomId" element={<ChatPage/>} />
-          <Route
-            path="/rooms"
-            element={
-              <ProtectedRoute>
-                <Rooms/>
-              </ProtectedRoute>
-            }
-          />
+        {/* Routes under protection  */}
+          <Route path="/posts" element={<ProtectedRoute><Posts /></ProtectedRoute>}/>
+          <Route path="/crtpost" element={<ProtectedRoute> <CreatePost /></ProtectedRoute>}/>
+          <Route path="/profile"element={ <ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="/cmntpage" element={<ProtectedRoute><CommentPage /> </ProtectedRoute>}/>
+          <Route path="/userprofls/:username" element={<ProtectedRoute><PeopleProfile /></ProtectedRoute>} />
+          <Route path="/prepare" element={<ProtectedRoute> <Prepare /></ProtectedRoute>}/>
+          <Route path="/chat-rooms/:roomId" element={<ProtectedRoute><ChatPage/></ProtectedRoute>} />
+          <Route path="/virtual/assessments/:examId" element={<ProtectedRoute><Assessment/></ProtectedRoute>} />
+          <Route path="/rooms" element={<ProtectedRoute><Rooms/> </ProtectedRoute> }/>
 
         </Routes>
       </BrowserRouter>
