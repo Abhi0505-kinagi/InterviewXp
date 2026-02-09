@@ -7,6 +7,7 @@ function Rooms() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const nav=useNavigate();
+  const user=localStorage.getItem("userId")
   // Fetch rooms
   useEffect(() => {
     fetch(`${BACKEND_URL}/api/rooms`)
@@ -15,6 +16,36 @@ function Rooms() {
       .catch(err => console.log(err));
   }, []);
 
+  const handleJoinRoom = async (roomId) => {
+  try {
+    // 1. Call your backend route
+    const response = await fetch(`${BACKEND_URL}/api/rooms/join`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ 
+        roomId: roomId, 
+        userId: user // Ensure you have access to the logged-in user's ID
+      }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      // 2. Only navigate if the backend successfully added the user
+      nav(`/chat-rooms/${roomId}`);
+      } else {
+        // If user is already in room, you might still want to let them in
+        if (data.message === "User already in room") {
+          nav(`/chat-rooms/${roomId}`);
+        } else {
+          alert(data.message);
+        }
+      }
+    } catch (error) {
+      console.error("Join Error:", error);
+      alert("Check your connection and try again.");
+    }
+  };
   // Create room
   const createRoom = async () => {
     if (!name.trim()) return alert("Room name required");
@@ -176,9 +207,12 @@ function Rooms() {
                 <p style={styles.roomDesc}>{room.description}</p>
                 <p style={styles.roomDesc}>Members : {room.members.length}</p>
                <div style={{display:"flex",gap:"5%"}}>
-                 <button style={styles.joinBtn} onClick={()=>{
-                    nav(`/chat-rooms/${room._id}`);
-                 }}>Join</button>
+                 <button 
+                  style={styles.joinBtn} 
+                  onClick={() => handleJoinRoom(room._id)}
+                >
+                  Join
+                </button>
                 <button onClick={() => deleteRoom(room._id)} style={{padding: "6px 10px",backgroundColor: "rgba(160, 14, 89, 0.48)",color: "white",border: "none",cursor: "pointer",borderRadius:"4px"}}>Delete</button>
                </div>
 

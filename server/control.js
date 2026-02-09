@@ -16,7 +16,7 @@ app.use(require("cors")());
 app.use("/api/ml", mlRoutes);
 const authRoutes = require("./routes/auth.routes");
 app.use("/api/auth", authRoutes);
-
+app.use("/uploads", express.static("uploads"));
 const http = require("http");
 const { Server } = require("socket.io");
 const server = http.createServer(app);
@@ -37,13 +37,16 @@ io.on("connection", (socket) => {
   socket.on("join-room", (roomId) => {
     socket.join(roomId);
   });
-
+  
   socket.on("send-message", async (data) => {
   try {
     const msg = await Msg.create({
       room: data.room,
       sender: data.sender,
-      content: data.content
+      content: data.content || null,
+      messageType: data.messageType || "text",
+      fileUrl: data.fileUrl || null,
+      fileName: data.fileName || null
     });
 
     const populatedMsg = await msg.populate("sender", "displayName");
