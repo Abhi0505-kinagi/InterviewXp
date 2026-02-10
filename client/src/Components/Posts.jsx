@@ -203,7 +203,7 @@ function Card({ exp,interviewId}) {
 
   return (
     <>
-    <div className="card fade-in" style={{ position: "relative" }}>
+    <div className="posts-card fade-in" style={{ position: "relative" }}>
       <div style={{display:"flex", gap:"30%"}}><h3 style={{fontFamily:"Times",color:"#869DAD"}}>{(exp.userId?.displayName).toUpperCase()}</h3>{currentUserId !== exp.userId?._id && <button
         onClick={handleFollow}
         style={{
@@ -317,86 +317,81 @@ function Card({ exp,interviewId}) {
       </div>
     </div>
     {open && (
-          <div className="overlay">
-            <div
-              className="display-card"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                style={{ float: "right" }}
-                onClick={() => setOpen(false)}
-              >
-                ❌
-              </button>
+              <div className="overlay" onClick={() => setOpen(false)}>
+                <div className="display-card" onClick={(e) => e.stopPropagation()}>
+                  
+                  <button className="close-btn" onClick={() => setOpen(false)}>✕</button>
 
-              <h2 style={{fontFamily:"Times",fontWeight:"bolder",color:"white"}}>Interview Experience</h2>
-              <p style={{color:"green"}}>Description...</p>
-              <h1 style={{color:"#6438b5"}}>{exp.company}</h1>
-              <p style={{color:"white",fontFamily:"Times"}}><span style={{color:"rgb(164, 164, 164)",fontFamily:"Times"}}>Experience Level:</span>{exp.experienceLevel}</p>
-              <p><span style={{color:"rgb(164, 164, 164)",fontFamily:"Times"}}>Difficulty Level:</span><strong
-                style={{
-                  color:
-                    exp.difficulty === "Hard"
-                      ? "#be0620"
-                      : exp.difficulty === "Medium"
-                      ? "orange"
-                      : "green",
-                  fontFamily: "Times",
-                }}
-              >{exp.difficulty}
-              </strong></p>
+                  <h2 className="title">Interview Experience</h2>
+                  <p className="muted">Description...</p>
 
-              <p style={{color:"white",fontFamily:"Times"}}>Number of Rounds {exp.rounds.length}</p>
-             <p style={{color:"rgba(176, 179, 175, 0.89)"}}>Topics:</p>
-              <div style={{ marginTop: '8px' }}>
-                {exp.tags?.map((tag, i) => (
-                  <span
-                    key={i}
-                    style={{
-                      display: 'inline-block',
-                      backgroundColor: '#413e3e',
-                      color: '#0bb90e',
-                      padding: '2px 8px',
-                      margin: '0 4px 4px 0',
-                      borderRadius: '4px',
-                      fontSize: '0.9rem',
-                    }}
-                  >
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-              <p><span style={{color:"white",fontFamily:"Times"}}>Tips : </span><span style={{color:"#16e628",fontFamily:"Times"}}>{exp.tips}</span></p>
-              <p style={{color:"rgb(164, 164, 164)",fontFamily:"Times"}}>Round Descriptions:</p>
-              {Array.isArray(exp.rounds) && exp.rounds.map((round) => (
-                <div key={round._id} className="round-card">
-                  <h3 style={{color:"white",fontFamily:"Times",fontSize:"15px"}}>{round.roundName}</h3>
-                  <p  style={{color:"white",fontFamily:"Times",fontSize:"17px",marginLeft:"10px"}}>●Question: {round.questions} <p  style={{color:"white",fontFamily:"Times",fontSize:"12px",marginLeft:"10px"}}>Description: {round.description}</p></p>
-                 
+                  <h1 className="company">{exp.company}</h1>
+
+                  <p className="info">
+                    <span>Experience Level:</span> {exp.experienceLevel}
+                  </p>
+
+                  <p className="info">
+                    <span>Difficulty:</span>
+                    <strong
+                      className={`difficulty ${exp.difficulty.toLowerCase()}`}
+                    >
+                      {exp.difficulty}
+                    </strong>
+                  </p>
+
+                  <p className="info">Number of Rounds: {exp.rounds.length}</p>
+
+                  <p className="muted">Topics:</p>
+                  <div className="tags">
+                    {exp.tags?.map((tag, i) => (
+                      <span key={i} className="tag">#{tag}</span>
+                    ))}
+                  </div>
+
+                  <p className="tips">
+                    <span>Tips:</span> {exp.tips}
+                  </p>
+
+                  <p className="muted">Round Descriptions:</p>
+
+                  {Array.isArray(exp.rounds) &&
+                    exp.rounds.map((round) => (
+                      <div key={round._id} className="round-card">
+                        <h3>{round.roundName}</h3>
+                        <p style={{fontFamily:"Times"}}>● Question: {round.questions}</p>
+                        <p className="round-desc">Description: {round.description}</p>
+                      </div>
+                    ))}
+
+                  <h3 className="muted">Questions</h3>
+                  <p className="content">{exp.askedqutns}</p>
+
+                  <p className="posted">posted by</p>
+                  <p className="author">▶▶ {exp.userId?.displayName}</p>
+
+                  <h3 className="ml-title">ML Summarization</h3>
+
+                  <textarea
+                    className="ai-box"
+                    readOnly
+                    value={loading ? "Generating AI summary..." : aiSummary}
+                  />
+
+                  <p className="note">
+                    <i>
+                      Note: We use pretrained ML to enhance content, but all summaries are
+                      reviewed by humans for accuracy and quality.
+                    </i>
+                  </p>
+
+                  <button className="close-footer" onClick={() => setOpen(false)}>
+                    Close
+                  </button>
                 </div>
-              ))}<br/>
-              <h3 style={{color:"rgba(176, 179, 175, 0.89)", fontFamily:"Times"}}>Questions</h3>
-              <p style={{color:"white",font:"Times"}}>{exp.askedqutns}</p>
-              <p style={{color:"white",fontSize:"12px"}}>posted by</p>
-              <p style={{bottom:"5px",color:"#8658d1",fontFamily:"Times"}}>▶▶{exp.userId?.displayName}</p><br/>
-              <p style={{fontFamily:"Times",color:"yellow",fontWeight:"bolder"}}>ML Summarization:</p>
-              <fieldset>
-                <textarea
-                  readOnly
-                  value={loading ? "Generating AI summary..." : aiSummary}
-                  style={{ width: "100%", maxHeight: "80px", maxWidth: "100%",backgroundColor:"rgba(14, 15, 14, 0.76)",color:"green" }}
-                />
-              </fieldset>
-              <p style={{fontSize:"10px",color:"white",fontFamily:"Times"}}><i>Note:We use pretrained ML to enhance our content creation processut,but all content is reviewed and edited by our human team to ensur accuracy and quality.</i></p>
-              <button
-                style={{ float: "right",backgroundColor:"transparent",color:"#db0f2e",fontFamily:"Times",border:"2px",fontSize:"20px" }}
-                onClick={() => setOpen(false)}
-              >
-                close
-              </button>
-            </div>
-          </div>
-        )}
+              </div>
+            )}
+
         {/*----------------------------------*/}
         {cmnt && (
           <div className="overlay-cmt">
@@ -540,15 +535,16 @@ function Posts() {
 
   return (
     <>
-      <Navbar/>
-      <div style={{ padding: "5px" }}>
+      
+
+      <div className="posts-page">
+        <div style={{ padding: "5px" }}>
+        <Navbar/>
         <h3>
           The <strong style={{ color: "green" }}>Community & Growth</strong>{" "}
           Approach — Real stories, real questions, real advice.
         </h3>
       </div>
-
-      <div className="page">
         <div className="cards-grid">
           {loading && <p>Loading...</p>}
           {!loading && Array.isArray(interviews) && interviews.map(exp => (

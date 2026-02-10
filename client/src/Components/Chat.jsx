@@ -1,74 +1,75 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import socket from "../socket";
 import Navbar from "./Navbar";
-import {useParams,useNavigate } from "react-router-dom";
-const BACKEND_URL =import.meta.env.VITE_BACKEND_URL;
-function Chat() {
+import { useParams, useNavigate } from "react-router-dom";
 
-    const { roomId } = useParams(); 
-    if(!roomId){
-        return (<p>No room selected </p>)
-    }
-    const nav=useNavigate();
-    const [file, setFile] = useState(null);
-    const [message, setMessage] = useState("");
-    const [messages, setMessages] = useState([]);
-    const userId = localStorage.getItem("userId");
-    const leaveRoom = async (roomId, userId) => {
-    if (!window.confirm("Are you sure you want to leave this interview group?")) return;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
+function Chat() {
+  const { roomId } = useParams();
+  const nav = useNavigate();
+  const endRef = useRef(null);
+
+  if (!roomId) {
+    return <p>No room selected</p>;
+  }
+
+  const [file, setFile] = useState(null);
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
+  const userId = localStorage.getItem("userId");
+
+  /* ---------------- LEAVE ROOM ---------------- */
+  const leaveRoom = async () => {
+    if (!window.confirm("Are you sure you want to leave this interview group?"))
+      return;
 
     try {
-      const response = await fetch(`${BACKEND_URL}/api/rooms/leave`, {
+      const res = await fetch(`${BACKEND_URL}/api/rooms/leave`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ roomId, userId }),
       });
 
-      if (response.ok) {
-        // Redirect or update UI state here
-        nav("/rooms"); 
-      } else {
-        const errorData = await response.json();
-        alert(errorData.message);
-      }
-    } catch (error) {
-      console.log("Error leaving room:", error);
+      if (res.ok) nav("/rooms");
+    } catch (err) {
+      console.log(err);
     }
   };
-  // load old messages
-    useEffect(() => {
+
+  /* ---------------- LOAD OLD MESSAGES ---------------- */
+  useEffect(() => {
     fetch(`${BACKEND_URL}/api/messages/${roomId}`)
-      .then(res => res.json())
-      .then(data => {
-        setMessages(Array.isArray(data.messages) ? data.messages : []);
-      })
+      .then((res) => res.json())
+      .then((data) => setMessages(data.messages || []))
       .catch(() => setMessages([]));
   }, [roomId]);
 
-
-
-  // socket listeners
+  /* ---------------- SOCKET ---------------- */
   useEffect(() => {
     socket.emit("join-room", roomId);
 
     socket.on("new-message", (msg) => {
-      setMessages(prev => [...prev, msg]);
+      setMessages((prev) => [...prev, msg]);
     });
 
-    return () => {
-      socket.off("new-message");
-    };
+    return () => socket.off("new-message");
   }, [roomId]);
 
+  /* ---------------- AUTO SCROLL ---------------- */
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  /* ---------------- SEND MESSAGE ---------------- */
   const sendMessage = async () => {
-    // FILE MESSAGE
     if (file) {
-      const formData = new FormData();
-      formData.append("file", file);
+      const fd = new FormData();
+      fd.append("file", file);
 
       const res = await fetch(`${BACKEND_URL}/api/upload-file`, {
         method: "POST",
-        body: formData
+        body: fd,
       });
 
       const data = await res.json();
@@ -76,125 +77,162 @@ function Chat() {
       socket.emit("send-message", {
         room: roomId,
         sender: userId,
-        content:"file",
         messageType: "file",
+        content: "file",
         fileUrl: data.fileUrl,
-        fileName: data.fileName
+        fileName: data.fileName,
       });
 
       setFile(null);
       return;
     }
 
-    // TEXT MESSAGE
     if (!message.trim()) return;
 
     socket.emit("send-message", {
       room: roomId,
       sender: userId,
       messageType: "text",
-      content: message
+      content: message,
     });
 
     setMessage("");
   };
 
+  /* ---------------- STYLES ---------------- */
   const styles = {
-      container: {
-        display: "flex",
-        justifyContent: "center",
-        marginTop: "20px",
-        borderRadius:"5px"
-      },
+    page: {
+      minHeight: "100vh",
+      background:
+        "linear-gradient(160deg, #020116 0%, #120e63cb 45%, #0b0686cd 90%)",
+    },
 
-      chatBox: {
-        width: "450px",
-        height: "550px",
-        display: "flex",
-        flexDirection: "column",
-        border: "1px solid linear-gradient(135deg, rgb(108, 49, 218), rgb(90,40,180))",
-        borderRadius: "10px",
-        background: "#fff",
-      },
+    container: {
+      display: "flex",
+      justifyContent: "center",
+      marginTop: "20px",
+    },
 
-      header: {
-        padding: "10px",
-        margin: 0,
-        borderBottom: "1px solid #ddd",
-        background: "linear-gradient(135deg, rgb(40, 28, 63), rgb(90,40,180))",
-        fontFamily:"Times"
-      },
+    chatBox: {
+      width: "460px",
+      height: "560px",
+      display: "flex",
+      flexDirection: "column",
+      borderRadius: "16px",
+      background: "rgba(18,14,99,0.55)",
+      backdropFilter: "blur(14px)",
+      border: "1px solid rgba(255,255,255,0.15)",
+      boxShadow: "0 20px 40px rgba(0,0,0,0.4)",
+    },
 
-      messages: {
-        flex: 1,
-        padding: "10px",
-        overflowY: "auto",
-        background: "rgba(9, 12, 33, 0.96)"
-      },
+    header: {
+      padding: "12px",
+      display: "flex",
+      alignItems: "center",
+      gap: "10px",
+      color: "#fff",
+      background: "linear-gradient(135deg,#281c3f,#5a28b4)",
+      borderRadius: "16px 16px 0 0",
+    },
 
-      messageRow: {
-        display: "flex",
-        marginBottom: "8px"
-      },
+    messages: {
+      flex: 1,
+      padding: "14px",
+      overflowY: "auto",
+      background: "rgba(7,10,30,0.85)",
+    },
 
-      message: {
-        padding: "3px 5px",
-        borderRadius: "10px",
-        maxWidth: "75%",
-        fontSize: "14px",
-        color:"black",
-        
-      },
+    messageRow: {
+      display: "flex",
+      marginBottom: "10px",
+    },
 
-      username: {
-        fontSize: "12px",
-        fontWeight: "bold",
-        marginBottom: "4px",
-        color:"black"
-      },
+    message: {
+      padding: "8px 12px",
+      borderRadius: "14px",
+      maxWidth: "75%",
+      fontSize: "14px",
+      lineHeight: "1.4",
+    },
 
-      time: {
-        fontSize: "10px",
-        marginTop: "4px",
-        textAlign: "right",
-        color: "#555"
-      },
+    username: {
+      fontSize: "11px",
+      fontWeight: "600",
+      marginBottom: "2px",
+      color: "#333",
+    },
 
-      inputBox: {
-        padding: "10px",
-        borderTop: "1px solid #ddd",
-        background: "linear-gradient(135deg, rgb(40, 28, 63), rgb(90,40,180))"
-      },
+    time: {
+      fontSize: "10px",
+      marginTop: "4px",
+      textAlign: "right",
+      opacity: 0.7,
+    },
 
-      input: {
-        flex: 1,
-        padding: "8px",
-        borderRadius: "5px",
-        border: "1px solid #ccc",
-        outline: "none",
-      },
+    inputBox: {
+      padding: "10px",
+      background: "rgba(12,10,40,0.9)",
+      backdropFilter: "blur(10px)",
+      borderTop: "1px solid rgba(255,255,255,0.15)",
+      borderRadius: "0 0 16px 16px",
+    },
 
-      button: {
-        marginLeft: "8px",
-        padding: "8px 15px",
-        border: "none",
-        borderRadius: "5px",
-        background: "#007bff",
-        color: "#fff",
-        cursor: "pointer"
-      }
-    };
+    inputRow: {
+      display: "flex",
+      alignItems: "center",
+    },
 
+    input: {
+      flex: 1,
+      padding: "10px 12px",
+      borderRadius: "20px",
+      border: "none",
+      outline: "none",
+      background: "rgba(255,255,255,0.12)",
+      color: "#fff",
+    },
+
+    button: {
+      marginLeft: "10px",
+      padding: "10px 16px",
+      borderRadius: "50%",
+      border: "none",
+      background: "linear-gradient(135deg,#6f4cff,#8e2de2)",
+      color: "#fff",
+      cursor: "pointer",
+      boxShadow: "0 4px 12px rgba(111,76,255,0.5)",
+    },
+
+    fileLabel: {
+      color: "#fff",
+      cursor: "pointer",
+      fontSize: "14px",
+      marginBottom: "6px",
+      display: "inline-block",
+    },
+  };
+
+  /* ---------------- UI ---------------- */
   return (
-    <>
+    <div style={styles.page}>
       <Navbar />
 
       <div style={styles.container}>
         <div style={styles.chatBox}>
-         
-          <h3 style={styles.header}> <button style={{background:"transparent",color:"blue",border:"none",position:"left",marginLeft:"0px",cursor:"pointer",margin:"10px"}} onClick={()=>{
-            leaveRoom(roomId,userId)}
-            }>◀◀</button>Group Chat</h3>
+          <div style={styles.header}>
+            <button
+              onClick={leaveRoom}
+              style={{
+                background: "transparent",
+                border: "none",
+                color: "#fff",
+                cursor: "pointer",
+              }}
+            >
+              ◀
+            </button>
+            <strong>Group Chat</strong>
+          </div>
 
           <div style={styles.messages}>
             {messages.map((msg, i) => {
@@ -204,23 +242,18 @@ function Chat() {
                   key={i}
                   style={{
                     ...styles.messageRow,
-                    justifyContent: isOwn ? "flex-end" : "flex-start"
+                    justifyContent: isOwn ? "flex-end" : "flex-start",
                   }}
                 >
                   <div
                     style={{
                       ...styles.message,
                       background: isOwn
-                        ? "linear-gradient(135deg, rgba(120,70,200,0.7), rgba(74,38,115,0.7))"
-                        : "linear-gradient(135deg, rgba(146, 66, 132, 0.86), rgba(74,38,115,0.7))",
-                      color: isOwn ? "#fff" : "#000",
-                      boxShadow: isOwn
-                        ? "0 4px 12px rgba(120,70,200,0.35)"
-                        : "0 2px 6px rgba(0,0,0,0.1)",
-                      backdropFilter: isOwn ? "blur(6px)" : "none"
+                        ? "linear-gradient(135deg,#6f4cff,#8e2de2)"
+                        : "rgba(255,255,255,0.92)",
+                      color: isOwn ? "#fff" : "#111",
                     }}
                   >
-
                     {!isOwn && (
                       <div style={styles.username}>
                         {msg.sender.displayName}
@@ -231,48 +264,53 @@ function Chat() {
                       <a
                         href={`${BACKEND_URL}${msg.fileUrl}`}
                         target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ color: "#00f", textDecoration: "underline" }}
+                        rel="noreferrer"
                       >
                         📂 {msg.fileName}
                       </a>
                     ) : (
-                      <div>{msg.content}</div>
+                      msg.content
                     )}
+
                     <div style={styles.time}>
                       {new Date(msg.createdAt).toLocaleTimeString([], {
                         hour: "2-digit",
-                        minute: "2-digit"
+                        minute: "2-digit",
                       })}
                     </div>
                   </div>
                 </div>
               );
             })}
+            <div ref={endRef} />
           </div>
 
           <div style={styles.inputBox}>
-            <input
-              type="file"
-              onChange={e => setFile(e.target.files[0])}
-              style={{ color: "red",backgroundColor:"black",width:"50%",padding:"5px",margin:"10px"}}
-            /><br/>
-            <div style={{display:"flex"}}>
+            <label style={styles.fileLabel}>
+              📎 Attach file
               <input
-              style={styles.input}
-              value={message}
-              onChange={e => setMessage(e.target.value)}
-              placeholder="Type a message..."
-              onKeyDown={e => e.key === "Enter" && sendMessage()}
-            />
-            <button style={styles.button} onClick={sendMessage}>
-              ▶▶
-            </button>
+                type="file"
+                hidden
+                onChange={(e) => setFile(e.target.files[0])}
+              />
+            </label>
+
+            <div style={styles.inputRow}>
+              <input
+                style={styles.input}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Type a message..."
+                onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+              />
+              <button style={styles.button} onClick={sendMessage}>
+                ▶
+              </button>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

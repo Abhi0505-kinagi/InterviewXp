@@ -68,21 +68,26 @@ function Rooms() {
   const isMobile = window.innerWidth < 768;
 
   const styles = {
+
   page: {
     display: "flex",
     gap: "20px",
     padding: "20px",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+
   },
 
   /* CREATE ROOM */
     createRoom: {
         flex: "0 0 300px",
         height: "220px",
-        border: "1px solid #ccc",
-        borderRadius: "10px",
-        padding: "15px",
-        background: "#0f1729",
+        background: "rgba(10, 15, 40, 0.85)",
+        borderRadius: "20px",
+        padding: "10px",
+        border: "1px solid rgba(99, 102, 241, 0.18)",
+        boxShadow:" 0 25px 50px rgba(0, 0, 0, 0.55)",
+        backdropFilter: "blur(12px)",
+        transition:"all 0.3s ease",
         position: isMobile ? "static" : "sticky",
         top: isMobile ? "auto" : "80px",
         width: isMobile ? "100%" : "auto"
@@ -100,7 +105,8 @@ function Rooms() {
         backgroundColor: "green",
         color: "white",
         border: "none",
-        cursor: "pointer"
+        cursor: "pointer",
+        borderRadius:"10px"
     },
 
     /* ROOMS */
@@ -118,12 +124,20 @@ function Rooms() {
         marginTop: "10px"
     },
     roomCard: {
-        border: "1px solid #ddd",
+       /* border: "1px solid #ddd",
         borderRadius: "10px",
         padding: "12px",
         cursor: "pointer",
         transition: "transform 0.2s",
-        background: "#131e3a"
+        background: "#131e3a"*/
+        background: "rgba(10, 15, 40, 0.85)",
+        borderRadius: "20px",
+        padding: "30px",
+        border: "1px solid rgba(99, 102, 241, 0.18)",
+        boxShadow:" 0 25px 50px rgba(0, 0, 0, 0.55)",
+        backdropFilter: "blur(12px)",
+        transition:" all 0.3s ease"
+
     },
 
     roomTitle: {
@@ -144,6 +158,11 @@ function Rooms() {
         border: "none",
         cursor: "pointer",
         borderRadius:"4px"
+    },
+    roompage :{
+    width: "100%",
+    minHeight: "100vh",
+    background: "linear-gradient(180deg, #09072f 0%, #110f42cb 45%, #141161cd 90%)"
     }
     };
     const deleteRoom = async (roomId) => {
@@ -164,14 +183,15 @@ function Rooms() {
 
   return (
     <>
+      <div style={styles.roompage}>
       <Navbar />
 
       <div style={styles.page}>
         {/* CREATE ROOM (FIXED SIZE) */}
         <div style={styles.createRoom}>
           <h3>Create Room</h3>
-
-          <input
+    
+          <input 
             style={styles.input}
             placeholder="Room name"
             value={name}
@@ -205,7 +225,7 @@ function Rooms() {
               >
                 <h4 style={styles.roomTitle}>{room.name}</h4>
                 <p style={styles.roomDesc}>{room.description}</p>
-                <p style={styles.roomDesc}>Members : {room.members.length}</p>
+                <p style={styles.roomDesc}>Members : {room.members?.length||0}</p>
                <div style={{display:"flex",gap:"5%"}}>
                  <button 
                   style={styles.joinBtn} 
@@ -220,6 +240,7 @@ function Rooms() {
             ))}
           </div>
         </div>
+      </div>
       </div>
     </>
   );

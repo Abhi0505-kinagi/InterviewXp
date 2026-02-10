@@ -6,12 +6,12 @@
   font-family: "Poppins", sans-serif;
 }
 
-/* Page base */
-body {
+.page {
   min-height: 100vh;
-  background: #0f172a;
-  color: #e5e7eb;
+  background: linear-gradient(160deg, #020116 0%, #120e63cb 45%, #0b0686cd 90%);
+
 }
+
 
 /* Header */
 header {
@@ -47,11 +47,13 @@ nav a:hover {
 
 .hero-text {
   max-width: 600px;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 .hero-text h2 {
   font-size: 48px;
   margin-bottom: 20px;
+
 }
 
 .hero-text span {
@@ -265,5 +267,3 @@ footer {
     font-size: 24px;
   }
 }
-
-

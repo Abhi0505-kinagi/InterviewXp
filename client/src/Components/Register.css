@@ -1,4 +1,5 @@
-* {
+/*
+{
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -8,7 +9,7 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #0f172a, #1e293b);
   min-height: 100vh;
-}
+}*/
 
 /* Container */
 .register-container {

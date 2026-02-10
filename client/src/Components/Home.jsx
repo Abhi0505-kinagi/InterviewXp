@@ -5,11 +5,12 @@ function Home() {
   const nav=useNavigate();
   return (
     <>
+      <div className="page">
       <Navbar/>
       <section className="hero">
         <div className="hero-text">
-          <h2>
-            Crack Interviews with <span>Real Experiences</span>
+          <h2 style={{fontFamily:"Times"}}>
+            Crack Interviews with <span style={{fontFamily:"Times"}}>Real Experiences</span>
           </h2>
           <p>
             Learn from real interview experiences shared by candidates from top
@@ -57,6 +58,7 @@ function Home() {
       <footer>
         © 2026 InterviewXP. Built with ❤️ by Abhishek.
       </footer>
+      </div>
     </>
   );
 }

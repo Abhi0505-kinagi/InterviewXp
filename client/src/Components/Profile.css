@@ -1,4 +1,4 @@
-* {
+/* {
   box-sizing: border-box;
 }
 
@@ -6,17 +6,18 @@ body {
   margin: 0;
   background: #0f172a;
   font-family: "Segoe UI", sans-serif;
-}
+}*/
 
 /* COVER */
 .profile-cover {
   height: 70px;
-  background: linear-gradient(135deg, #0f172a, #27365c);
+  background: linear-gradient(160deg, #020116 0%, #120e63cb 45%, #08054ccd 90%);
 }
 
 /* PAGE */
 .profile-page {
   min-height: 100vh;
+  background:linear-gradient(160deg, #020116 0%, #120e63cb 45%, #060455cd 90%);
 }
 
 /* CONTAINER */
@@ -28,7 +29,7 @@ body {
 
 /* HEADER */
 .profile-header {
-  background: #020617;
+  background: linear-gradient(160deg, #020116 0%, #120e63cb 45%, #0a0929cd 90%);;
   border-radius: 20px;
   padding: 30px;
   display: flex;
