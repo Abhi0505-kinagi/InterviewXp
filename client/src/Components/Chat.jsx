@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import socket from "../socket";
 import Navbar from "./Navbar";
 import { useParams, useNavigate } from "react-router-dom";
-
+import "./Chat.css"
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 function Chat() {
@@ -214,7 +214,7 @@ function Chat() {
 
   /* ---------------- UI ---------------- */
   return (
-    <div style={styles.page}>
+    <div style={styles.page} className="page">
       <Navbar />
 
       <div style={styles.container}>

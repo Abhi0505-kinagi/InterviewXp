@@ -7,10 +7,40 @@
 }
 
 .page {
+  position: relative;
   min-height: 100vh;
-  background: linear-gradient(160deg, #020116 0%, #120e63cb 45%, #0b0686cd 90%);
-
+  overflow: hidden;
+  background: linear-gradient(
+    160deg,
+    #020116 0%,
+    #120e63cb 45%,
+    #0b0686cd 90%
+  );
 }
+.page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/image.png"); /* home bg */
+  background-position: center;
+  background-size: contain; /* home looks better with cover */
+  background-repeat: no-repeat;
+  filter: blur(6px);
+  transform: scale(1.12);
+  z-index: 0;
+}
+.page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 8, 40, 0.7);
+  z-index: 1;
+}
+.page > * {
+  position: relative;
+  z-index: 2;
+}
+
 
 
 /* Header */

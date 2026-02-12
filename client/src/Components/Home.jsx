@@ -20,13 +20,6 @@ function Home() {
             nav("/posts")
           }}>Explore Experiences</button>
         </div>
-
-        <div className="hero-image">
-          <img
-            src="https://illustrations.popsy.co/gray/work-from-home.svg"
-            alt="Interview Illustration"
-          />
-        </div>
       </section>
 
       <section className="features">
