@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
 const BACKEND_URL =import.meta.env.VITE_BACKEND_URL;
+import roomimg from "../assets/image.png"
 function Rooms() {
   const [rooms, setRooms] = useState([]);
   const [name, setName] = useState("");
@@ -159,10 +160,21 @@ function Rooms() {
         cursor: "pointer",
         borderRadius:"4px"
     },
-    roompage :{
-    width: "100%",
-    minHeight: "100vh",
-    background: "linear-gradient(180deg, #09072f 0%, #110f42cb 45%, #141161cd 90%)"
+    roompage: {
+      width: "100%",
+      minHeight: "100vh",
+      backgroundImage: `
+        linear-gradient(
+          180deg,
+          rgba(9, 8, 24, 0.8) 0%,
+          rgba(75, 74, 85, 0.8) 45%,
+          rgba(57, 56, 94, 0.8) 90%
+        ),
+        url(${roomimg})
+      `,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat"
     }
     };
     const deleteRoom = async (roomId) => {

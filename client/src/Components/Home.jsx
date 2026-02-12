@@ -23,7 +23,7 @@ function Home() {
       </section>
 
       <section className="features">
-        <h2>Why Choose InterviewXP?</h2>
+        <p>Why Choose InterviewXP?</p>
 
         <div className="feature-grid">
           <div className="card">

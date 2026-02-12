@@ -1,26 +1,27 @@
+.page {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+}
 
 .page::before {
   content: "";
-  position: absolute;
+  position: fixed;   /* change from absolute */
   inset: 0;
-  background-image: url("/image.png");
+  background-image: url("../assets/image.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   filter: blur(6px);
-  transform: scale(1.12);
-  z-index: 0;
+  transform: scale(1.1);
+  z-index: -2;
 }
 
 .page::after {
   content: "";
-  position: absolute;
+  position: fixed;
   inset: 0;
-  background: rgba(5, 8, 40, 0.7);
-  z-index: 1;
-}
-
-.page > * {
-  position: relative;
-  z-index: 2;
+  background: rgba(202, 203, 212, 0.393);
+  z-index: -1;
 }

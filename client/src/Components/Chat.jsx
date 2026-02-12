@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Chat.css"
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-
+import bgImage from "../assets/interviewxp.jpg"
 function Chat() {
   const { roomId } = useParams();
   const nav = useNavigate();
@@ -101,11 +101,6 @@ function Chat() {
 
   /* ---------------- STYLES ---------------- */
   const styles = {
-    page: {
-      minHeight: "100vh",
-      background:
-        "linear-gradient(160deg, #020116 0%, #120e63cb 45%, #0b0686cd 90%)",
-    },
 
     container: {
       display: "flex",
@@ -140,7 +135,12 @@ function Chat() {
       padding: "14px",
       overflowY: "auto",
       background: "rgba(7,10,30,0.85)",
+      backgroundImage: `url(${bgImage})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
     },
+
 
     messageRow: {
       display: "flex",
@@ -214,7 +214,7 @@ function Chat() {
 
   /* ---------------- UI ---------------- */
   return (
-    <div style={styles.page} className="page">
+    <div className="page">
       <Navbar />
 
       <div style={styles.container}>

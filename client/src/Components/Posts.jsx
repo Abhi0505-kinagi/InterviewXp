@@ -225,20 +225,38 @@ function Card({ exp,interviewId}) {
         console.log(exp.userId?.name);
         nav(`/userprofls/${exp.userId?.name}`)
       }}>see profile</button>
-      <h3 style={{fontFamily:"Times",color:"#976de3"}}>{exp.company}</h3>
+      <h3 style={{fontFamily:"Times",color:"#976de3"}}>Company: {exp.company}</h3>
+      <br/><br/>
       <div style={{ fontFamily: 'Times'}} className="meta">
-          <strong>Level:</strong> {exp.experienceLevel}<br /><br/>
-          <strong>Difficulty:</strong> {exp.difficulty}<br /><br/>
-          <strong>Result:</strong> {exp.result}<br /><br/>
-          <strong>Posted on:</strong> {new Date(exp.createdAt).toLocaleDateString('en-US', {
+          <strong style={{fontFamily:"Times"}}>Level:</strong> {exp.experienceLevel}<br/>
+          <strong style={{fontFamily:"Times"}}>Difficulty:</strong> <span className={`difficulty ${exp.difficulty.toLowerCase()}`}>{exp.difficulty}</span><br/>
+           <strong style={{ fontFamily: "Times" }}>Result: </strong>
+              <span
+                style={{
+                  color:
+                    exp.result === "Selected"
+                      ? "rgb(17, 236, 68)"
+                      : exp.result === "Rejected"
+                      ? "red"
+                      : exp.result === "Pending"
+                      ? "gold"
+                      : "black",
+                }}
+              >
+                {exp.result}
+              </span>
+
+              <br />
+
+          <strong style={{fontFamily:"Times"}}>Posted on:</strong> {new Date(exp.createdAt).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
           })}
            <p>
-          <strong>Rounds:</strong> {exp.rounds.length}
+          <strong style={{fontFamily:"Times"}}>Rounds:</strong> {exp.rounds.length}
           </p>
-          <br/>
+      
        
 
         <div style={{ marginTop: '8px' }}>
@@ -259,6 +277,7 @@ function Card({ exp,interviewId}) {
             </span>
           ))}
         </div>
+        <br/><br/>
         <button onClick={()=>{
           setOpen(true);
           setSelectedExp(exp);
