@@ -28,10 +28,9 @@ function PeopleProfile() {
             setuserprop(data);
         })
         .catch(err => {
-            console.error(err);
+            toast.error("Error occured:"+err);
         });
   },[]);
-  console.log(userprop.userId);
   useEffect(() => {
       if (!userprop?.userId) return;
 
@@ -43,7 +42,7 @@ function PeopleProfile() {
           setuserposts(data.interviews);
           setTotalPages(data.totalPages);
         })
-        .catch(err => console.error(err));
+        .catch(err => toast.error("Error occured:"+err));
 
     }, [userprop, page]); // 🔑 page dependency
     const fetchFollowers = async () => {
@@ -83,11 +82,11 @@ function PeopleProfile() {
         <div className="p-header">
            <button onClick={()=>{ nav("/posts")}} style={{backgroundColor:"green",padding:"10px",border:"none"}}>◀◀</button>
           <div className="p-avatar-lg">
-            {userprop?.username?.[0]?.toUpperCase() || "?"}
+            {userprop?.displayName?.[0]?.toUpperCase() || "?"}
           </div>
 
           <div className="p-details">
-            <h1>@{userprop.username}</h1>
+            <h1>@{userprop.displayName}</h1>
             <p className="bio">{userprop.bio}</p>
 
             <div className="p-stats">
@@ -138,7 +137,7 @@ function PeopleProfile() {
                 {userposts.map(post => (
                 <div key={post._id} style={{ color: "white"}}>
                   <div className="peoplepost-card">
-                  <div style={{display:"flex",gap:"10%"}}><h4 style={{color:"rgba(59, 247, 225, 0.8)"}}>{post.company}</h4><p style={{fontFamily:"Times",display:"flex"}}>status: <p style={{
+                  <div style={{display:"flex",gap:"10%"}}><h4 style={{color:"rgba(59, 247, 225, 0.8)"}}>{post.company}</h4><p style={{fontFamily:"Times",display:"flex"}}>status: <span style={{
                     color:
                             post.result === "Rejected"
                               ? "#be0620"
@@ -146,7 +145,7 @@ function PeopleProfile() {
                               ? "yellow"
                               : "green",
                           fontFamily: "Times",
-                  }}>{"-"+post.result}</p></p></div>
+                  }}>{"-"+post.result}</span></p></div>
                   <p style={{color:"rgba(232, 232, 222, 0.6)",fontFamily:"Times"}}>Role: {post.role}</p>
                   <p style={{color:"rgba(232, 232, 222, 0.6)",fontFamily:"Times"}}>UpVotes : {post.upvotes.length}</p>
                   <p style={{color:"rgba(232, 232, 222, 0.6)",fontFamily:"Times"}}>DownVotes: {post.downvotes.length}</p>
@@ -192,81 +191,89 @@ function PeopleProfile() {
         </div>
       </div>
     </div>
-{open && selectedPost && (
-                  <div className="people-overlay" onClick={() => setOpen(false)}>
-                    <div
-                      className="people-display-card"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <button
-                        style={{ float: "right" }}
-                        onClick={() => setOpen(false)}
-                      >
-                        ❌
-                      </button>
+    {open && selectedPost && (
+        <div className="overlay" onClick={() => setOpen(false)}>
+          <div className="display-card" onClick={(e) => e.stopPropagation()}>
 
-                      <h2 style={{fontFamily:"Times",fontWeight:"bolder",color:"black"}}>Interview Experience</h2>
-                      <p>Description...</p>
-                      <h1 style={{color:"#361377"}}>{selectedPost.company}</h1>
-                      <p style={{color:"black",fontFamily:"Times"}}><span style={{color:"black",fontFamily:"Times"}}>Experience Level:</span>{selectedPost.experienceLevel}</p>
-                      <p><span style={{color:"black",fontFamily:"Times"}}>Difficulty Level:</span><strong
-                        style={{
-                          color:
-                            selectedPost.difficulty === "Hard"
-                              ? "#be0620"
-                              : selectedPost.difficulty === "Medium"
-                              ? "orange"
-                              : "green",
-                          fontFamily: "Times",
-                        }}
-                      >{selectedPost.difficulty}
-                      </strong></p>
+            <button className="close-btn" onClick={() => setOpen(false)}>✕</button>
 
-                      <p style={{color:"black",fontFamily:"Times"}}>Number of Rounds {selectedPost.rounds.length}</p>
-                     <p>Topics</p>
-                      <div style={{ marginTop: '8px' }}>
-                        {selectedPost.tags?.map((tag, i) => (
-                          <span
-                            key={i}
-                            style={{
-                              display: 'inline-block',
-                              backgroundColor: '#413e3e',
-                              color: '#0bb90e',
-                              padding: '2px 8px',
-                              margin: '0 4px 4px 0',
-                              borderRadius: '4px',
-                              fontSize: '0.9rem',
-                            }}
-                          >
-                            #{tag}
-                          </span>
-                        ))}
-                      </div>
-                      <p><span style={{color:"black",fontFamily:"Times"}}>Tips : </span><span style={{color:"#16601c",fontFamily:"Times"}}>{selectedPost.tips}</span></p>
-                      {Array.isArray(selectedPost.rounds) && selectedPost.rounds.map((round) => (
-                        <div key={round._id} className="round-card">
-                          <h3 style={{color:"black",fontFamily:"Times",fontSize:"15px"}}>{round.roundName}</h3>
-                          <p  style={{color:"black",fontFamily:"Times",fontSize:"17px",marginLeft:"10px"}}>●Question: {round.questions} <p  style={{color:"black",fontFamily:"Times",fontSize:"12px",marginLeft:"10px"}}>Description: {round.description}</p></p>
-                        
-                        </div>
-                      ))}
-                      <h3 style={{color:"black", fontFamily:"Times"}}>Questions</h3>
-                      <p style={{color:"black",font:"Times",fontSize:"14px"}}>{selectedPost.askedqutns}</p>
-                      <p style={{bottom:"5px",color:"#0f0a17",fontFamily:"Times"}}>▶▶{selectedPost.userId?.name}</p><br/>
-                      <p style={{fontFamily:"Times",color:"black",fontWeight:"bolder"}}>AI Summarization:</p>
-                      <fieldset>
-                        <textarea readOnly style={{width:"100%",maxHeight:"80px",maxWidth:"100%"}}></textarea>
-                      </fieldset>
-                      <p style={{fontSize:"10px",color:"black",fontFamily:"Times"}}><i>Note:We use AI to enhance our content creation processut,but all content is reviewed and edited by our human team to ensur accuracy and quality.</i></p>
-                      <button
-                        style={{ float: "right",backgroundColor:"transparent",color:"#db0f2e",fontFamily:"Times",border:"2px",fontSize:"20px" }}
-                        onClick={() => setOpen(false)}
-                      >
-                        close
-                      </button>
-                    </div>
-                  </div>
-                )}
+            <h2 className="title">Interview Experience</h2>
+            <p className="muted">Description...</p>
+
+            <h1 className="company">{selectedPost.company}</h1>
+
+            <p className="info">
+              <span>Experience Level:</span> {selectedPost.experienceLevel}
+            </p>
+
+            <p className="info">
+              <span>Difficulty:</span>
+              <strong
+                className={`difficulty ${selectedPost.difficulty?.toLowerCase()}`}
+              >
+                {selectedPost.difficulty}
+              </strong>
+            </p>
+
+            <p className="info">
+              Number of Rounds: {selectedPost.rounds?.length}
+            </p>
+
+            <p className="muted">Topics:</p>
+            <div className="tags">
+              {selectedPost.tags?.map((tag, i) => (
+                <span key={i} className="tag">#{tag}</span>
+              ))}
+            </div>
+
+            <p className="tips">
+              <span>Tips:</span> {selectedPost.tips}
+            </p>
+
+            <p className="muted">Round Descriptions:</p>
+
+            {Array.isArray(selectedPost.rounds) &&
+              selectedPost.rounds.map((round) => (
+                <div key={round._id} className="round-card">
+                  <h3>{round.roundName}</h3>
+                  <p>● Question: {round.questions}</p>
+                  <p className="round-desc">
+                    Description: {round.description}
+                  </p>
+                </div>
+              ))}
+
+            <h3 className="muted">Questions</h3>
+            <p className="content">{selectedPost.askedqutns}</p>
+
+            <p className="posted">posted by</p>
+            <p className="author">
+              ▶▶ {selectedPost.userId?.displayName}
+            </p>
+
+            <h3 className="ml-title">AI Summarization</h3>
+
+            <textarea
+              className="ai-box"
+              readOnly
+              placeholder="AI summary will appear here..."
+            />
+
+            <p className="note">
+              <i>
+                Note: We use AI to enhance content, but all summaries are reviewed
+                by humans for accuracy and quality.
+              </i>
+            </p>
+
+            <button className="close-footer" onClick={() => setOpen(false)}>
+              Close
+            </button>
+
+          </div>
+        </div>
+      )}
+
         {showFollowers && (
       <div className="modal-overlay" onClick={() => setShowFollowers(false)}>
         <div

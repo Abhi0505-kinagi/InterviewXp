@@ -34,7 +34,9 @@ router.post("/rooms/create", async (req, res) => {
         return res.status(200).json({message:"Room created successfully",room:{name,description}})
     }
     catch(err){
-        console.log(err);
+        if (process.env.NODE_ENV !== "production") {
+        console.error("Debug Info", err);
+        }
         return res.status(500).json({message:  `Server Error:${err}`});
     }
 });
@@ -56,7 +58,9 @@ router.delete("/rooms/:roomId", async (req, res) => {
       roomId
     });
   } catch (err) {
-    console.error(err);
+    if (process.env.NODE_ENV !== "production") {
+        console.error("Debug Info", err);
+    }
     return res.status(500).json({
       message: `Server Error: ${err.message}`
     });
@@ -77,7 +81,9 @@ router.get("/rooms", async (req, res) => {
       rooms
     });
   } catch (err) {
-    console.log(err);
+    if (process.env.NODE_ENV !== "production") {
+        console.error("Debug Info", err);
+    }
     return res.status(500).json({ message: `Server Error: ${err}` });
   }
 });
@@ -98,7 +104,9 @@ router.get("/messages/:roomId", async (req, res) => {
       messages
     });
   } catch (err) {
-    console.log(err);
+    if (process.env.NODE_ENV !== "production") {
+        console.error("Debug Info", err);
+    }
     return res.status(500).json({ message: `Server Error: ${err}` });
   }
 });
@@ -135,7 +143,9 @@ router.post("/rooms/join", async (req, res) => {
       return res.status(400).json({ message: "Invalid Room ID format" });
     }
 
-    console.error("Join Room Error:", err);
+    if (process.env.NODE_ENV !== "production") {
+        console.error("Join Room Error:", err);
+    }
     return res.status(500).json({ message: "Internal Server Error" });
   }
 });
@@ -163,7 +173,10 @@ router.post("/rooms/leave", async (req, res) => {
       room
     });
   } catch (err) {
-    console.error("Leave Room Error:", err);
+
+    if (process.env.NODE_ENV !== "production") {
+        console.error("Leave Room Error:", err);
+    }
     return res.status(500).json({ message: "Internal Server Error" });
   }
 });

@@ -11,14 +11,15 @@ function Navbar() {
       <nav>
         <Link to="/">Home</Link>
         <Link to="/posts">Experiences</Link>
+        <Link to="/virtual/assessments/examId">Assessments</Link>
         <Link to="/rooms">Chat-Rooms</Link>
 
         {localStorage.getItem("username") ? (
           <button
             onClick={() => nav("/profile")}
             style={{
-              width: "60px",
-              height: "60px",
+              width: "50px",
+              height: "50px",
               borderRadius: "50%",
               border: "2px solid white",
               background: "linear-gradient(160deg, #020116 0%, #221e68cb 45%, #0b0686cd 90%)",

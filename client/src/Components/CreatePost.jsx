@@ -70,7 +70,7 @@ function PostExperience() {
       rounds,
       tags: tags.split(",").map(tag => tag.trim()).filter(tag => tag),
     };
-    //console.log("FINAL PAYLOAD 👇", payload);
+  
     try {
       const res = await fetch(`${BACKEND_URL}/api/interviews`, {
         method: "POST",

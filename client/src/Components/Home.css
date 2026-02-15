@@ -139,11 +139,13 @@ nav a:hover {
   padding: 80px;
   background: #020617;
   text-align: center;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 .features h2 {
   font-size: 36px;
   margin-bottom: 40px;
+  
 }
 
 .feature-grid {
@@ -155,9 +157,9 @@ nav a:hover {
 .card {
   background: #0e1527;
   padding: 30px;
-  border-radius: 20px;
+  border-radius: 10px;
   transition: transform 0.3s ease;
-  
+
 }
 
 .card:hover {
@@ -167,6 +169,7 @@ nav a:hover {
 .card h3 {
   margin-bottom: 15px;
   color: #38bdf8;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 /* Footer */

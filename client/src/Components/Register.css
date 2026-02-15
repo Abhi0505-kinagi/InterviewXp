@@ -1,34 +1,81 @@
-/*
-{
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* ===============================
+   REGISTER WRAPPER (DESKTOP)
+=================================*/
+
+.register-wrapper {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #0f172a, #1e293b);
-  min-height: 100vh;
-}*/
+/* Full blurred background */
+.register-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("image2.jpg") center/contain no-repeat;
+  filter: blur(8px);
+  transform: scale(1.1);
+  z-index: 0;
+}
 
-/* Container */
-.register-container {
+/* Dark overlay */
+.register-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1;
+}
+
+/* Keep content above background */
+.register-wrapper > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ===============================
+   LEFT SIDE HEADER
+=================================*/
+
+.register-image {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+}
+
+.image-header {
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+  text-align: center;
+  padding: 20px;
+}
+
+/* ===============================
+   RIGHT SIDE FORM
+=================================*/
+
+.register-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
 }
 
 /* Card */
 .register-box {
-  background: #020617;
+  background: rgba(255,255,255,0.1);
   padding: 35px 45px;
   border-radius: 16px;
   width: 100%;
   max-width: 500px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
   color: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.7);
   animation: fadeIn 0.6s ease;
 }
 
@@ -36,7 +83,6 @@ body {
 .register-box h2 {
   text-align: center;
   margin-bottom: 25px;
-  color: #00ffb9;
 }
 
 /* Form */
@@ -55,47 +101,40 @@ body {
   margin-bottom: 16px;
   border-radius: 8px;
   border: none;
-  background: #1e293b;
+  background: rgba(255,255,255,0.2);
   color: white;
 }
 
 .register-box input::placeholder {
-  color: #94a3b8;
+  color: #e2e8f0;
 }
 
 /* Button */
 .register-box button {
   margin-top: 10px;
   padding: 12px;
-  background: #00ffb9;
-  color: #0f172a;
+  background: #ffffff;
+  color: #1e3a8a;
   border: none;
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: 0.3s;
 }
 
 .register-box button:hover {
-  background: #00d7a3;
-}
-
-/* Error */
-.error {
-  color: #ff4d6d;
-  text-align: center;
-  margin-bottom: 10px;
+  background: #e0e7ff;
 }
 
 /* Footer */
 .login-text {
   margin-top: 18px;
   text-align: center;
-  color: #94a3b8;
+  font-size: 14px;
 }
 
 .login-text a {
-  color: #00ffb9;
+  color: #ffffff;
   font-weight: bold;
   text-decoration: none;
 }
@@ -116,8 +155,48 @@ body {
   }
 }
 
-/* Mobile Responsive */
-@media (max-width: 500px) {
+/* ===============================
+   MOBILE VERSION
+=================================*/
+
+@media (max-width: 768px) {
+
+  .register-wrapper {
+    flex-direction: column;
+  }
+
+  /* Remove full-page blur on mobile */
+  .register-wrapper::before,
+  .register-wrapper::after {
+    display: none;
+  }
+
+  /* Top image banner */
+  .register-image {
+    position: relative;
+    min-height: 220px;
+    background: url("image2.jpg") center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .register-image::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+  }
+
+  .image-header {
+    position: relative;
+    z-index: 2;
+  }
+
+  .register-container {
+    padding: 20px;
+  }
+
   .register-box {
     padding: 25px;
   }

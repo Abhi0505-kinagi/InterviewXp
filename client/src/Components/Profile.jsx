@@ -20,7 +20,6 @@ function Profile() {
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
   const username = localStorage.getItem("username");
-  console.log(username);
   const [formData, setFormData] = useState({
     name: "",
     bio: "",

@@ -20,7 +20,8 @@ app.use("/uploads", express.static("uploads"));
 const http = require("http");
 const { Server } = require("socket.io");
 const server = http.createServer(app);
-
+const NODE_ENV = process.env.NODE_ENV;
+console.log(NODE_ENV)
 app.use("/api", require("./routes/chatapplication.routes")); // your room/message routes
 const Msg = require("./models/GroupChat");
 
@@ -32,7 +33,9 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("User connected:", socket.id);
+  if (process.env.NODE_ENV !== "production") {
+         console.error("Debug info:",socket.id);
+        }
 
   socket.on("join-room", (roomId) => {
     socket.join(roomId);
@@ -54,18 +57,24 @@ io.on("connection", (socket) => {
 
     io.to(data.room).emit("new-message", cleanMsg);
   } catch (err) {
-    console.log(err);
+    if (process.env.NODE_ENV !== "production") {
+         console.error("Debug info:", err);
+        }
   }
 });
 
 
   socket.on("disconnect", () => {
-    console.log("User disconnected:", socket.id);
+    if (process.env.NODE_ENV !== "production") {
+         console.error("Debug info:user disconnected",socket.id);
+        }
   });
 });
 
 server.listen(5000, () => {
-  console.log("Server running on port 5000");
+  if (process.env.NODE_ENV !== "production") {
+         console.error("Debug info:", "server post 5000");
+        }
 });
 
 
@@ -78,7 +87,10 @@ app.get("/api/interviews", async (req, res) => {
     const skip = (page - 1) * limit;
 
     const total = await InterviewExp.countDocuments();
-    console.log("PAGE:", page, "LIMIT:", limit, "SKIP:", skip); 
+    if (process.env.NODE_ENV !== "production") {
+         console.log("PAGE:", page, "LIMIT:", limit, "SKIP:", skip);
+        }
+     
     const interviews = await InterviewExp.find()
       .populate("userId","name displayName")  // ✅ populate user name
       .sort({ createdAt: -1 })
@@ -92,7 +104,9 @@ app.get("/api/interviews", async (req, res) => {
       totalPages: Math.ceil(total / limit)
     });
   } catch (err) {
-    console.error(err);
+    if (process.env.NODE_ENV !== "production") {
+         console.log("Debug info",err);
+        }
     res.status(500).json({ message: "Error fetching interviews" });
   }
 });
@@ -104,7 +118,9 @@ app.post("/api/interviews",async (req,res)=>{
         const savedData=await interviews.create(data);
         res.status(201).json({message: "Interview saved successfully",data: savedData});
     }catch(err){
-        console.error("Error saving interview:", err);
+        if (process.env.NODE_ENV !== "production") {
+         console.log("Debug info",err);
+        }
         res.status(500).json({error: "An error occurred while saving the interview"});
     }
 })
@@ -136,7 +152,9 @@ app.get("/api/users/post/:userId", async (req, res) => {
     });
 
   } catch (err) {
-    console.error(err);
+     if (process.env.NODE_ENV !== "production") {
+         console.log("Debug info",err);
+        }
     res.status(500).json({ message: "Error fetching user interviews" });
   }
 });
@@ -195,7 +213,9 @@ app.post("/api/interviews/:id/upvote", async (req, res) => {
             downvotes: interview.downvotes.length
         });
     } catch (err) {
-        console.log(err);
+          if (process.env.NODE_ENV !== "production") {
+         console.log("Debug info",err);
+        }
         res.status(500).json({ error: "Server error" });
     }
 });
@@ -230,67 +250,7 @@ app.post("/api/interviews/:id/downvote", async (req, res) => {
         res.status(500).json({ error: "Server error" });
     }
 });
-/*app.post("/api/users/login", async (req, res) => {
-    const { email, password } = req.body;
-    if (!email || !password) {
-        return res.status(400).json({ message: "Invalid credentials" });
-    }
-    try {
-        const user = await User.findOne({ email: email, password: password });
-        if (!user) {
-            return res.status(401).json({ message: "Invalid credentials" });
-        }
-        res.status(200).json({
-            message: "User login successfully",userId: user._id,username: user.name});
-        } catch (err) {
-        console.log(err);
-        return res.status(500).json({ message: "Error during login" });
-    }
-});
 
-app.post("/api/users/register", async (req, res) => {
-  try {
-    const { name, email, password, displayName } = req.body;
-
-    // 1️⃣ Validate required fields
-    if (!name || !email || !password) {
-      return res.status(400).json({
-        message: "Name, email, and password are required",
-      });
-    }
-
-    // 2️⃣ Check existing user by email (recommended)
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({
-        message: "User already exists with this email",
-      });
-    }
-
-    // 3️⃣ Create user safely
-    const user = await User.create({
-      name,
-      email,
-      password,
-      displayName,
-    });
-
-    res.status(201).json({
-      success: true,
-      message: "User registered successfully",
-      user,
-    });
-
-  } catch (err) {
-    console.error("Error in registering user:", err);
-    res.status(500).json({
-      success: false,
-      message: "Internal server error",
-    });
-  }
-});*/
-
-//post ur comments on the posts
 app.post("/api/interviews/:id/comment", async (req, res) => {
     try {
         const interviewId = req.params.id;
@@ -307,7 +267,9 @@ app.post("/api/interviews/:id/comment", async (req, res) => {
         const comment = await Comments.create({interviewId,userId,cmntText});
         return res.status(201).json({message: "Comment posted successfully",comment});
     } catch (err) {
-        console.error("Error while commenting", err);
+          if (process.env.NODE_ENV !== "production") {
+         console.log("Debug info",err);
+        }
         res.status(500).json({ error: "An error occurred while commenting on post" });
     }
 });
@@ -323,7 +285,9 @@ app.get("/api/interviews/:id/comment",async(req,res)=>{
         return res.json(data);
     }
     catch(err){
-        console.error("Error fetching comments", err);
+          if (process.env.NODE_ENV !== "production") {
+         console.log("Debug info",err);
+        }
         res.status(500).json({ error: "An error occurred while while fetching comments" });
     }
 })
@@ -372,7 +336,9 @@ app.put("/api/profile/update", async (req, res) => {
       profile
     });
   } catch (err) {
-    console.error(err);
+      if (process.env.NODE_ENV !== "production") {
+         console.log("Debug info",err);
+        }
     res.status(500).json({ message: "Profile update failed" });
   }
 });
@@ -405,7 +371,9 @@ app.post("/api/profile/create", async (req, res) => {
             profile
         });
     } catch (err) {
-        console.error(err);
+          if (process.env.NODE_ENV !== "production") {
+         console.log("Debug info",err);
+        }
         res.status(500).json({ message: "Profile creation failed" });
     }
 });
@@ -415,9 +383,10 @@ app.get("/api/profile/:username", async (req, res) => {
         const { username } = req.params;
 
         let profile = await UserProfile.findOne({ username })
-            .populate("followers", "username")
-            .populate("following", "username")
-            
+        .populate("userId", "displayName username")
+        .populate("followers", "username displayName")
+        .populate("following", "username displayName");
+
         
         if (!profile) {
             // Try to find the user and create a profile if it doesn't exist
@@ -437,17 +406,21 @@ app.get("/api/profile/:username", async (req, res) => {
         
         res.status(200).json({
             _id: profile._id,
-            userId: profile.userId,
+            userId: profile.userId._id,
             username: profile.username,
+            displayName: profile.userId.displayName, // ✅ correct
             bio: profile.bio,
             followersCount: profile.followers.length,
             followingCount: profile.following.length,
             followers: profile.followers,
             following: profile.following,
             createdAt: profile.createdAt
-        });
+            });
+
     } catch (err) {
-        console.error(err);
+        if (process.env.NODE_ENV !== "production") {
+         console.error("Debug info:", err);
+        }
         res.status(500).json({ message: "Error fetching profile" });
     }
 });
@@ -486,7 +459,9 @@ app.post("/api/profile/:username/follow", async (req, res) => {
             followersCount: targetProfile.followers.length
         });
     } catch (err) {
-        console.error(err);
+        if (process.env.NODE_ENV !== "production") {
+         console.log("Debug info",err);
+        }
         res.status(500).json({ message: "Error while following user" });
     }
 });
@@ -516,7 +491,9 @@ app.post("/api/profile/:username/unfollow", async (req, res) => {
             followersCount: targetProfile.followers.length
         });
     } catch (err) {
-        console.error(err);
+        if (process.env.NODE_ENV !== "production") {
+         console.log("Debug info",err);
+        }
         res.status(500).json({ message: "Error while unfollowing user" });
     }
 });
@@ -554,7 +531,9 @@ app.get("/api/profile/:userId/followers", async (req, res) => {
       followers: profile.followers
     });
   } catch (err) {
-    console.error(err);
+    if (process.env.NODE_ENV !== "production") {
+         console.log("Debug info",err);
+        }
     res.status(500).json({ message: "Error fetching followers" });
   }
 });
@@ -578,14 +557,18 @@ app.get("/api/profile/:userId/following", async (req, res) => {
       following: profile.following
     });
   } catch (err) {
-    console.error(err);
+    if (process.env.NODE_ENV !== "production") {
+        console.log("Debug info",err);
+    }
     res.status(500).json({ message: "Error fetching following" });
   }
 });
 
 
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`);
+      if (process.env.NODE_ENV !== "production") {
+         console.log(`Server started on port ${PORT}`);
+        }
 });

@@ -5,8 +5,8 @@ function Home() {
   const nav=useNavigate();
   return (
     <>
+     <Navbar/>
       <div className="page">
-      <Navbar/>
       <section className="hero">
         <div className="hero-text">
           <h2 style={{fontFamily:"Times"}}>
@@ -23,7 +23,7 @@ function Home() {
       </section>
 
       <section className="features">
-        <p>Why Choose InterviewXP?</p>
+        <p>Why Choose InterviewXP❓</p>
 
         <div className="feature-grid">
           <div className="card">

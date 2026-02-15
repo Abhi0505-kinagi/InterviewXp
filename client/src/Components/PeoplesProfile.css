@@ -11,12 +11,47 @@ body {
 /* COVER */
 .p-cover {
   height: 85px;
-  background: linear-gradient(160deg, #020116 0%, #120e63cb 45%, #0b0686cd 90%);
 }
 /* PAGE */
 .p-page {
+  position: relative;
+  width: 100%;
   min-height: 100vh;
-  background: linear-gradient(160deg, #020116 0%, #120e63cb 45%, #0b0686cd 90%);
+  overflow: hidden;
+  background: linear-gradient(
+    160deg,
+    #020116 0%,
+    #13131bcb 45%,
+    #101012cd 90%
+  );
+}
+.p-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../assets/image.png");
+  background-position: center;
+  background-size: contain; /* full image */
+  background-repeat: no-repeat;
+  filter: blur(3px);
+  transform: scale(1.15); /* avoids blur edge cut */
+  z-index: 0;
+}
+.p-page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    #6e6e70 0%,
+    #0f0e24cb 45%,
+    #50505acd 90%
+  );
+  z-index: 1;
+}
+.p-page > * {
+  position: relative;
+  z-index: 2;
 }
 
 /* CONTAINER */
@@ -28,9 +63,10 @@ body {
 
 /* HEADER */
 .p-header {
-  background:linear-gradient(130deg, #020116 0%, #14106acb 45%, #0b094ecd 90%);
+  background:linear-gradient(130deg, #040404 0%, #000002cb 45%, #090909cd 90%);
   border-radius: 20px;
-  padding: 30px;
+  padding: 15px;
+  margin-top: 10px;
   display: flex;
   gap: 30px;
   color: white;
@@ -130,7 +166,7 @@ body {
 
 /* CONTENT */
 .p-content {
-  background: linear-gradient(160deg, #020116 0%, #0a083ccb 45%, #0a073ccd 90%); 
+  background: linear-gradient(160deg, #020000 0%, #000000cb 45%, #010000cd 90%); 
   border-radius: 20px;
   padding: 25px;
   color: white;
@@ -144,8 +180,8 @@ body {
 }
 
 .peoplepost-card {
-  height: 180px;
-  background: #01133c;
+  height: 200px;
+  background: #041331;
   border-radius: 14px;
   border: 1px solid white;
   word-wrap: break-word;

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import {useNavigate} from "react-router-dom";
 import "./Login.css";
+import logImg from "../assets/user_11461171.png"
+import Navbar from "./Navbar";
 import { toast } from "react-toastify";
 const BACKEND_URL =import.meta.env.VITE_BACKEND_URL;
-console.log("Backend URL:", import.meta.env.VITE_BACKEND_URL);
 function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,9 +20,7 @@ function Login({ onLogin }) {
         });
 
         const data = await res.json();
-        console.log(data);
         if (res.ok && data.token) {
-          console.log(data.user.name)
           toast.success("Login successful. Welcome back!”")
           localStorage.setItem("token", data.token);
           localStorage.setItem("userId", data.user.id);
@@ -40,9 +39,22 @@ function Login({ onLogin }) {
 
 
   return (
+    <>
+    <Navbar/>
+      <div className="login-wrapper">
+    <div className="login-image">
+      <div className="image-header">
+        <h3 style={{fontFamily:"Times"}}>Welcome Back To</h3>
+        <h1 style={{color:"rgba(13, 167, 233, 0.93)",fontFamily:"Times"}}>InterviewXp</h1>
+      </div>
+    </div>
+
     <div className="login-container">
+      
       <div className="login-box">
-        <h2>Login</h2>
+        <div style={{display:"flex",gap:"10%"}}> <img src={logImg} alt="" style={{width:"15%",height:"15%"}}/>
+        <h2 style={{fontFamily:"Times"}}> User Login</h2></div>
+
         <form onSubmit={handleSubmit}>
           <label>Email</label>
           <input
@@ -64,11 +76,16 @@ function Login({ onLogin }) {
 
           <button type="submit">Login</button>
         </form>
+
         <p className="signup-text">
-          Don't have an account? <a href="/reg">Sign up</a>
+          Don't have an account❓ <a href="/reg">Sign up</a>
         </p>
       </div>
     </div>
+  </div>
+
+    </>
+
   );
 }
 

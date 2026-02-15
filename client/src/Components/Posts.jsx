@@ -75,13 +75,12 @@ function Card({ exp,interviewId}) {
         .then(res => res.json())
         .then(data => setComments(data))
         .catch(err =>{
-          console.log(err);
+          toast.error("Error occured:"+err);
         })
         }, [interviewId]);
     const userId=localStorage.getItem("userId");
     const handleLike = async () => {
       try {
-        console.log("dislike",exp._id,localStorage.getItem("userId"))
         const res = await fetch(
           `${BACKEND_URL}/api/interviews/${exp._id}/upvote`,
           {
@@ -104,7 +103,6 @@ function Card({ exp,interviewId}) {
     };
     const handleDislike = async () => {
       try {
-        console.log("dislike",exp._id,localStorage.getItem("userId"))
         const res = await fetch(
           `${BACKEND_URL}/api/interviews/${exp._id}/downvote`,
           {
@@ -174,7 +172,6 @@ function Card({ exp,interviewId}) {
           getSentiment(text),
           getSelection(text)
         ]);
-        console.log(sentimentRes,selectionRes);
 
         const sentimentText = sentimentRes.prediction === 1 ? "Positive" : "Negative";
         const selectionText = selectionRes.prediction === 1 ? "High chance of selection" : "Low chance of selection";
@@ -182,7 +179,6 @@ function Card({ exp,interviewId}) {
           `Sentiment: ${sentimentText} (Confidence: ${Math.round(sentimentRes.result.result.confidence* 100)}%), Selection: ${selectionText} (Confidence: ${Math.round(selectionRes.result.result.confidence * 100)}%)`
         );
       } catch (err) {
-        console.error(err);
         setAiSummary("AI summary could not be generated.");
       } finally {
         setLoading(false);
@@ -197,15 +193,25 @@ function Card({ exp,interviewId}) {
       setAiSummary(""); // Clear summary when overlay closes
     }
   }, [open, exp.tips, exp.askedqutns, exp.company]); // use individual dependencies
-
-
+  const token = localStorage.getItem("token");
 
 
   return (
     <>
     <div className="posts-card fade-in" style={{ position: "relative" }}>
-      <div style={{display:"flex", gap:"30%"}}><h3 style={{fontFamily:"Times",color:"#869DAD"}}>{(exp.userId?.displayName).toUpperCase()}</h3>{currentUserId !== exp.userId?._id && <button
-        onClick={handleFollow}
+      <h3 style={{fontFamily:"Times",color:"#869DAD"}}>{(exp.userId?.displayName).toUpperCase()}</h3><div style={{display:"flex"}}>
+        <button style={{fontSize:"13px",backgroundColor:"transparent",border:"none",padding:0,color: "#10edf5",cursor: "pointer",textAlign: "left",width: "fit-content"}} onClick={()=>{
+        nav(`/userprofls/${exp.userId?.name}`)
+      }}>see profile</button>
+        {currentUserId !== exp.userId?._id && <button
+        onClick={() => {
+          if (!token) {
+            toast.error("Please login to continue");
+          } else {
+            handleFollow();
+          }
+        }}
+
         style={{
           width: "80px",
           height: "30px",
@@ -220,16 +226,13 @@ function Card({ exp,interviewId}) {
         }}
       >
         {isFollowing ? "Following" : "Follow"}
-      </button>}</div>
-      <button style={{fontSize:"13px",backgroundColor:"transparent",border:"none",padding:0,color: "#10edf5",cursor: "pointer",textAlign: "left",width: "fit-content"}} onClick={()=>{
-        console.log(exp.userId?.name);
-        nav(`/userprofls/${exp.userId?.name}`)
-      }}>see profile</button>
+      </button>}
+      </div>
       <h3 style={{fontFamily:"Times",color:"#976de3"}}>Company: {exp.company}</h3>
       <br/><br/>
       <div style={{ fontFamily: 'Times'}} className="meta">
-          <strong style={{fontFamily:"Times"}}>Level:</strong> {exp.experienceLevel}<br/>
-          <strong style={{fontFamily:"Times"}}>Difficulty:</strong> <span className={`difficulty ${exp.difficulty.toLowerCase()}`}>{exp.difficulty}</span><br/>
+          <strong style={{fontFamily:"Times"}}>candidate Level:</strong> {exp.experienceLevel}<br/>
+          <strong style={{fontFamily:"Times"}}>Difficulty Level:</strong> <span className={`difficulty ${exp.difficulty.toLowerCase()}`}>{exp.difficulty}</span><br/>
            <strong style={{ fontFamily: "Times" }}>Result: </strong>
               <span
                 style={{
@@ -254,7 +257,7 @@ function Card({ exp,interviewId}) {
             day: 'numeric',
           })}
            <p>
-          <strong style={{fontFamily:"Times"}}>Rounds:</strong> {exp.rounds.length}
+          <strong style={{fontFamily:"Times"}}>Interview Rounds:</strong> {exp.rounds.length}
           </p>
       
        
@@ -277,11 +280,11 @@ function Card({ exp,interviewId}) {
             </span>
           ))}
         </div>
-        <br/><br/>
+        <br/>
         <button onClick={()=>{
           setOpen(true);
           setSelectedExp(exp);
-        }} style={{height:"10%",width:"90%",backgroundColor:"transparent",margin:"10px",border:"5px",borderRadius:"5px",cursor:"pointer",color:"white"}}>Read More ▶▶</button>
+        }} style={{margin:"10px",width:"90%",backgroundColor:"transparent",border:"5px",borderRadius:"5px",cursor:"pointer",color:"white"}}>Read More ▶▶</button>
       </div>
         
       <div
@@ -296,7 +299,13 @@ function Card({ exp,interviewId}) {
       >
         {/* LIKE */}
         <button
-          onClick={handleLike}
+          onClick={() => {
+          if (!token) {
+            toast.error("Please login to continue");
+            } else {
+              handleLike();
+            }
+          }}
           style={{ background: "transparent", border: "none" }}
         >
           <img
@@ -309,7 +318,14 @@ function Card({ exp,interviewId}) {
 
 {/* DISLIKE */}
           <button
-            onClick={handleDislike}
+            onClick={() => {
+              if (!token) {
+                toast.error("Please login to continue");
+              } else {
+                handleDislike();
+              }
+            }}
+
             style={{ background: "transparent", border: "none" }}
           >
             <img
@@ -419,10 +435,16 @@ function Card({ exp,interviewId}) {
             >
               
               <button style={{ float: "right",backgroundColor:"transparent",color:"#db0f2e",fontFamily:"Times",border:"2px",fontSize:"20px" }} onClick={() => setcmnting(false)}>❌</button>
-              <button  onClick={()=>{
-                postComment();
-                toast.info("comment posting..");
-              }} disabled={cmnttext.trim() === ""}
+              <button 
+                onClick={() => {
+                  if (!token) {
+                    toast.error("Please login to continue");
+                  } else {
+                    postComment();
+                    toast.info("comment posting..");
+                  }
+                }}
+                disabled={cmnttext.trim() === ""}
               style={{
                 position: "absolute",     // position it inside the card
                 top: "5%",               // 40% from top of card
@@ -532,7 +554,6 @@ function Posts() {
         setInterviews(data.interviews);
         setTotal(data.total);
         setLoading(false);
-        console.log(data.interviews);
       })
       .catch(err => {
         setLoading(false);
@@ -554,10 +575,9 @@ function Posts() {
   return (
     <>
       
-
+      <Navbar/>
       <div className="posts-page">
         <div style={{ padding: "5px" }}>
-        <Navbar/>
         <h3>
           The <strong style={{ color: "green" }}>Community & Growth</strong>{" "}
           Approach — Real stories, real questions, real advice.
@@ -571,7 +591,7 @@ function Posts() {
 
         </div>
 
-        <div style={{ textAlign: "center", margin: "10px 0" }}>
+        <div style={{ textAlign: "center", margin: "20px 0" }}>
           {page > 1 && (
             <button onClick={handleBack} className="load-button">
               Back

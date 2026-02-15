@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import socket from "../socket";
 import Navbar from "./Navbar";
+import { toast } from "react-toastify";
 import { useParams, useNavigate } from "react-router-dom";
 import "./Chat.css"
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
-import bgImage from "../assets/interviewxp.jpg"
+import bgImage from "../assets/businessman-hand-pointing-grey-background-TTXCPP.jpg"
 function Chat() {
   const { roomId } = useParams();
   const nav = useNavigate();
@@ -31,9 +32,12 @@ function Chat() {
         body: JSON.stringify({ roomId, userId }),
       });
 
-      if (res.ok) nav("/rooms");
+      if (res.ok) {
+        nav("/rooms");
+        toast.info("Exited Room")
+      }
     } catch (err) {
-      console.log(err);
+      toast.error(err);
     }
   };
 
@@ -216,7 +220,7 @@ function Chat() {
   return (
     <div className="page">
       <Navbar />
-
+    <p><span style={{color:"green",fontFamily:"Times"}}>Group Guidelines:</span><span style={{color:"red",fontFamily:"monospace",fontWeight:"bold"}}>Please keep conversations respectful and professional.No inappropriate, sexual, or offensive content is allowed.Avoid spam, harassment, or unnecessary arguments.Let’s maintain a positive and helpful environment for everyone.</span></p>
       <div style={styles.container}>
         <div style={styles.chatBox}>
           <div style={styles.header}>

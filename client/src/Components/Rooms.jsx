@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 const BACKEND_URL =import.meta.env.VITE_BACKEND_URL;
 import roomimg from "../assets/image.png"
@@ -8,13 +9,14 @@ function Rooms() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const nav=useNavigate();
-  const user=localStorage.getItem("userId")
+  const user=localStorage.getItem("userId");
+  const token=localStorage.getItem("token")
   // Fetch rooms
   useEffect(() => {
     fetch(`${BACKEND_URL}/api/rooms`)
       .then(res => res.json())
       .then(data => setRooms(data.rooms || []))
-      .catch(err => console.log(err));
+      .catch(err => toast.error("Some error occured :"+err));
   }, []);
 
   const handleJoinRoom = async (roomId) => {
@@ -33,18 +35,19 @@ function Rooms() {
 
     if (response.ok) {
       // 2. Only navigate if the backend successfully added the user
+      toast.success("Joined Room successfully")
       nav(`/chat-rooms/${roomId}`);
       } else {
         // If user is already in room, you might still want to let them in
-        if (data.message === "User already in room") {
+        if (response.ok || data.message === "User already in room") {
           nav(`/chat-rooms/${roomId}`);
         } else {
-          alert(data.message);
+          toast.info(data.message);
         }
       }
     } catch (error) {
-      console.error("Join Error:", error);
-      alert("Check your connection and try again.");
+      toast.error("Join Error:", error);
+      toast.info("Check your connection and try again.");
     }
   };
   // Create room
@@ -63,7 +66,7 @@ function Rooms() {
       setName("");
       setDescription("");
     } else {
-      alert(data.message);
+      toast.info(data.message);
     }
   };
   const isMobile = window.innerWidth < 768;
@@ -82,22 +85,26 @@ function Rooms() {
     createRoom: {
         flex: "0 0 300px",
         height: "220px",
-        background: "rgba(10, 15, 40, 0.85)",
+        background: "transparent",
         borderRadius: "20px",
         padding: "10px",
-        border: "1px solid rgba(99, 102, 241, 0.18)",
+        border: "6px solid rgba(99, 102, 241, 0.18)",
         boxShadow:" 0 25px 50px rgba(0, 0, 0, 0.55)",
         backdropFilter: "blur(12px)",
         transition:"all 0.3s ease",
         position: isMobile ? "static" : "sticky",
         top: isMobile ? "auto" : "80px",
+        margin:"10px",
         width: isMobile ? "100%" : "auto"
         },
     input: {
         width: "100%",
         padding: "8px",
         marginBottom: "10px",
-        backgroundColor: "transparent"
+        backgroundColor: "transparent",
+        border:"1px solid white",
+        borderRadius:"20px",
+
     },
 
     createBtn: {
@@ -125,21 +132,16 @@ function Rooms() {
         marginTop: "10px"
     },
     roomCard: {
-       /* border: "1px solid #ddd",
-        borderRadius: "10px",
-        padding: "12px",
-        cursor: "pointer",
-        transition: "transform 0.2s",
-        background: "#131e3a"*/
-        background: "rgba(10, 15, 40, 0.85)",
+        background: "transparent",
         borderRadius: "20px",
         padding: "30px",
-        border: "1px solid rgba(99, 102, 241, 0.18)",
+        border: "3px solid rgba(99, 102, 241, 0.18)",
         boxShadow:" 0 25px 50px rgba(0, 0, 0, 0.55)",
         backdropFilter: "blur(12px)",
         transition:" all 0.3s ease"
 
     },
+    
 
     roomTitle: {
         color: "rgba(238, 35, 86, 0.96)",
@@ -217,7 +219,13 @@ function Rooms() {
             onChange={e => setDescription(e.target.value)}
           />
 
-          <button style={styles.createBtn} onClick={createRoom}>
+          <button style={styles.createBtn} onClick={() => {
+                    if (!token) {
+                      toast.error("Please login to continue");
+                    } else {
+                      createRoom();
+                    }
+                  }}>
             Create
           </button>
         </div>
@@ -241,11 +249,23 @@ function Rooms() {
                <div style={{display:"flex",gap:"5%"}}>
                  <button 
                   style={styles.joinBtn} 
-                  onClick={() => handleJoinRoom(room._id)}
+                  onClick={() => {
+                    if (!token) {
+                      toast.error("Please login to continue");
+                    } else {
+                      handleJoinRoom(room._id);
+                    }
+                  }}
                 >
                   Join
                 </button>
-                <button onClick={() => deleteRoom(room._id)} style={{padding: "6px 10px",backgroundColor: "rgba(160, 14, 89, 0.48)",color: "white",border: "none",cursor: "pointer",borderRadius:"4px"}}>Delete</button>
+                <button disabled onClick={() => {
+                    if (!token) {
+                      toast.error("Please login to continue");
+                    } else {
+                      deleteRoom(room._id);
+                    }
+                  }} style={{padding: "6px 10px",backgroundColor: "rgba(160, 14, 89, 0.48)",color: "white",border: "none",cursor: "pointer",borderRadius:"4px"}}>Delete</button>
                </div>
 
               </div>
