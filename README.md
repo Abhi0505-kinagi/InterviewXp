@@ -2,6 +2,7 @@
 #  InterviewXp – Social Interview Experience Platform
 ## 🚀 Live Demo
 🔗[ https://69808565cba0dec12b1c5507--interviewxp.netlify.app](https://6991c4b4646d99f0b8ab966e--interviewxp.netlify.app/)
+(due to free tier hosting the website speed is low so wait for response)
 
 
 ![Tech Stack](https://img.shields.io/badge/Stack-MERN-success)
