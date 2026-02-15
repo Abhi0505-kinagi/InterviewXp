@@ -7,6 +7,10 @@ const RoomSchema = new mongoose.Schema({
     unique: true,
     index: true
   },
+  Admin:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'User'
+  },
   description: {
     type: String,
     default: "Interview prep and resource sharing"

@@ -14,7 +14,7 @@ function Chat() {
   if (!roomId) {
     return <p>No room selected</p>;
   }
-
+  const [confirmLeave, setConfirmLeave] = useState(false);
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -22,9 +22,6 @@ function Chat() {
 
   /* ---------------- LEAVE ROOM ---------------- */
   const leaveRoom = async () => {
-    if (!window.confirm("Are you sure you want to leave this interview group?"))
-      return;
-
     try {
       const res = await fetch(`${BACKEND_URL}/api/rooms/leave`, {
         method: "POST",
@@ -225,16 +222,17 @@ function Chat() {
         <div style={styles.chatBox}>
           <div style={styles.header}>
             <button
-              onClick={leaveRoom}
-              style={{
-                background: "transparent",
-                border: "none",
-                color: "#fff",
-                cursor: "pointer",
-              }}
-            >
-              ◀
-            </button>
+            onClick={() => setConfirmLeave(true)}
+            style={{
+              background: "transparent",
+              border: "none",
+              color: "#fff",
+              cursor: "pointer",
+            }}
+          >
+            ◀
+          </button>
+
             <strong>Group Chat</strong>
           </div>
 
@@ -313,6 +311,59 @@ function Chat() {
             </div>
           </div>
         </div>
+        {confirmLeave && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            backgroundColor: "rgba(0,0,0,0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 1000,
+          }}
+        >
+          <div
+            style={{
+              background: "white",
+              padding: "20px",
+              borderRadius: "8px",
+              minWidth: "300px",
+              textAlign: "center",
+            }}
+          >
+            <p style={{color:"black"}}>Are you sure you want to leave this interview group?</p>
+            <div style={{ marginTop: "15px" }}>
+              <button
+                onClick={() => { leaveRoom(); setConfirmLeave(false); }}
+                style={{
+                  marginRight: "10px",
+                  padding: "6px 12px",
+                  backgroundColor: "red",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "4px",
+                }}
+              >
+                Yes
+              </button>
+              <button
+                onClick={() => setConfirmLeave(false)}
+                style={{
+                  padding: "6px 12px",
+                  backgroundColor: "grey",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "4px",
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       </div>
     </div>
   );

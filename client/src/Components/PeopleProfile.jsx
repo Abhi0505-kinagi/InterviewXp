@@ -67,6 +67,28 @@ function PeopleProfile() {
         toast.error("Failed to load followers");
       }
     };
+    const handleShare = async () => {
+    const profileURL = `${window.location.origin}/profile/${username}`;
+
+    // Use Web Share API if available (mobile friendly)
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "Check out this profile",
+          text: "Here’s a profile I wanted to share with you:",
+          url: profileURL,
+        });
+        toast.success("Profile shared successfully!");
+      } catch (err) {
+        toast.error("Failed to share profile");
+      }
+    } else {
+      // fallback: copy to clipboard
+      navigator.clipboard.writeText(profileURL)
+        .then(() => toast.success("Profile link copied to clipboard!"))
+        .catch(() => toast.error("Failed to copy link"));
+    }
+  };
     
 
   return (<>
@@ -107,9 +129,7 @@ function PeopleProfile() {
               {/*<button className="follow-btn" onClick={()=>{
                 toast.info("you started following:"+userprop.username);
               }}>Follow</button>*/}
-              <button className="edit-btn" onClick={()=>{
-                toast.info("This is feature is under update,let us inform you when it is ready")
-              }}>shear Profile</button>
+              <button className="edit-btn" onClick={handleShare}>Share Profile</button>
             </div>
           </div>
         </div>

@@ -24,14 +24,14 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 router.post("/rooms/create", async (req, res) => {
     try{
-        const {name,description,members}=req.body;
+        const {name,Admin,description,members}=req.body;
         let room=await Room.findOne({name});
         if(room){
             return res.status(400).json({message:"Room with this name already exist, Try other"})
         }
-        room=new Room({name,description,members});
+        room=new Room({name,Admin,description,members});
         await room.save();
-        return res.status(200).json({message:"Room created successfully",room:{name,description}})
+        return res.status(200).json({message:"Room created successfully",room:{name,Admin,description}})
     }
     catch(err){
         if (process.env.NODE_ENV !== "production") {

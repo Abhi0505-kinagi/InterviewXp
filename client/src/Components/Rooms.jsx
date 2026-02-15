@@ -9,8 +9,8 @@ function Rooms() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const nav=useNavigate();
-  const user=localStorage.getItem("userId");
-  const token=localStorage.getItem("token")
+  const token=localStorage.getItem("token");
+  const Admin=localStorage.getItem("userId")
   // Fetch rooms
   useEffect(() => {
     fetch(`${BACKEND_URL}/api/rooms`)
@@ -27,7 +27,7 @@ function Rooms() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ 
         roomId: roomId, 
-        userId: user // Ensure you have access to the logged-in user's ID
+        userId: Admin // Ensure you have access to the logged-in user's ID
       }),
     });
 
@@ -57,7 +57,7 @@ function Rooms() {
     const res = await fetch(`${BACKEND_URL}/api/rooms/create`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, description })
+      body: JSON.stringify({ name,Admin,description })
     });
 
     const data = await res.json();
@@ -259,13 +259,14 @@ function Rooms() {
                 >
                   Join
                 </button>
-                <button disabled onClick={() => {
+                <button  onClick={() => {
                     if (!token) {
                       toast.error("Please login to continue");
                     } else {
                       deleteRoom(room._id);
                     }
-                  }} style={{padding: "6px 10px",backgroundColor: "rgba(160, 14, 89, 0.48)",color: "white",border: "none",cursor: "pointer",borderRadius:"4px"}}>Delete</button>
+                  }} disabled={room.Admin !== Admin} style={{padding: "6px 10px",
+                    backgroundColor: room.Admin === Admin ? "rgba(160, 14, 89, 0.48)" : "grey",color: "white",border: "none",cursor: room.Admin === Admin ? "pointer" : "not-allowed",borderRadius:"4px"}}>Delete</button>
                </div>
 
               </div>
