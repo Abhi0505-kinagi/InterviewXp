@@ -70,8 +70,8 @@ io.on("connection", (socket) => {
         }
   });
 });
-
-server.listen(8000, () => {
+const PORT = process.env.PORT || 8000;
+server.listen(PORT, () => {
   if (process.env.NODE_ENV !== "production") {
          console.error("Debug info:", "server post 8000");
         }
@@ -566,9 +566,9 @@ app.get("/api/profile/:userId/following", async (req, res) => {
 
 
 
-const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
+
+/*app.listen(PORT, () => {
       if (process.env.NODE_ENV !== "production") {
          console.log(`Server started on port ${PORT}`);
         }
-});
+});*/
