@@ -65,11 +65,16 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
+  background: rgba(15, 23, 42, 0.9); /* dark glass look */
+  padding: 40px;
+  border-radius: 12px;
+  width: 400px;
+  max-width: 95%;
 }
 
 /* Card */
 .register-box {
-  background: rgba(255,255,255,0.1);
+  background: rgba(2, 18, 77, 0.1);
   padding: 35px 45px;
   border-radius: 16px;
   width: 100%;
@@ -97,17 +102,22 @@
 }
 
 .register-box input {
-  padding: 12px 15px;
-  margin-bottom: 16px;
-  border-radius: 8px;
-  border: none;
-  background: rgba(255,255,255,0.2);
-  color: white;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  border: 1px solid #334155;
+  background: #1e293b;     /* dark input bg */
+  color: #ffffff;          /* text color */
+  font-size: 14px;
+
+
 }
 
-.register-box input::placeholder {
-  color: #e2e8f0;
+.login-container input::placeholder {
+  color: #94a3b8;  /* grey visible placeholder */
 }
+
 
 /* Button */
 .register-box button {
@@ -175,7 +185,7 @@
   .register-image {
     position: relative;
     min-height: 220px;
-    background: url("image2.jpg") center/cover no-repeat;
+    background: url("../assets/image2.jpg") center/cover no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -193,8 +203,13 @@
     z-index: 2;
   }
 
-  .register-container {
-    padding: 20px;
+   .login-container {
+    background: rgba(15, 23, 42, 0.95);
+  }
+
+  .login-container input {
+    background: #1e293b;
+    color: white;
   }
 
   .register-box {

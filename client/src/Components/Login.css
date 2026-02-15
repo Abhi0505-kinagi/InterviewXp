@@ -54,11 +54,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background: transparent; /* dark glass look */
+  padding: 40px;
+  border-radius: 12px;
+  width: 400px;
+  max-width: 95%;
+
 }
 
 /* Login Box */
 .login-box {
-  background: rgba(255,255,255,0.1);
+  background: rgba(21, 20, 20, 0.1);
   padding: 40px;
   border-radius: 16px;
   width: 100%;
@@ -94,9 +100,17 @@
   color: white;
 }
 
-.login-box input::placeholder {
-  color: #e2e8f0;
+.login-container input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  border: 1px solid #334155;
+  background: #1e293b;     /* dark input bg */
+  color: #ffffff;          /* text color */
+  font-size: 14px;
 }
+
 
 .login-box button {
   padding: 12px;
@@ -147,7 +161,7 @@
     padding: 40px 20px;
     text-align: center;
 
-    background: url("image2.jpg") center/cover no-repeat;
+    background: url("../assets/image2.jpg") center/cover no-repeat;
   }
 
   /* Add dark overlay on image only */
@@ -163,12 +177,20 @@
     position: relative;
     z-index: 2;
   }
-
   .login-container {
-    padding: 20px;
+    background: rgba(15, 23, 42, 0.95);
+  }
+
+  .login-container input {
+    background: #1e293b;
+    color: white;
   }
 
   .login-box {
     width: 100%;
   }
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #1e293b inset;
+  -webkit-text-fill-color: white;
 }

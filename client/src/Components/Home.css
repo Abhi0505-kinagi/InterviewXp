@@ -6,11 +6,9 @@
   font-family: "Poppins", sans-serif;
 }
 
-
+/* Page Background (Gradient Only) */
 .page {
-  position: relative;
   min-height: 100vh;
-  overflow: hidden;
   background: linear-gradient(
     160deg,
     #020116 0%,
@@ -18,31 +16,6 @@
     #201e6ecd 90%
   );
 }
-.page::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("../assets/image.png"); /* home bg */
-  background-position: center;
-  background-size:contain; /* home looks better with cover */
-  background-repeat: no-repeat;
-  filter: blur(0px);
-  transform: scale(1.12);
-  z-index: 0;
-}
-.page::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(5, 8, 40, 0.7);
-  z-index: 1;
-}
-.page > * {
-  position: relative;
-  z-index: 2;
-}
-
-
 
 /* Header */
 header {
@@ -68,15 +41,45 @@ nav a:hover {
   color: #38bdf8;
 }
 
-/* Hero section */
+/* Hero Section */
 .hero {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 80px;
   min-height: 700px;
+  overflow: hidden;
 }
 
+/* Background Image for Hero */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("../assets/image.png");
+  background-position: center;
+  background-size:cover;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/* Dark Overlay */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 8, 40, 0.7);
+  z-index: 1;
+}
+
+/* Keep Hero Content Above Background */
+.hero > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Hero Text */
 .hero-text {
   max-width: 600px;
   font-family: 'Times New Roman', Times, serif;
@@ -85,7 +88,6 @@ nav a:hover {
 .hero-text h2 {
   font-size: 48px;
   margin-bottom: 20px;
-
 }
 
 .hero-text span {
@@ -114,7 +116,7 @@ nav a:hover {
   background: #0ea5e9;
 }
 
-/* Hero image animation */
+/* Hero Image Animation */
 .hero-image img {
   width: 420px;
   max-width: 100%;
@@ -123,18 +125,12 @@ nav a:hover {
 }
 
 @keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-15px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
 }
 
-/* Features section */
+/* Features Section */
 .features {
   padding: 80px;
   background: #020617;
@@ -145,7 +141,6 @@ nav a:hover {
 .features h2 {
   font-size: 36px;
   margin-bottom: 40px;
-  
 }
 
 .feature-grid {
@@ -159,7 +154,6 @@ nav a:hover {
   padding: 30px;
   border-radius: 10px;
   transition: transform 0.3s ease;
-
 }
 
 .card:hover {
@@ -182,7 +176,7 @@ footer {
 
 /* Responsive Design */
 
-/* Tablet and smaller desktop */
+/* Tablet */
 @media (max-width: 1024px) {
   header {
     padding: 20px 40px;
@@ -233,7 +227,6 @@ footer {
   }
 
   nav a {
-    margin-left: 0;
     margin: 5px 10px;
   }
 
@@ -288,7 +281,7 @@ footer {
   }
 }
 
-/* Small mobile */
+/* Small Mobile */
 @media (max-width: 480px) {
   .hero-text h2 {
     font-size: 28px;
