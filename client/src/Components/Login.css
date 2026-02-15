@@ -57,8 +57,8 @@
   background: transparent; /* dark glass look */
   padding: 40px;
   border-radius: 12px;
-  width: 400px;
-  max-width: 95%;
+  width: 100%;
+  max-width: 100%;
 
 }
 

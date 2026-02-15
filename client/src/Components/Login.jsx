@@ -46,6 +46,7 @@ function Login({ onLogin }) {
       <div className="image-header">
         <h3 style={{fontFamily:"Times"}}>Welcome Back To</h3>
         <h1 style={{color:"rgba(13, 167, 233, 0.93)",fontFamily:"Times"}}>InterviewXp</h1>
+        <p style={{fontFamily:"Times",fontSize:"20px"}}>Sign in to continue your progress and track your interview readiness.</p>
       </div>
     </div>
 

@@ -65,11 +65,11 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background: rgba(15, 23, 42, 0.9); /* dark glass look */
+  background: transparent; /* dark glass look */
   padding: 40px;
   border-radius: 12px;
-  width: 400px;
-  max-width: 95%;
+  width: 100%;
+  max-width: 100%;
 }
 
 /* Card */
@@ -173,6 +173,7 @@
 
   .register-wrapper {
     flex-direction: column;
+    background-color: rgba(15, 23, 42, 0.9);
   }
 
   /* Remove full-page blur on mobile */
@@ -204,7 +205,8 @@
   }
 
    .login-container {
-    background: rgba(15, 23, 42, 0.95);
+    background: rgba(15, 23, 42, 0.9);
+    padding: 20px;
   }
 
   .login-container input {

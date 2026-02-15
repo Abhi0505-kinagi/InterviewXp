@@ -81,14 +81,14 @@ function Register() {
             <div className="image-header">
                <h3 style={{fontFamily:"Times"}}>Be a Part Of</h3>
               <h1 style={{color:"rgba(13, 167, 233, 0.93)",fontFamily:"Times"}}>InterviewXp</h1>
-              <p style={{fontFamily:"Times",fontSize:"16px"}}>we are happy to welcome you for this InterviewXp</p>
+              <h3 style={{fontFamily:"Times",fontSize:"16px"}}>  Create your account to access personalized interview preparation tools and insights</h3>
             </div>
           </div>
 
           <div className="register-container">
             <div className="register-box">
               <div style={{display:"flex",gap:"10%"}}> <img src={logImg} alt="" style={{width:"15%",height:"15%"}}/>
-              <h2 style={{fontFamily:"Times"}}> User Login</h2></div>
+              <h2 style={{fontFamily:"Times"}}> User Register</h2></div>
               <form onSubmit={handleSubmit}>
                   <label>Name (private)</label>
                   <input
