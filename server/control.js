@@ -21,13 +21,13 @@ const http = require("http");
 const { Server } = require("socket.io");
 const server = http.createServer(app);
 const NODE_ENV = process.env.NODE_ENV;
-console.log(NODE_ENV)
+const CLIENT_URL=process.env.CLIENT_URL;
 app.use("/api", require("./routes/chatapplication.routes")); // your room/message routes
 const Msg = require("./models/GroupChat");
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin:CLIENT_URL,
     methods: ["GET", "POST"]
   }
 });
@@ -71,9 +71,9 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(5000, () => {
+server.listen(8000, () => {
   if (process.env.NODE_ENV !== "production") {
-         console.error("Debug info:", "server post 5000");
+         console.error("Debug info:", "server post 8000");
         }
 });
 

@@ -34,7 +34,7 @@ html, body {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("/businessman-hand-pointing-grey-background-TTXCPP.jpg");
+  background-image: url("../assets/businessman-hand-pointing-grey-background-TTXCPP.jpg");
   background-position: center;
   background-size: contain; /* full image */
   background-repeat: no-repeat;
