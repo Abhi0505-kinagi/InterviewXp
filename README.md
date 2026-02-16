@@ -1,12 +1,12 @@
 
-```markdown
+markdown
 # InterviewXP: A Community-Driven Interview Experience Platform
 
 ![Status](https://img.shields.io/badge/Status-Active-success)
 ![Clones](https://img.shields.io/badge/GitHub_Clones-202+-blue)
 ![Stack](https://img.shields.io/badge/Stack-MERN-yellow)
 ![License](https://img.shields.io/badge/License-MIT-green)
-
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://6991c4b4646d99f0b8ab966e--interviewxp.netlify.app/)
 **Developed by:** Abhishek Hanamant Kinagi
 
 ---
@@ -192,29 +192,52 @@ We use **JSON Web Tokens (JWT)** to implement secure, stateless authentication. 
 2. **Token Generation:** Server signs a JWT containing `User ID` and `Role` using `JWT_SECRET`.
 3. **Access:** Client sends the token in the Header. Middleware verifies the signature before granting access to protected routes (e.g., Delete Room).
 
+### Authenication Sequence
 ```mermaid
 sequenceDiagram
     autonumber
-    participant Client
-    participant Middleware
-    participant Controller
-    participant DB
+    participant Client as 💻 Client (React)
+    participant Mid as 🛡️ Middleware
+    participant Control as ⚙️ Controller
+    participant DB as 🗄️ MongoDB
 
-    Note over Client, DB: PHASE 1: LOGIN
-    Client->>Controller: POST /login (email, pass)
-    Controller->>DB: Find User
-    DB-->>Controller: User Hash
-    Controller->>Controller: bcrypt.compare()
-    Controller-->>Client: Return JWT Token
+    Note over Client, DB: PHASE 1: LOGIN & AUTH
+    Client->>Control: POST /login (email, pass)
+    Control->>DB: Find User by Email
+    DB-->>Control: User Record (Hash + Role)
+    Control->>Control: Bcrypt.compare(pass, hash)
+    Control-->>Client: 200 OK + JWT Token
 
-    Note over Client, DB: PHASE 2: PROTECTED ROUTE
-    Client->>Middleware: DELETE /room (Bearer Token)
-    Middleware->>Middleware: Verify Signature
-    Middleware->>Controller: Token Valid -> Next()
-    Controller->>DB: Delete Room (if Admin)
-    DB-->>Controller: Success
-    Controller-->>Client: 200 OK
+    Note over Client, DB: PHASE 2: PROTECTED DATABASE OPS
+    Client->>Mid: DELETE /room (Bearer Token)
+    Mid->>Mid: Verify Signature
+    Mid->>Control: Valid -> {id, role}
+    
+    Note right of Control: RBAC: Check if Admin
+    Control->>DB: deleteOne({ _id: roomId })
+    DB-->>Control: Success
+    Control-->>Client: 200 OK (Room Deleted)
 
+```
+### Internal Hashing Logic
+```mermaid
+    graph LR
+    subgraph Registration_Storage
+    P1[User Password] --> B1(Bcrypt + Salt)
+    B1 --> H1[(Hashed Password)]
+    H1 --> DB1[(Stored in MongoDB)]
+    end
+
+    subgraph Login_Verification
+    P2[Input Password] --> B2{Bcrypt Compare}
+    DB1 --> B2
+    B2 -->|Match| V[Access Granted]
+    B2 -->|No Match| X[Access Denied]
+    end
+
+    style B2 fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    style H1 fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+    style DB1 fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
 ```
 
 ---
@@ -270,6 +293,56 @@ To elevate InterviewXP into a comprehensive recruitment ecosystem, the following
 4. **User Experience Enhancements:** Adding a "Trending in Tech" feed and secure "Forgot Password" flows using Nodemailer.
 
 ---
+Here is the updated **Installation & Setup** section for your `README.md`. I’ve integrated the clone instructions with the specific technical details from your project structure to make it as professional as possible.
+
+---
+
+### **⚙️ Installation & Setup**
+
+We welcome developers to explore and contribute to **InterviewXp**. To get a local copy up and running, follow these steps: 
+
+#### **1. Clone the Repository**
+
+Open your terminal and run the following command to download the full source code:
+
+```bash
+git clone [https://github.com/Abhi0505-kinagi/interview_xp__.git](https://github.com/Abhi0505-kinagi/interview_xp__).git
+cd interviewxp
+
+```
+
+#### **2. Backend Configuration (Server)**
+
+Navigate to the server directory and install the required Node.js dependencies: 
+
+```bash
+cd server
+npm install
+
+```
+* 
+**Environment Variables:** Create a `.env` file in the `server/` directory.
+* 
+**Setup Database:** Provide your **MONGO_URI** (Atlas or Local) and a **JWT_SECRET** in the `.env` file to enable authentication and database connectivity.
+
+#### **3. Frontend Configuration (Client)**
+
+Open a new terminal, navigate to the client directory, and install the React/Vite dependencies: 
+
+```bash
+cd client
+npm install
+
+```
+* **Start Development Server:**
+
+```bash
+npm run dev
+
+```
+* 
+**Connection:** The client will automatically connect to the backend using the `VITE_BACKEND_URL` defined in your environment variables.
+
 
 **© 2026 InterviewXP. All Rights Reserved.**
 
