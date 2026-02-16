@@ -1,285 +1,276 @@
 
-#  InterviewXp – Social Interview Experience Platform
-## 🚀 Live Demo
-🔗[ https://69808565cba0dec12b1c5507--interviewxp.netlify.app](https://6991c4b4646d99f0b8ab966e--interviewxp.netlify.app/)
-(due to free tier hosting the website speed is low so wait for response)
+```markdown
+# InterviewXP: A Community-Driven Interview Experience Platform
 
+![Status](https://img.shields.io/badge/Status-Active-success)
+![Clones](https://img.shields.io/badge/GitHub_Clones-202+-blue)
+![Stack](https://img.shields.io/badge/Stack-MERN-yellow)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-![Tech Stack](https://img.shields.io/badge/Stack-MERN-success)
-![Backend](https://img.shields.io/badge/Backend-Node.js%20%7C%20Express-brightgreen)
-![Database](https://img.shields.io/badge/Database-MongoDB-green)
-![Auth](https://img.shields.io/badge/Auth-JWT-blue)
-![Status](https://img.shields.io/badge/Status-In%20Progress-yellow)
-
-**InterviewXp** is a full-stack social platform that enables users to **share interview experiences**, **interact through likes, comments, and follows**, and **maintain anonymous professional profiles** in a secure environment.
-
-This project is designed to go beyond basic CRUD applications and demonstrate **real-world system design**, **authentication workflows**, and **scalable backend architecture**.
-
-> 📘 This repository is intentionally documented as a **learning-oriented project**, making it beginner-friendly while still following industry practices.
+**Developed by:** Abhishek Hanamant Kinagi
 
 ---
 
-## 📌 Project Motivation
-
-Most beginner projects stop at implementing isolated features.  
-InterviewXp focuses on building a **complete, production-style workflow**, including:
-
-- Secure authentication and authorization
-- User-to-user interactions
-- Protected APIs
-- Scalable data modeling
-- Clear separation of frontend and backend concerns
-
-This project helped me transition from *writing code* to *thinking like a developer*.
+## 📖 Table of Contents
+1. [Problem & Solution](#-problem--solution)
+2. [Project Impact](#-project-impact)
+3. [Tech Stack](#-tech-stack)
+4. [System Architecture](#-system-architecture)
+5. [Key Features](#-key-features)
+6. [Security & Authentication (JWT)](#-security--authentication-jwt)
+7. [Environment Configuration](#-environment-configuration)
+8. [Project Structure](#-project-directory-structure)
+9. [Future Roadmap](#-future-scope--roadmap)
 
 ---
 
-## 🎯 Problem Statement
+## 🚀 Problem & Solution
 
-Interview experiences are often:
-- Scattered across platforms
-- Difficult to organize
-- Lacking anonymity
-- Missing meaningful interaction
+### The Problem: "The Information Gap in Technical Recruitment"
+Computer science students and job seekers often face significant anxiety and uncertainty during the recruitment process due to a lack of transparent, accessible information. While generic interview questions are widely available, specific insights into recent interview patterns, company-specific rounds, and real-world experiences are often scattered across fragmented forums or locked behind paywalls.
 
-**InterviewXp** solves this by providing a **structured, anonymous, and interactive platform** dedicated to interview discussions.
-
----
-
-## ✨ Features
-
-### ✅ Implemented
-
-- User Registration & Login
-- JWT-based Authentication
-- Anonymous Display Names
-- Create & Manage Interview Posts
-- Like and Comment System
-- User Profiles
-- Followers & Following
-- Pagination for scalable feeds
-- Secure REST APIs
-- MongoDB Integration
-
-### 🔜 Planned Enhancements
-
-- Threaded Comment Replies
-- Advanced Search & Filters
-- Notification System
-- Rate Limiting & Abuse Protection
-- UI/UX Improvements
+### The Solution: "InterviewXP"
+We developed **InterviewXP**, a full-stack web application designed to democratize access to interview knowledge.
+* **Centralized Knowledge Hub:** A dedicated social platform where students and professionals can document and share detailed interview experiences.
+* **Peer-to-Peer Learning:** Fosters a collaborative community where successful candidates help aspirants navigate the complexities of technical interviews.
 
 ---
 
-## 🏗️ System Architecture
+## 📈 Project Impact
+The project has demonstrated significant initial interest within the developer community.
+
+* **Traffic Analysis:** The repository recorded **202 Clones** and **95 Unique Cloners** in a recent 14-day period, indicating strong utility and intent to use the codebase.
+* **Real-Time Engagement:** Successfully implemented a real-time room-based communication system supporting concurrent users through WebSocket architecture.
+
+---
+
+## 🛠 Tech Stack
+
+| Domain | Technologies Used |
+| :--- | :--- |
+| **Frontend** | React.js, Vite, Tailwind CSS, Context API |
+| **Backend** | Node.js, Express.js (RESTful API) |
+| **Database** | MongoDB (Atlas), Mongoose Schemas |
+| **Real-Time** | Socket.io (WebSockets) |
+| **Security** | JWT (JSON Web Tokens), Bcrypt |
+| **Deployment** | Netlify (Frontend), Render (Backend) |
+
+---
+
+## 🏗 System Architecture
+
+The application follows a **Monolithic MERN Architecture**, ensuring seamless communication between the client-side interface and the server-side database.
+
+### Architecture Diagram
+
+```mermaid
+graph TD
+
+%% ================= STYLING =================
+classDef client fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,rx:6,font-weight:bold,color:#0d47a1;
+classDef logic fill:#fff3e0,stroke:#ef6c00,stroke-width:2px,rx:6,font-weight:bold,color:#e65100;
+classDef data fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,rx:6,font-weight:bold,color:#1b5e20;
+classDef socket fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,rx:6,font-weight:bold,color:#4a148c;
+classDef deploy fill:#fce4ec,stroke:#c2185b,stroke-width:2px,rx:6,font-weight:bold,color:#880e4f;
+
+%% ================= CLIENT LAYER =================
+subgraph Client_Layer [User Browser / Netlify Deployment]
+    direction TB
+    Root[App.jsx : Root Controller]:::client
+    subgraph UI_Layer [React UI Components]
+        AuthUI[Login / Register]:::client
+        ChatUI[Chat Dashboard]:::client
+        RoomUI[Room Management]:::client
+        FileUI[Image and File Upload UI]:::client
+        AdminUI[Admin Delete Controls]:::client
+    end
+    APIService[API Service Layer Axios/Fetch]:::client
+    Context[Global State and Toast Provider]:::client
+end
+
+%% ================= DEPLOYMENT =================
+subgraph Deployment_Layer [Hosting and Environment]
+    Netlify[Netlify Hosting]:::deploy
+    ENV[Environment Variables<br>VITE_BACKEND_URL]:::deploy
+end
+
+%% ================= BACKEND =================
+subgraph Backend_Layer [Node.js + Express Server]
+    direction TB
+    subgraph Route_Layer [REST API Routes]
+        AuthRoute[auth.routes.js]:::logic
+        RoomRoute[room.routes.js]:::logic
+        ChatRoute[chat.routes.js]:::logic
+    end
+    Controller[Controller Layer Business Logic]:::logic
+    Middleware[Auth Middleware JWT Validation]:::logic
+    RBAC[Role-Based Access Control]:::logic
+    UploadHandler[File Upload Handler /uploads]:::logic
+    Logger[Developer Logging System]:::logic
+    subgraph Socket_Layer [Socket.IO Real-Time Engine]
+        SocketServer[Socket Connection Handler]:::socket
+        RoomManager[Join / Leave Room Logic]:::socket
+        Broadcaster[Message Broadcasting Engine]:::socket
+        FileStream[Real-Time File Events]:::socket
+    end
+end
+
+%% ================= DATABASE =================
+subgraph Database_Layer [MongoDB Atlas]
+    direction TB
+    Users[(User Schema<br>Authentication Data)]:::data
+    Rooms[(Room Schema<br>Admin Parameter + Members)]:::data
+    Messages[(Message Schema<br>Chat History)]:::data
+end
+
+%% ================= STORAGE =================
+subgraph Storage_Layer [Media Storage System]
+    ImageStore[(Image Storage)]:::data
+    FileStore[(File Storage)]:::data
+end
+
+%% ================= CONNECTION FLOW =================
+Root --> Context
+Context --> UI_Layer
+UI_Layer -->|REST API Calls| APIService
+APIService -->|HTTP JSON| Route_Layer
+ChatUI <-->|WebSocket Events| SocketServer
+Root --> Netlify
+Netlify --> ENV
+ENV -->|Backend URL Injection| APIService
+Route_Layer --> Middleware
+Middleware --> Controller
+Controller --> RBAC
+Controller --> UploadHandler
+Controller --> Logger
+Controller <-->|Read Write| Users
+Controller <-->|Read Write| Rooms
+Controller <-->|Read Write| Messages
+SocketServer --> RoomManager
+RoomManager --> Broadcaster
+Broadcaster --> Messages
+FileStream --> ImageStore
+FileStream --> FileStore
+RBAC -->|Validate Admin| Rooms
+AdminUI -->|Delete Room Request| RBAC
 
 ```
 
-┌────────────┐
-│  Frontend  │  (React)
-└─────┬──────┘
-│ HTTP Requests
-▼
-┌────────────┐
-│  Backend   │  (Node.js + Express)
-│            │
-│ JWT Auth   │
-└─────┬──────┘
-│ Mongoose ODM
-▼
-┌────────────┐
-│  MongoDB   │
-└────────────┘
+---
+
+## ✨ Key Features
+
+### 1. Real-Time Group Chat System
+
+* **Socket Technology:** Users can join and leave chat rooms dynamically without refreshing the page.
+* **Broadcasting:** Messages are broadcasted to all active members in a room instantly.
+* **Media Sharing:** Supports image and file sharing within groups, enhancing collaboration.
+
+### 2. Role-Based Access Control (RBAC)
+
+* **Admin Privileges:** Only the room creator (Admin) has permission to delete the room.
+* **Dynamic UI:** The delete button is dynamically enabled or disabled based on user authorization parameters in the MongoDB schema.
+
+### 3. Secure Authentication
+
+* **Permission Management:** Replaced default browser alerts with user-friendly permission popups.
+* **Validation:** Production-level CSS and routing issues were resolved to ensure smooth deployment.
+
+### 4. Developer Logging & Debugging
+
+* **Backend Logs:** Added developer-level logging to monitor server activity, socket connections, and database operations for easier troubleshooting.
+
+---
+
+## 🔐 Security & Authentication (JWT)
+
+We use **JSON Web Tokens (JWT)** to implement secure, stateless authentication. This eliminates the need for server-side session storage.
+
+### Authentication Flow
+
+1. **Login:** Server verifies password using `bcrypt.compare`.
+2. **Token Generation:** Server signs a JWT containing `User ID` and `Role` using `JWT_SECRET`.
+3. **Access:** Client sends the token in the Header. Middleware verifies the signature before granting access to protected routes (e.g., Delete Room).
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Client
+    participant Middleware
+    participant Controller
+    participant DB
+
+    Note over Client, DB: PHASE 1: LOGIN
+    Client->>Controller: POST /login (email, pass)
+    Controller->>DB: Find User
+    DB-->>Controller: User Hash
+    Controller->>Controller: bcrypt.compare()
+    Controller-->>Client: Return JWT Token
+
+    Note over Client, DB: PHASE 2: PROTECTED ROUTE
+    Client->>Middleware: DELETE /room (Bearer Token)
+    Middleware->>Middleware: Verify Signature
+    Middleware->>Controller: Token Valid -> Next()
+    Controller->>DB: Delete Room (if Admin)
+    DB-->>Controller: Success
+    Controller-->>Client: 200 OK
 
 ```
 
 ---
 
-## 🔐 Authentication (JWT Explained Simply)
+## ⚙️ Environment Configuration
 
-### What is JWT?
+To ensure security, the application utilizes a `.env` file to manage sensitive credentials.
 
-**JWT (JSON Web Token)** is a stateless authentication mechanism where the server issues a signed token after successful login.  
-The client uses this token to access protected routes without maintaining server-side sessions.
-
----
-
-### Real-World Analogy
-
-JWT works like a **verified event wristband 🎫**:
-
-- Issued once after identity verification
-- Shown on every entry
-- Security checks the band, not your identity again
-- No repeated database lookups
+| Variable Name | Description |
+| --- | --- |
+| `VITE_BACKEND_URL` | Frontend API Endpoint (e.g., localhost:8000) |
+| `JWT_SECRET` | Private Key for signing Auth Tokens |
+| `MONGO_URI` | MongoDB Atlas Connection String |
+| `PORT` | Server Port Number |
+| `NODE_ENV` | Environment mode (Development/Production) |
+| `CLIENT_URL` | Frontend URL for Socket CORS policy |
 
 ---
 
-## 🧩 JWT Structure
+## 📂 Project Directory Structure
 
-```
-
-HEADER.PAYLOAD.SIGNATURE
-
-```
-
-| Component  | Purpose |
-|-----------|--------|
-| Header    | Token type & algorithm |
-| Payload   | User data & metadata |
-| Signature | Prevents tampering |
-
----
-
-## 🔄 Authentication Flow
-
-```
-
-User → Frontend → Backend
-Login Request
-Backend → Verify Credentials
-Backend → Generate JWT
-Frontend → Store Token
-Frontend → Access Protected APIs
-
-```
-
----
-
-## 🛡️ Why JWT?
-
-- Stateless and scalable
-- Secure when implemented correctly
-- Industry standard for REST APIs
-- Ideal for distributed systems
-
----
-
-## 🛠️ Tech Stack
-
-### Frontend
-- React
-- React Router
-- Fetch API
-- React Toastify
-
-### Backend
-- Node.js
-- Express.js
-- JWT (jsonwebtoken)
-- bcryptjs
-
-### Database
-- MongoDB
-- Mongoose
-
----
-
-## 📂 Project Structure
-
-```
-
-InterviewXp/
+```text
+InterviewXP/
+├── client/                     # Frontend (React + Vite)
+│   ├── src/
+│   │   ├── Components/         # Chat, Login, Profile UI
+│   │   ├── services/           # API Service Files
+│   │   ├── App.jsx             # Main Routing
+│   │   └── main.jsx            # Entry Point
+│   └── .env                    # Frontend Secrets
 │
-├── client/          # React frontend
-├── server/          # Express backend
-│   ├── routes/
-│   ├── models/
-│   ├── middleware/
-│   ├── utils/
-│   └── control.js
-└── README.md
+├── server/                     # Backend (Node + Express)
+│   ├── middleware/             # Auth & Upload Middleware
+│   ├── models/                 # Mongoose Schemas (Users, Rooms)
+│   ├── routes/                 # API Routes (Auth, Chat, Profile)
+│   ├── uploads/                # User File Storage
+│   ├── utils/                  # DB Connection & Control Logic
+│   └── .env                    # Backend Secrets
+│
+└── ml_integration/             # Machine Learning Scripts
 
-````
-
----
-
-## ⚙️ Installation & Setup
-
-### 1️⃣ Clone the Repository
-
-```bash
-git clone https://github.com/Abhi0505-kinagi/InterviewXp.git
-cd InterviewXp
-````
-
----
-
-### 2️⃣ Backend Setup
-
-```bash
-cd server
-npm install
-```
-
-Create a `.env` file:
-
-```env
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_secret_key
-```
-
-Start the backend server:
-
-```bash
-node control.js
 ```
 
 ---
 
-### 3️⃣ Frontend Setup
+## 🔮 Future Scope & Roadmap
 
-```bash
-cd client
-npm install
-npm start
-```
+To elevate InterviewXP into a comprehensive recruitment ecosystem, the following modules are under development:
 
----
-
-## 📊 Project Status
-
-**🟡 In Progress — ~70% Complete**
-
-### ✔ Completed
-
-* Authentication system
-* Core social features
-* Profile management
-
-### 🚧 In Development
-
-* Threaded comments
-* Security hardening
-* UI/UX refinement
+1. **AI-Driven Virtual Interviewer:** Integrating LLMs to create a virtual interviewer that asks context-aware questions based on the user's resume.
+2. **Microservices Architecture:** Decoupling the backend into independent services (Auth, Chat, Assessment) using Docker for better scalability.
+3. **Secured Assessment Protocol:** Implementing browser-locking mechanisms to conduct cheat-proof online coding tests.
+4. **User Experience Enhancements:** Adding a "Trending in Tech" feed and secure "Forgot Password" flows using Nodemailer.
 
 ---
 
-## 📘 Key Learning Outcomes
-
-Through this project, I gained hands-on experience with:
-
-* End-to-end full-stack workflows
-* JWT authentication & authorization
-* Backend architecture design
-* MongoDB schema modeling
-* Debugging production-like issues
-* Writing clear, structured documentation
-
----
-
-## ⭐ Final Notes
-
-InterviewXp is built **incrementally**, mirroring how real-world applications evolve.
-
-> The goal is that a beginner can read this repository
-> and understand **how modern web applications are actually built**.
-
-If you find this project useful:
-
-* ⭐ Star the repository
-* 🍴 Fork it
-* 📖 Explore it as a learning resource
+**© 2026 InterviewXP. All Rights Reserved.**
 
 ```
