@@ -1,5 +1,4 @@
 
-markdown
 # InterviewXP: A Community-Driven Interview Experience Platform
 
 ![Status](https://img.shields.io/badge/Status-Active-success)
@@ -7,20 +6,45 @@ markdown
 ![Stack](https://img.shields.io/badge/Stack-MERN-yellow)
 ![License](https://img.shields.io/badge/License-MIT-green)
 [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://6991c4b4646d99f0b8ab966e--interviewxp.netlify.app/)
-**Developed by:** Abhishek Hanamant Kinagi
+**Developed by:** silent commit
 
 ---
+<br/>
 
-## 📖 Table of Contents
-1. [Problem & Solution](#-problem--solution)
-2. [Project Impact](#-project-impact)
-3. [Tech Stack](#-tech-stack)
-4. [System Architecture](#-system-architecture)
-5. [Key Features](#-key-features)
-6. [Security & Authentication (JWT)](#-security--authentication-jwt)
-7. [Environment Configuration](#-environment-configuration)
-8. [Project Structure](#-project-directory-structure)
-9. [Future Roadmap](#-future-scope--roadmap)
+## 📖 TABLE OF CONTENTS
+
+<table style="width: 100%; border-collapse: collapse; font-family: 'Times New Roman', Times, serif;">
+  <tr style="background-color: #f8f9fa;">
+    <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">Section</th>
+    <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">Key Highlights</th>
+  </tr>
+  <tr>
+    <td style="padding: 10px; border: 1px solid #ddd;">🚀 <b><a href="#-problem--solution">Problem & Solution</a></b></td>
+    <td style="padding: 10px; border: 1px solid #ddd;">Addressing the information gap in recruitment[cite: 7, 8].</td>
+  </tr>
+  <tr>
+    <td style="padding: 10px; border: 1px solid #ddd;">📈 <b><a href="#-project-impact">Project Impact</a></b></td>
+    <td style="padding: 10px; border: 1px solid #ddd;">Analysis of 202+ Clones and system performance[cite: 303, 304].</td>
+  </tr>
+  <tr>
+    <td style="padding: 10px; border: 1px solid #ddd;">🏗 <b><a href="#-system-architecture">System Architecture</a></b></td>
+    <td style="padding: 10px; border: 1px solid #ddd;">Full-stack data flow and MERN design[cite: 21, 22].</td>
+  </tr>
+  <tr>
+    <td style="padding: 10px; border: 1px solid #ddd;">🔐 <b><a href="#-security--authentication-jwt">Security & Auth</a></b></td>
+    <td style="padding: 10px; border: 1px solid #ddd;">JWT Logic and Bcrypt password hashing[cite: 206, 207].</td>
+  </tr>
+  <tr>
+    <td style="padding: 10px; border: 1px solid #ddd;">📂 <b><a href="#-project-structure">Project Structure</a></b></td>
+    <td style="padding: 10px; border: 1px solid #ddd;">Comprehensive file and folder hierarchy[cite: 335].</td>
+  </tr>
+  <tr>
+    <td style="padding: 10px; border: 1px solid #ddd;">🔮 <b><a href="#-future-roadmap">Future Roadmap</a></b></td>
+    <td style="padding: 10px; border: 1px solid #ddd;">AI Interviewer and Microservices plans[cite: 313, 314].</td>
+  </tr>
+</table>
+
+<br/>[Future Roadmap](#-future-scope--roadmap)
 
 ---
 
