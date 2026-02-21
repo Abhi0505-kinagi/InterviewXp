@@ -174,16 +174,42 @@ app.get("/api/interviews/:id", async (req, res) => {
         res.status(500).json({ error: "Server error" });
     }
 });
+app.get("/api/search-interviews/search", async (req, res) => {
+  try {
+    let { company = "", page = 1, limit = 4 } = req.query;
 
-app.get("/api/interviews/company/:company", async (req, res) => {
-    try {
-        const { company } = req.params;
-        const interviews = await interviews.find({company: { $regex: company, $options: "i" }});//flexible serch regex
-        if (interviews.length === 0) { return res.status(404).json({ message: "No interviews found" });}
-        res.status(200).json(interviews);
-    } catch (err) {
-        res.status(500).json({ error: "Server error" });
+    page = parseInt(page);
+    limit = parseInt(limit);
+
+    let query = {};
+
+    if (company.trim()) {
+      query.company = company;
     }
+
+    const interview = await interviews.find(query)
+    .populate("userId", "name displayName")
+    .collation({ locale: "en", strength: 2 })
+    .skip((page - 1) * limit)
+    .limit(limit);
+
+    const total = await interviews.countDocuments(query);
+
+    // Debug index info (only in dev)
+    if (process.env.NODE_ENV !== "production") {
+      const explainResult = await interviews.find(query)
+        .collation({ locale: "en", strength: 2 })
+        .explain("executionStats");
+
+      console.log("Winning Plan:", explainResult.queryPlanner.winningPlan);
+    }
+
+    res.status(200).json({ interviews:interview, total });
+
+  } catch (err) {
+    console.log("Debug info:", err);
+    res.status(500).json({ message: "Server error" });
+  }
 });
 
 app.post("/api/interviews/:id/upvote", async (req, res) => {

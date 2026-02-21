@@ -4,6 +4,7 @@ const connectDB = async () => {
     try {
         // This connects Mongoose specifically
         await mongoose.connect(url); 
+    
         console.log("MongoDB connection is successful");
     } catch (err) {
         console.error("MongoDB connection failed:", err);
@@ -12,3 +13,4 @@ const connectDB = async () => {
 };
 
 module.exports = connectDB;
+//{ autoIndex:true }

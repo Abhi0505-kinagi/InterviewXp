@@ -64,5 +64,21 @@ const interviewExpSchema = new mongoose.Schema({
         default: [] 
     }]
 }, { timestamps: true });
+interviewExpSchema.index({ userId: 1 });
+interviewExpSchema.index({ status: 1, createdAt: -1 });
+interviewExpSchema.index({ company: 1, role: 1 });
+interviewExpSchema.index({ status: 1, difficulty: 1, createdAt: -1 });
+interviewExpSchema.index({ tags: 1 });
+interviewExpSchema.index(
+  { company: 1 },
+  { collation: { locale: "en", strength: 2 } }
+);
+interviewExpSchema.index({
+  company: "text",
+  role: "text",
+  tags: "text",
+  tips: "text",
+  askedqutns: "text"
+});
 
 module.exports = mongoose.model("InterviewExperience", interviewExpSchema);

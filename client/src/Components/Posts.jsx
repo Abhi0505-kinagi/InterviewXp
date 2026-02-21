@@ -229,8 +229,9 @@ function Card({ exp,interviewId}) {
       </button>}
       </div>
       <h3 style={{fontFamily:"Times",color:"#976de3"}}>Company: {exp.company}</h3>
-      <br/><br/>
+      <br/>
       <div style={{ fontFamily: 'Times'}} className="meta">
+          <strong style={{fontFamily:"Times"}}>company Role:</strong> {exp.role}<br/>
           <strong style={{fontFamily:"Times"}}>candidate Level:</strong> {exp.experienceLevel}<br/>
           <strong style={{fontFamily:"Times"}}>Difficulty Level:</strong> <span className={`difficulty ${exp.difficulty.toLowerCase()}`}>{exp.difficulty}</span><br/>
            <strong style={{ fontFamily: "Times" }}>Result: </strong>
@@ -362,6 +363,10 @@ function Card({ exp,interviewId}) {
                   <h1 className="company">{exp.company}</h1>
 
                   <p className="info">
+                    <span>Role:</span> {exp.role}
+                  </p>
+                  <p className="info">
+                    
                     <span>Experience Level:</span> {exp.experienceLevel}
                   </p>
 
@@ -544,21 +549,40 @@ function Posts() {
   const [interviews, setInterviews] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
-
+  const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  console.log(BACKEND_URL)
   useEffect(() => {
-    setLoading(true);
+      const handler = setTimeout(() => {
+        setDebouncedSearch(search);
+      }, 500); // wait 500ms
 
-    fetch(`${BACKEND_URL}/api/interviews?page=${page}&limit=${limit}`)
+      return () => {
+        clearTimeout(handler);
+      };
+    }, [search]);
+    useEffect(() => {
+    if (debouncedSearch.length > 0 && debouncedSearch.length < 2) return;
+     setLoading(true);
+    const controller = new AbortController();
+    const url = debouncedSearch.trim()
+      ? `${BACKEND_URL}/api/search-interviews/search?company=${debouncedSearch}&page=${page}&limit=${limit}`
+      : `${BACKEND_URL}/api/interviews?page=${page}&limit=${limit}`;
+    fetch(url,{ signal: controller.signal })
       .then(res => res.json())
       .then(data => {
-        setInterviews(data.interviews);
-        setTotal(data.total);
+        setInterviews(data.interviews || data);
+        setTotal(data.total || data.length);
         setLoading(false);
-      })
-      .catch(err => {
+      }).catch(err => {
+      if (err.name !== "AbortError") {
         setLoading(false);
-      });
-  }, [page]);
+      }
+    });
+
+  return () => controller.abort();
+
+  }, [debouncedSearch,page]);
 
   const handleNext = () => {
     if ((page * limit) < total) {
@@ -577,11 +601,19 @@ function Posts() {
       
       <Navbar/>
       <div className="posts-page">
+        
         <div style={{ padding: "5px" }}>
         <h3>
           The <strong style={{ color: "green" }}>Community & Growth</strong>{" "}
           Approach — Real stories, real questions, real advice.
         </h3>
+        <div style={{width:"100%",height:"30px"}}>
+          <input placeholder="search by company" style={{color:"rgb(5, 239, 83)",width:"100%",background:"transparent",border:"1px solid white",padding:"5px"}} value={search}
+        onChange={(e) => {
+          setSearch(e.target.value);
+          setPage(1); // reset page when searching
+        }} />
+        </div>
       </div>
         <div className="cards-grid">
           {loading && <p>Loading...</p>}
