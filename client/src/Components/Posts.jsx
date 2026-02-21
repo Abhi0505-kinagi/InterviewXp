@@ -551,7 +551,6 @@ function Posts() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  console.log(BACKEND_URL)
   useEffect(() => {
       const handler = setTimeout(() => {
         setDebouncedSearch(search);
